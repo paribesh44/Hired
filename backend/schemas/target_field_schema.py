@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Any
+from typing import List, Any, Optional
 
 
 class TargetField(BaseModel):
@@ -11,5 +11,5 @@ class TargetFieldShow(BaseModel):
     id: int
     name: str
 
-    class config():
+    class Config:
         orm_mode = True
