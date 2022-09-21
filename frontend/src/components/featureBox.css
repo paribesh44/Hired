@@ -1,0 +1,68 @@
+.featureBox_root{
+    border: 1px solid #495c83;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 35px 0 50px 0;
+    width: 100% !important;
+
+}
+.profileContainer{
+width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+.profile {
+  border-radius: 10px;
+
+
+}
+.company_name{
+ 
+}
+.companyname{
+  padding: 10px;
+}
+.description{
+ padding: 10px;
+ margin-top: 1px !important;
+}
+.jobname{    
+  font-weight: 700;
+  padding: 5px;
+  font-size: 0.8em;
+}
+.joblocation{  
+  padding: 5px;
+  font-size: 0.8em;
+}
+.posttime{  
+  padding: 70px;
+  font-size: 0.8em;
+}
+.button_a{
+    min-width: 80px;
+    height: 25px;
+    outline: none;
+    background: none;
+    border: 2px solid #495c83;
+    border-radius: 5px;
+    padding: 0 20px 0 20px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #495c83;
+
+}
+.button_a:hover {
+  background-color: #495c83;
+  color: #ffff;
+}
+.featureBoxBottom{
+  
+  padding: 5px;
+  margin-top: 15px !important;
+    
+}
+.buttonBox{
+  margin-right: 20px !important;
+   
+}

@@ -1,0 +1,62 @@
+.navbar_root {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+.navbar_top{
+  width: 100%;
+  height: 100%; 
+  position: relative;
+
+}
+
+.navbar_top::after{
+  content: "";
+  width: 60%;
+  background-color: #495c83;
+  opacity: 0.5;
+  height: 2px;
+  position: absolute;
+  top:170px;
+}
+
+
+.navbar_image {
+  width: 200px;
+  height: 200px;
+}
+
+.navbar_button {
+  min-width: 100px;
+  outline: none;
+  background: none;
+  border: 2px solid #495c83;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #495c83;
+}
+
+.navbar_button:hover {
+  background-color: #495c83;
+  color: #ffff;
+}
+
+/* .navbar_login {
+  width: 25%;
+} */
+
+.navbar_for {
+  color: black;
+  padding: 0 5px 0 5px;
+  font-size: 1.3em;
+  font-weight: 500;
+  min-width: 200px;
+  
+}
+
+.navbar_for:hover{
+  color: #495c83;
+
+}

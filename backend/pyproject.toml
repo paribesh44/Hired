@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "hired"
+version = "0.1.0"
+description = ""
+authors = ["Ishan Panta <ishanpanta0124@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.79.0"
+uvicorn = "^0.18.2"
+psycopg2-binary = "^2.9.3"
+SQLAlchemy = "^1.4.39"
+alembic = "^1.8.1"
+passlib = "^1.7.4"
+bcrypt = "^3.2.2"
+python-jose = "^3.3.0"
+Authlib = "^1.0.1"
+itsdangerous = "^2.1.2"
+httpx = "^0.23.0"
+fastapi-mail = "^1.1.4"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
