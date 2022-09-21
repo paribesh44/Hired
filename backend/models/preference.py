@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, ARRAY
-from ..database import Base
+from core.database import Base
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import INT4RANGE
 

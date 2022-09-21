@@ -2,11 +2,9 @@ from fastapi import APIRouter, status, HTTPException, Request, Depends
 from fastapi.responses import HTMLResponse
 from starlette.responses import RedirectResponse
 
-from ..models import user
+from models import user
 
-from src import oauth2
-from .. import database
-from ..core import keys
+from core import oauth2, database, keys
 from jose import jwt
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
@@ -16,7 +14,7 @@ router = APIRouter()
 
 
 # template for email verification
-templates = Jinja2Templates(directory="src/templates")
+templates = Jinja2Templates(directory="templates")
 
 
 @router.get("/verify",  response_class=HTMLResponse)

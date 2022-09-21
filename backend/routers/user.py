@@ -3,11 +3,11 @@ from fastapi import Depends, HTTPException, status, Response, UploadFile, File
 from sqlalchemy.orm import Session
 from typing import List
 
-from ..schemas.user_schema import User, ShowUser
-from ..models import user
+from schemas.user_schema import User, ShowUser
+from models import user
 
-from src import JWTtokens
-from .. import database, hashing, oauth2
+from core import JWTtokens
+from core import database, hashing, oauth2
 
 from fastapi import APIRouter
 
@@ -66,7 +66,7 @@ async def show(current_user: user.User = Depends(oauth2.get_user_companies)):
 
 @router.post("/cv")
 async def post_cv(file: UploadFile = File(...)):
-    file_location = f"src/static/cv/{file.filename}"
+    file_location = f"static/cv/{file.filename}"
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
@@ -77,7 +77,7 @@ async def post_cv(file: UploadFile = File(...)):
 @router.post("/multiple-images")
 async def post_cv(files: List[UploadFile] = File(...)):
     for img in files:
-        file_location = f"src/static/profile_pictures/{img.filename}"
+        file_location = f"static/profile_pictures/{img.filename}"
         with open(file_location, "wb") as buffer:
             shutil.copyfileobj(img.file, buffer)
 

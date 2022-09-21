@@ -4,10 +4,10 @@ from fastapi import FastAPI, File, Form, UploadFile
 from fastapi import APIRouter, Depends, status, HTTPException, Response
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
-from ..forms import loginForm
+from forms import loginForm
 
-from ..models import user
-from .. import database, hashing, JWTtokens
+from models import user
+from core import database, hashing, JWTtokens
 
 router = APIRouter(
     tags=["User Authentication"]
