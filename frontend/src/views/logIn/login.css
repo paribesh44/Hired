@@ -8,11 +8,10 @@ margin-left: 15% !important;
 }
 
 .logo{
-  width: 80px;
-  height: 70px;
+      max-width: 70px;
+    max-height: 75px ;
   margin-top: 10% !important;
   border-radius: 10px;
-  
 }  
 
 .login{
@@ -31,5 +30,5 @@ margin-left: 15% !important;
         font-size: 0.8em;
         font-weight: 200;
         color: #495c83;
-        margin-top: 50%;
+        margin-top: 35%;
 }
