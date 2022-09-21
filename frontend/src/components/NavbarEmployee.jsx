@@ -40,14 +40,19 @@ const Navbar = () => {
             </Grid>
             <Grid item style={{ margin: "10px" }}>
               <Link
-                to="CompanyLanding"
+                to="login_e"
                 style={{ textDecoration: "none", color: "#495c83" }}
               >
                 <CustomButton name="Log in" addStyles={"navbar_button"} />
               </Link>
             </Grid>
             <Grid item style={{ margin: "10px" }}>
-              <CustomButton name="Sign up" addStyles={"navbar_button"} />
+              <Link
+                to="signup_e"
+                style={{ textDecoration: "none", color: "#495c83" }}
+              >
+                <CustomButton name="Sign up" addStyles={"navbar_button"} />
+              </Link>
             </Grid>
           </Grid>
         </Grid>
