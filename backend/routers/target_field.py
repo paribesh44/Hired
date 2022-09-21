@@ -41,12 +41,14 @@ def all(db: Session = Depends(database.get_db)):
     TargetFields = db.query(target_field.TargetField).all()
     return TargetFields
 
-
-@router.get('/get_id/{id}')
+# 
+@router.get('/get_id/{id}', response_model=target_field_schema.TargetFieldShow)
 def show(id: int, db: Session = Depends(database.get_db)):
     hired_TargetField = db.query(target_field.TargetField).filter(
-        target_field.TargetField.id == id).first()
+        target_field.TargetField.id == id).first
+
     if not hired_TargetField:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker's TargetField with the id {id} is not available")
-    return {"name": hired_TargetField.qualification, "user": hired_TargetField.seeker.user.email, "seeker": hired_TargetField.seeker.name}
+    # return {"Target Field": hired_TargetField}
+    return hired_TargetField

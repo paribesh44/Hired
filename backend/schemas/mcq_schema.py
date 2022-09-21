@@ -9,3 +9,11 @@ class MCQ(BaseModel):
 
     class config():
         orm_mode = True
+
+
+class MCQShow(BaseModel):
+    question: str
+    answers: List[str] = []
+
+    class config():
+        orm_mode = True

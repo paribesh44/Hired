@@ -62,7 +62,7 @@ async def homepage(hiredToken: str = Cookie(None), db: Session = Depends(databas
         # email verification only send if the user is not verified. (i.e. is_verified:false)
         if not hired_user.is_verified:
             pass
-            # await utils.send_verification_email(hired_user)
+            await utils.send_verification_email(hired_user)
         return HTMLResponse(f'<p>Hello {hired_user.id} {hired_user.email}!</p><a href=/logout>logout</a>')
     return HTMLResponse('<a href=/google-login>Google Login</a>')
 

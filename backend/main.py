@@ -5,7 +5,7 @@ from core import database
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
 
-# uvicorn src.main:app --reload
+# uvicorn main:app --reload
 app = FastAPI()
 
 database.Base.metadata.create_all(database.engine)
@@ -16,7 +16,7 @@ SECRET_KEY = "KWn54X_xI9xAOc1c6AWDAwD-JMURBTutRDt3aNbA"
 app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 # exposes our static folder to our users
-# http://127.0.0.1:8000/src/static/cv/cv-professional.pdf
+# http://127.0.0.1:8000/static/cv/cv-professional.pdf
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 

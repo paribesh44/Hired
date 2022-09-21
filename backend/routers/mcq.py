@@ -13,9 +13,10 @@ router = APIRouter(
 )
 
 
+# , response_model=mcq_schema.MCQShow
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def createMCQ(schema: mcq_schema.MCQ, db: Session = Depends(database.get_db)):
-    new_MCQ = mcq.MCQ(name=schema.name, languages=schema.languages)
+    new_MCQ = mcq.MCQ(question=schema.question, answers=schema.answers, correct_answer=schema.correct_answer, target_field_id=2)
     db.add(new_MCQ)
     db.commit()
     db.refresh(new_MCQ)
@@ -31,7 +32,7 @@ def update(id: int, schema: mcq_schema.MCQ, db: Session = Depends(database.get_d
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker with id {id} MCQ not found.")
 
-    update_MCQ.update({"name":schema.name, "languages":schema.languages})
+    update_MCQ.update({"question":schema.question, "answers":schema.answers , "correct_answer":schema.correct_answer})
     db.commit()
     return 'updated'
 
@@ -49,4 +50,4 @@ def show(id: int, db: Session = Depends(database.get_db)):
     if not hired_MCQ:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker's MCQ with the id {id} is not available")
-    return {"name": hired_MCQ.qualification, "user": hired_MCQ.seeker.user.email, "seeker": hired_MCQ.seeker.name}
+    return {"mcq": hired_MCQ, "target_field_name": hired_MCQ.target_field.name}
