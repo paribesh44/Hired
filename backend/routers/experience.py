@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from ..schemas import experience_schema
+from schemas import experience_schema
 
-from ..models import experience, user
-from .. import database, oauth2
+from models import experience, user
+from core import database, oauth2
 from sqlalchemy.orm import Session
 
 

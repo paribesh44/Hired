@@ -1,11 +1,11 @@
 import shutil
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from ..schemas import employer_schema
+from schemas import employer_schema
 
-from ..models import employer, user
-from .. import database, oauth2
-from ..forms import employerForm
+from models import employer, user
+from core import database, oauth2
+from forms import employerForm
 from sqlalchemy.orm import Session
 
 
@@ -21,7 +21,7 @@ def createEmployerProfile(form: employerForm.EmployerForm = Depends(), db: Sessi
 
     # upload logo
     try:
-        logo_location = f"src/static/logos/{form.logo.filename}"
+        logo_location = f"static/logos/{form.logo.filename}"
         with open(logo_location, "wb") as buffer:
             shutil.copyfileobj(form.logo.file, buffer)
     except:
@@ -52,7 +52,7 @@ def update(id: int, form: employerForm.EmployerForm = Depends(), db: Session = D
     # if any error then the logo will be same.
     # upload logo
     try:
-        logo_location = f"src/static/logos/{form.logo.filename}"
+        logo_location = f"static/logos/{form.logo.filename}"
         # if new logo and old logo are not same then only new logo will be upload.
         if update_employer.first().logo != logo_location:
             with open(logo_location, "wb") as buffer:

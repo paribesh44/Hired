@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from ..schemas import preference_schema
+from schemas import preference_schema
 
-from ..models import preference, user
-from .. import database, oauth2
+from models import preference, user
+from core import database, oauth2
 from sqlalchemy.orm import Session
 
 

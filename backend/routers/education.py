@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from ..schemas import education_schema
+from schemas import education_schema
 
-from ..models import education, user
-from .. import database, oauth2
+from models import education, user
+from core import database, oauth2
 from sqlalchemy.orm import Session
 
 
@@ -14,10 +14,10 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createEducationProfile(request: education_schema.Education, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+def createEducationProfile(schema: education_schema.Education, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     new_education = education.Education(
-        qualification=request.qualification, graduating_institution=request.graduating_institution, graduating_year=request.graduating_year,
-        major=request.major,  cgpa=request.cgpa, seeker_id=current_user.seeker[0].id)
+        qualification=schema.qualification, graduating_institution=schema.graduating_institution, graduating_year=schema.graduating_year,
+        major=schema.major,  cgpa=schema.cgpa, seeker_id=current_user.seeker[0].id)
     db.add(new_education)
     db.commit()
     db.refresh(new_education)
@@ -25,7 +25,7 @@ def createEducationProfile(request: education_schema.Education, db: Session = De
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, request: education_schema.Education, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+def update(id: int, schema: education_schema.Education, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     update_education = db.query(education.Education).filter(
         education.Education.id == id)
 
@@ -33,8 +33,8 @@ def update(id: int, request: education_schema.Education, db: Session = Depends(d
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker with id {id} education not found.")
 
-    update_education.update({"qualification": request.qualification, "graduating_institution": request.graduating_institution,
-                             "graduating_year": request.graduating_year,  "major": request.major,  "cgpa": request.cgpa, "seeker_id": current_user.seeker[0].id})
+    update_education.update({"qualification": schema.qualification, "graduating_institution": schema.graduating_institution,
+                             "graduating_year": schema.graduating_year,  "major": schema.major,  "cgpa": schema.cgpa, "seeker_id": current_user.seeker[0].id})
     db.commit()
     return 'updated'
 

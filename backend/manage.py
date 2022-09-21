@@ -133,7 +133,8 @@ class CommandDefinition:
             from alembic import command
             from alembic.config import Config
 
-            from src.database import engine
+            from core.database import engine
+            
 
             self.cleanmig()
             engine.execute("DROP schema public CASCADE")
@@ -143,7 +144,8 @@ class CommandDefinition:
                              autogenerate=True, message="cleandb")
             command.upgrade(alembic_cfg, "head")
         except Exception as e:
-            print(e)
+            import traceback
+            print(traceback.format_exc())
 
     def populate(self):
         from utils import populate as db_populate

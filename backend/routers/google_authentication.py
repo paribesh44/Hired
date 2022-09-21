@@ -11,12 +11,12 @@ from starlette.requests import Request
 from starlette.responses import RedirectResponse, HTMLResponse
 from authlib.integrations.starlette_client import OAuthError
 
-from ..models import user
+from models import user
 
-from src import JWTtokens
-from .. import database, hashing, oauth2
-from ..core import keys
-from ..utils import utils
+from core import JWTtokens
+from core import database, hashing, oauth2
+from core import keys
+from utils import utils
 
 router = APIRouter(
     tags=["Google Authentication"]
