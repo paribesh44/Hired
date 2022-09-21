@@ -8,7 +8,8 @@ class TargetField(BaseModel):
 
 
 class TargetFieldShow(BaseModel):
-    name: Any
+    id: int
+    name: str
 
     class config():
         orm_mode = True
