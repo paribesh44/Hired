@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from routers import (user, authentication, google_authentication, email_verification, seeker, employer, experience, preference, mcq, target_field)
+from routers import (user, authentication, google_authentication, email_verification, seeker, employer, experience, preference, mcq, target_field, user_assesment)
 from core import database
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -30,3 +30,4 @@ app.include_router(experience.router)
 app.include_router(preference.router)
 app.include_router(mcq.router)
 app.include_router(target_field.router)
+app.include_router(user_assesment.router)

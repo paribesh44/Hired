@@ -9,3 +9,6 @@ class TargetField(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     languages = Column(ARRAY(String), nullable=False)
+
+    # mcq = relationship("MCQ", back_populates="target_field")
+

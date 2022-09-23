@@ -12,5 +12,5 @@ class Preference(BaseModel):
     remote_onsite: str
     available_hours: List[str] = []
 
-    class config():
+    class config:
         orm_mode = True

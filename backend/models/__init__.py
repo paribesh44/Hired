@@ -7,3 +7,4 @@ from .mcq import MCQ
 from .preference import Preference
 from .seeker import Seeker
 from .target_field import TargetField
+from .user_assesment import UserAssesment

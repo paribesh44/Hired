@@ -12,5 +12,5 @@ class Experience(BaseModel):
     jobEndDate: datetime
     field: List[str] = []
 
-    class config():
+    class config:
         orm_mode = True

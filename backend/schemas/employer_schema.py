@@ -15,5 +15,5 @@ class Employer(BaseModel):
     contactPerson: str
     logo: str
 
-    class config():
+    class config:
         orm_mode = True
