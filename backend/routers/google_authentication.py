@@ -93,7 +93,7 @@ async def auth(request: Request, db: Session = Depends(database.get_db)):
     # if the user doesnot exists then create a new user
     if hired_user == None:
         new_google_user = user.User(
-            user_type=1, email=token["userinfo"]["email"])
+            user_type=1, email=token["userinfo"]["email"], is_verified=True)
         print(jsonable_encoder(new_google_user))
         db.add(new_google_user)
         db.commit()

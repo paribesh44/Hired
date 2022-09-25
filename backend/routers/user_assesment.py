@@ -14,7 +14,7 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createUserAssesmentProfile(schema:user_assesment_schema.UserAssesment, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+def createUserAssesmentProfile(schema:user_assesment_schema.UserAssesment, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     new_UserAssesment = user_assesment.UserAssesment(score= schema.score, visibility= schema.visibility, accessed_date= schema.accessed_date, target_field_id=1, seeker_id=current_user.seeker[0].id)
     db.add(new_UserAssesment)
     db.commit()
@@ -23,13 +23,13 @@ def createUserAssesmentProfile(schema:user_assesment_schema.UserAssesment, db: S
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, schema:user_assesment_schema.UserAssesment, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+def update(id: int, schema:user_assesment_schema.UserAssesment, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     update_UserAssesment = db.query(user_assesment.UserAssesment).filter(
         user_assesment.UserAssesment.id == id)
 
     if not update_UserAssesment.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Company with id {id} not found")
+                            detail=f"User Assesment with id {id} not found")
 
     update_UserAssesment.update({"score": schema.score, "visibility": schema.visibility, "accessed_date": schema.accessed_date, "target_field_id": 1, "seeker_id":current_user.seeker[0].id})
     db.commit()
@@ -38,18 +38,18 @@ def update(id: int, schema:user_assesment_schema.UserAssesment, db: Session = De
 
 # , response_model=List[schemas.ShowUserAssesment]
 @router.get('/get_all')
-def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     UserAssesments = db.query(user_assesment.UserAssesment).all()
     return UserAssesments
 
 
 # , response_model=schemas.UserAssesment
 @router.get('/get_id/{id}')
-def show(id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+def show(id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     hired_UserAssesment = db.query(user_assesment.UserAssesment).filter(
         user_assesment.UserAssesment.id == id).first()
     if not hired_UserAssesment:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Company with the id {id} is not available")
-    return {"name": hired_UserAssesment, "user": hired_UserAssesment}
+                            detail=f"User Assesment with the id {id} is not available")
+    return {"user_assesment": hired_UserAssesment, "target_field": hired_UserAssesment.target_field, "seeker": hired_UserAssesment.seeker, "mcq": hired_UserAssesment.target_field.mcq}
     # return hired_UserAssesment
