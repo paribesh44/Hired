@@ -5,7 +5,7 @@ from datetime import datetime
 job_posts: List[Json] = [
     {
         "description": "we are looking for ml engineer.",
-        "job_location": "Kathmandu, Nepal",
+        "job_location": "Kathmandu",
         "job_level": "senior",
         "job_type": "permanent",
         "job_responsibilities": ["must be able to create ml models", "should be able to data prepration", "MLops"],
@@ -26,7 +26,7 @@ job_posts: List[Json] = [
     },
     {
         "description": "we are looking for full stack intern.",
-        "job_location": "Banepa, Nepal",
+        "job_location": "Banepa",
         "job_level": "internship",
         "job_type": "internship",
         "job_responsibilities": ["api creation", "ui development", "database management"],

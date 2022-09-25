@@ -9,7 +9,7 @@ class Experience(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     workPlace = Column(String(50), nullable=True)
-    yearsOfExperience = Column(Integer, nullable=True)
+    yearsOfWork = Column(Integer, nullable=True)
     # may be make job title list
     jobTitle = Column(String(50), nullable=True)
     jobStartDate = Column(DateTime, nullable=True)
