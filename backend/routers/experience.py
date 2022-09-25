@@ -16,7 +16,7 @@ router = APIRouter(
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def createExperienceProfile(request: experience_schema.Experience, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     new_experience = experience.Experience(
-        workPlace=request.workPlace, yearsOfExperience=request.yearsOfExperience, jobTitle=request.jobTitle,
+        workPlace=request.workPlace, yearsOfWork=request.yearsOfWork, jobTitle=request.jobTitle,
         jobStartDate=request.jobStartDate,  jobEndDate=request.jobEndDate,  field=request.field, seeker_id=current_user.seeker[0].id)
     db.add(new_experience)
     db.commit()
@@ -33,7 +33,7 @@ def update(id: int, request: experience_schema.Experience, db: Session = Depends
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker with id {id} expeience not found.")
 
-    update_experience.update({"workPlace": request.workPlace, "yearsOfExperience": request.yearsOfExperience, "jobTitle": request.jobTitle,
+    update_experience.update({"workPlace": request.workPlace, "yearsOfWork": request.yearsOfWork, "jobTitle": request.jobTitle,
                               "jobStartDate": request.jobStartDate,  "jobEndDate": request.jobEndDate,  "field": request.field, "seeker_id": current_user.seeker[0].id})
     db.commit()
     return 'updated'

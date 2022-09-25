@@ -6,7 +6,7 @@ from typing import List
 # multiple experience for a job seeker
 class Experience(BaseModel):
     workPlace: str
-    yearsOfExperience: int
+    yearsOfWork: int
     jobTitle: str
     jobStartDate: datetime
     jobEndDate: datetime

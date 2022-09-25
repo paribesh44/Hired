@@ -2,13 +2,16 @@ import json
 from utils.populatedata import (
     users,
     seekers,
+    educations,
+    preferences,
+    experiences,
     employers,
     job_posts,
     target_fields,
     mcqs,
     user_assesments
     )
-from models import (user,seeker, employer, job_post, target_field, mcq, user_assesment)
+from models import (user,seeker, education, preference, experience, employer, job_post, target_field, mcq, user_assesment)
 from core import hashing, database
 
 db = database.SessionLocal()
@@ -35,6 +38,38 @@ def populate_seeker():
         db.add(new_seeker)
         db.commit()
         db.refresh(new_seeker)
+
+def populate_education():
+    for education_populate in educations:
+        print(f"Populating education: {education_populate}")
+        new_education = education.Education(
+            qualification=education_populate["qualification"], graduating_institution=education_populate["graduating_institution"], graduating_year=education_populate["graduating_year"],
+            major=education_populate["major"],  cgpa=education_populate["cgpa"], seeker_id=education_populate["seeker_id"])
+        db.add(new_education)
+        db.commit()
+        db.refresh(new_education)
+
+def populate_preference():
+    for preference_populate in preferences:
+        print(f"Populating preference: {preference_populate}")
+        new_preference = preference.Preference(
+        expected_min_salary=preference_populate["expected_min_salary"], expected_max_salary=preference_populate["expected_max_salary"], preferred_location=preference_populate["preferred_location"], 
+        interested_jobs=preference_populate["interested_jobs"], preferred_job_skills=preference_populate["preferred_job_skills"],  remote_onsite=preference_populate["remote_onsite"],  
+        available_hours=preference_populate["available_hours"], seeker_id=preference_populate["seeker_id"])
+        db.add(new_preference)
+        db.commit()
+        db.refresh(new_preference)
+
+
+def populate_experience():
+    for experience_populate in experiences:
+        print(f"Populating experience: {experience_populate}")
+        new_experience = experience.Experience(
+        workPlace=experience_populate["workPlace"], yearsOfWork=experience_populate["yearsOfWork"], jobTitle=experience_populate["jobTitle"],
+        jobStartDate=experience_populate["jobStartDate"],  jobEndDate=experience_populate["jobEndDate"],  field=experience_populate["field"], seeker_id=experience_populate["seeker_id"])
+        db.add(new_experience)
+        db.commit()
+        db.refresh(new_experience)
 
 def populate_employer():
     for employer_populate in employers:
@@ -90,6 +125,9 @@ def populate_user_asesment():
 def populate_all():
     populate_user()
     populate_seeker()
+    populate_education()
+    populate_preference()
+    populate_experience()
     populate_employer()
     populate_job_post()
     populate_target_field()

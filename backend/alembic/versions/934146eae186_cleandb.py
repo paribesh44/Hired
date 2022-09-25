@@ -1,8 +1,8 @@
 """cleandb
 
-Revision ID: 6a8b98624b3f
+Revision ID: 934146eae186
 Revises: 
-Create Date: 2022-09-25 21:20:27.534522
+Create Date: 2022-09-26 00:43:10.107824
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6a8b98624b3f'
+revision = '934146eae186'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -101,7 +101,7 @@ def upgrade() -> None:
     op.create_table('experience',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('workPlace', sa.String(length=50), nullable=True),
-    sa.Column('yearsOfExperience', sa.Integer(), nullable=True),
+    sa.Column('yearsOfWork', sa.Integer(), nullable=True),
     sa.Column('jobTitle', sa.String(length=50), nullable=True),
     sa.Column('jobStartDate', sa.DateTime(), nullable=True),
     sa.Column('jobEndDate', sa.DateTime(), nullable=True),
