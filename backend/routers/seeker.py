@@ -110,5 +110,5 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Sekeer with the id {id} is not available")
     # , "experience": hired_seeker.experience[0].workPlace
-    return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user}
+    return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user, "user_assesment": hired_seeker.userAssesment}
     # return seeker

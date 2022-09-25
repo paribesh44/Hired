@@ -11,6 +11,7 @@ class Seeker(BaseModel):
     contactNumber: str
     write_about_you: str
     yearsOfExperience: int
+    student: bool
     skills: List[str] = []
     linkedIn: str
     website: str
@@ -19,12 +20,12 @@ class Seeker(BaseModel):
     drivingLicenseNum: str
     last_job_applied: datetime
 
-    class config():
+    class config:
         orm_mode = True
 
 
 class ShowSeeker(Seeker):
     # user: ShowUserSeeker
 
-    class config():
+    class config:
         orm_mode = True

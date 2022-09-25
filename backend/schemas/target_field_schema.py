@@ -6,5 +6,13 @@ class TargetField(BaseModel):
     name: str
     languages: List[str] = []
 
-    class config():
+    class Config:
+        orm_mode = True
+
+
+class TargetFieldShow(TargetField):
+    from schemas.mcq_schema import MCQShow
+    mcq: List[MCQShow] = []
+
+    class Config:
         orm_mode = True

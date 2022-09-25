@@ -23,5 +23,5 @@ class JobPost(BaseModel):
     posted_date: datetime
     deadline: datetime
 
-    class config():
+    class config:
         orm_mode = True

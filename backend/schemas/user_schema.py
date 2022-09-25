@@ -15,7 +15,7 @@ class ShowUser(BaseModel):
 
     # seeker: Seeker
 
-    class config():
+    class config:
         orm_mode = True
 
 
@@ -23,5 +23,5 @@ class ShowUserSeeker(BaseModel):
     email: str
     user_type: int
 
-    class config():
+    class config:
         orm_mode = True
