@@ -4,10 +4,10 @@ import logging
 from pathlib import Path
 from emails.template import JinjaTemplate
 from typing import Dict, Any
-from src import JWTtokens
+from core import JWTtokens
 
-from src.models.user import User
-from ..core import keys
+from models.user import User
+from core import keys
 
 
 async def send_email(email_to: str,
@@ -39,7 +39,7 @@ async def send_email(email_to: str,
 async def send_verification_email(user: User) -> None:
     project_name = "Hired"
     subject = f"{project_name} - Verification Email"
-    with open("src/templates/verify-account.html") as f:
+    with open("templates/verify-account.html") as f:
         template_str = f.read()
     verification_token = JWTtokens.create_access_token(
         data={"sub": user.email}, expires_delta=timedelta(hours=24))

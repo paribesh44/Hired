@@ -1,13 +1,13 @@
 import shutil
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from ..schemas import seeker_schema
+from schemas import seeker_schema
 
-from ..models import seeker, user
-from .. import database, hashing, oauth2
+from models import seeker, user
+from core import database, hashing, oauth2
 from sqlalchemy.orm import Session
 from typing import List
-from ..forms import jobSeekerForm
+from forms import jobSeekerForm
 
 
 router = APIRouter(
@@ -23,7 +23,7 @@ async def createSeekerProfile(form: jobSeekerForm.JobSeekerForm = Depends(), db:
 
     # upload pdf in local memory and save the file_location in database
     try:
-        pdf_file_location = f"src/static/cv/{form.cv.filename}"
+        pdf_file_location = f"static/cv/{form.cv.filename}"
         with open(pdf_file_location, "wb") as buffer:
             shutil.copyfileobj(form.cv.file, buffer)
     except:
@@ -31,7 +31,7 @@ async def createSeekerProfile(form: jobSeekerForm.JobSeekerForm = Depends(), db:
 
     # upload profile picture
     try:
-        profile_picture_file_location = f"src/static/profile_pictures/{form.profile_photo.filename}"
+        profile_picture_file_location = f"static/profile_pictures/{form.profile_photo.filename}"
         with open(profile_picture_file_location, "wb") as buffer:
             shutil.copyfileobj(form.profile_photo.file, buffer)
     except:
@@ -63,7 +63,7 @@ def update(id: int, form: jobSeekerForm.JobSeekerForm = Depends(), db: Session =
 
     # upload pdf in local memory and save the file_location in database
     try:
-        pdf_file_location = f"src/static/cv/{form.cv.filename}"
+        pdf_file_location = f"static/cv/{form.cv.filename}"
         # if the new choosen pdf is not same as the previous upload pdf file then only upload updated pdf.
         if update_seeker.first().cv != pdf_file_location:
             with open(pdf_file_location, "wb") as buffer:
@@ -76,7 +76,7 @@ def update(id: int, form: jobSeekerForm.JobSeekerForm = Depends(), db: Session =
 
     # upload profile picture
     try:
-        profile_picture_file_location = f"src/static/profile_pictures/{form.profile_photo.filename}"
+        profile_picture_file_location = f"static/profile_pictures/{form.profile_photo.filename}"
         # if the new choosen profile picture is not same as the previous upload profile picture then only upload updated pdf.
         if update_seeker.first().profilePhoto != profile_picture_file_location:
             with open(profile_picture_file_location, "wb") as buffer:

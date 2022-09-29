@@ -2,11 +2,10 @@ from fastapi import Depends, HTTPException, status, Cookie
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 
-from .models import user
-from .schemas import token_schema
+from models import user
+from schemas import token_schema
 from sqlalchemy.orm import Session
-from . import database
-from .core import keys
+from core import database, keys
 
 SECRET_KEY = keys.Settings.JWTtokenKeys.SECRET_KEY
 ALGORITHM = keys.Settings.JWTtokenKeys.ALGORITHM

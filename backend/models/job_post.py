@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Text, ARRAY
-from ..database import Base
+from core.database import Base
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import INT4RANGE
 import datetime
@@ -18,15 +18,15 @@ class JobPost(Base):
     # permanent, temporary, contact, intership
     job_type = Column(String, nullable=False)
     # responsiblities and roles are the same
-    job_responsibilities = Column(ARRAY[Text], nullable=False)
-    skills = Column(ARRAY[String], nullable=False)
+    job_responsibilities = Column(ARRAY(Text), nullable=False)
+    skills = Column(ARRAY(String), nullable=False)
     minimum_years_of_experience = Column(Integer, nullable=False)
     education_required = Column(String, nullable=False)
     no_of_vacancy = Column(Integer, nullable=False)
     work_hours = Column(String, nullable=False)
-    min_salary = Column(int, nullable=False)
-    max_salary = Column(int, nullable=False)
-    job_benefits = Column(ARRAY[String], nullable=False)
+    min_salary = Column(Integer, nullable=False)
+    max_salary = Column(Integer, nullable=False)
+    job_benefits = Column(ARRAY(String), nullable=False)
     job_start_date = Column(DateTime, nullable=True)
     remote_onsite = Column(String, nullable=False)
     # (draft, pending, published) -> controlled by admin
