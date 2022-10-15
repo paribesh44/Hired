@@ -1,0 +1,112 @@
+/* .title{
+    font-size: 22px;
+    font-weight: 500;
+    padding-left: 320px;
+    padding-top: 50px;
+}
+
+.applied-whole-box{
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px;
+    font-weight: 500;
+    margin-right: 130px;
+    margin-top: 50px;
+    padding:45px;
+}
+
+.imagewrapper{
+   margin: 10px;
+}
+.profile-image{
+    display: inline;
+  object-fit: cover;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  margin-right: 50px;
+
+}
+
+.appliedinfo{
+font-size: 18px;
+}
+
+.appliedinfo2{
+    font-size: 18px;
+    }
+
+.appliedinfotext{
+padding-top: 5px;
+}
+
+.accepttab{
+    margin-top: 20px;
+}
+
+.accept-button-class{
+    padding-right: 32px;
+}
+
+.accept-button{
+    height:42px;
+    outline: none;
+    background:  #495c83;
+    border: 2px solid #495c83;
+    border-radius: 7px;
+    padding: 5px 25px 5px 25px;
+    font-size: 1.2em;
+    font-weight: 400;
+    color: white;       
+}
+
+.accept-button:hover{
+    background-color:white;
+    color:  #495c83;
+}
+
+.reject-button{
+    height:42px;
+    outline: none;
+    background:  white;
+    border: 2px solid #495c83;
+    border-radius: 7px;
+    padding: 5px 25px 5px 25px;
+    font-size: 1.2em;
+    font-weight: 400;
+    color: #495c83; 
+}
+
+.reject-button:hover{
+    background:  #495c83;
+    color: white;       
+}
+
+.vertical-line{
+    margin-left: 90px;
+    margin-right: 50px;
+    border-left: 2px solid #495c83;
+  height: 180px;
+}
+
+.applied-profile-tab{
+    margin-top: 49px;
+}
+
+.skillscontain{
+background-color: red;
+}
+
+.profiletab-heading{
+    font-size: 22px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+.profiletab-desc{
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.skillspacing{
+    margin-right: 100px;
+} */

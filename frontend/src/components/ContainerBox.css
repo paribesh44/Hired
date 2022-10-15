@@ -1,0 +1,22 @@
+.containerboxmain{
+    padding: 15px 40px 15px 40px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid;
+    width: 1180px;
+    border-radius: 8px;
+}
+
+.containerhead{
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 5px;
+
+}
+
+.containersub{
+    font-weight: 500;
+    font-size: 17px;
+    padding-bottom: 4px;
+    padding-right: 7px;
+}
+

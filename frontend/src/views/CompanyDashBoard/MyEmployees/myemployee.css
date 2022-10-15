@@ -1,0 +1,20 @@
+.myemployeetitle{
+    font-size: 22px;
+    font-weight: 500;
+    margin-left: 320px;
+    padding-top: 50px;
+    width: 1600px;;
+    block-size: fit-content;
+
+}
+
+
+
+.Employeesidepane{
+    height:100%;
+    width:250px;
+    border-radius: 10px;    
+    margin-right: 50px;
+    margin-top: 130px;
+    position: fixed;
+}
