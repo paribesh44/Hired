@@ -9,9 +9,10 @@ from utils.populatedata import (
     job_posts,
     target_fields,
     mcqs,
-    user_assesments
+    user_assesments,
+    applies
     )
-from models import (user,seeker, education, preference, experience, employer, job_post, target_field, mcq, user_assesment)
+from models import (user,seeker, education, preference, experience, employer, job_post, target_field, mcq, user_assesment, apply)
 from core import hashing, database
 
 db = database.SessionLocal()
@@ -121,6 +122,15 @@ def populate_user_asesment():
         db.commit()
         db.refresh(new_UserAssesment)
 
+def populate_apply():
+    for apply_populate in applies:
+        print(f"Populating apply: {apply_populate}")
+        new_apply = apply.Apply(description= apply_populate["description"], cv= apply_populate["cv"], status= apply_populate["status"], 
+        coverletter=apply_populate["coverletter"], applied_date=apply_populate["applied_date"],  seeker_id=apply_populate["seeker_id"],  job_post_id=apply_populate["job_post_id"])
+        db.add(new_apply)
+        db.commit()
+        db.refresh(new_apply)
+
 
 def populate_all():
     populate_user()
@@ -133,3 +143,4 @@ def populate_all():
     populate_target_field()
     populate_mcq()
     populate_user_asesment()
+    populate_apply()

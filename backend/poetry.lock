@@ -161,6 +161,14 @@ ssh = ["bcrypt (>=3.1.5)"]
 test = ["pytest (>=6.2.0)", "pytest-benchmark", "pytest-cov", "pytest-subtests", "pytest-xdist", "pretend", "iso8601", "pytz", "hypothesis (>=1.11.4,!=3.79.2)"]
 
 [[package]]
+<<<<<<< HEAD
+name = "defusedxml"
+version = "0.7.1"
+description = "XML bomb protection for Python stdlib modules"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+=======
 name = "cssselect"
 version = "1.1.0"
 description = "cssselect parses CSS3 Selectors and translates them to XPath 1.0"
@@ -179,6 +187,7 @@ python-versions = ">=3.7"
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)", "jaraco.tidelift (>=1.4)"]
 testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 (<5)", "pytest-cov", "pytest-enabler (>=1.3)", "cssselect", "jaraco.test (>=5.1)", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)", "lxml", "importlib-resources"]
+>>>>>>> b78719857de76b70a7865c306314af567167475c
 
 [[package]]
 name = "dnspython"
@@ -275,6 +284,42 @@ pydantic = ">=1.8.2,<2.0.0"
 [package.extras]
 httpx = ["httpx[httpx] (>=0.23.0,<0.24.0)"]
 fakeredis = ["fakeredis[fakeredis] (>=1.8.2,<2.0.0)"]
+
+[[package]]
+name = "fonttools"
+version = "4.37.4"
+description = "Tools to manipulate font files"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+all = ["fs (>=2.2.0,<3)", "lxml (>=4.0,<5)", "zopfli (>=0.1.4)", "lz4 (>=1.7.4.2)", "matplotlib", "sympy", "skia-pathops (>=0.5.0)", "uharfbuzz (>=0.23.0)", "brotlicffi (>=0.8.0)", "scipy", "brotli (>=1.0.1)", "munkres", "unicodedata2 (>=14.0.0)", "xattr"]
+graphite = ["lz4 (>=1.7.4.2)"]
+interpolatable = ["scipy", "munkres"]
+lxml = ["lxml (>=4.0,<5)"]
+pathops = ["skia-pathops (>=0.5.0)"]
+plot = ["matplotlib"]
+repacker = ["uharfbuzz (>=0.23.0)"]
+symfont = ["sympy"]
+type1 = ["xattr"]
+ufo = ["fs (>=2.2.0,<3)"]
+unicode = ["unicodedata2 (>=14.0.0)"]
+woff = ["zopfli (>=0.1.4)", "brotlicffi (>=0.8.0)", "brotli (>=1.0.1)"]
+
+[[package]]
+name = "fpdf2"
+version = "2.5.7"
+description = "Simple & fast PDF generation for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+defusedxml = "*"
+fonttools = "*"
+Pillow = ">=6.2.2"
+"svg.path" = "*"
 
 [[package]]
 name = "greenlet"
@@ -416,6 +461,18 @@ build_docs = ["sphinx (>=1.6)", "sphinxcontrib-fulltoc (>=1.2.0)", "cloud-spthem
 totp = ["cryptography"]
 
 [[package]]
+<<<<<<< HEAD
+name = "pillow"
+version = "9.2.0"
+description = "Python Imaging Library (Fork)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
+tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
+=======
 name = "premailer"
 version = "3.10.0"
 description = "Turns CSS blocks into style attributes"
@@ -433,6 +490,7 @@ requests = "*"
 [package.extras]
 dev = ["tox", "twine", "therapist", "black", "flake8", "wheel"]
 test = ["nose", "mock"]
+>>>>>>> b78719857de76b70a7865c306314af567167475c
 
 [[package]]
 name = "psycopg2-binary"
@@ -620,6 +678,17 @@ typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""
 full = ["itsdangerous", "jinja2", "python-multipart", "pyyaml", "requests"]
 
 [[package]]
+name = "svg.path"
+version = "6.2"
+description = "SVG path objects and parser"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+test = ["pillow", "pytest", "pytest-cov"]
+
+[[package]]
 name = "typing-extensions"
 version = "4.3.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -658,7 +727,11 @@ standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchfiles (>=0.13)",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
+<<<<<<< HEAD
+content-hash = "c3a18048075707bd20afb4c1b94af23a1c69222a707a4be82b166b21e3ebab34"
+=======
 content-hash = "4059c3767935990700e933f444ecc0a28f3fe27d2d23bcf2e16f072ae38eced9"
+>>>>>>> b78719857de76b70a7865c306314af567167475c
 
 [metadata.files]
 aiosmtplib = []
@@ -675,14 +748,20 @@ charset-normalizer = []
 click = []
 colorama = []
 cryptography = []
+<<<<<<< HEAD
+defusedxml = []
+=======
 cssselect = []
 cssutils = []
+>>>>>>> b78719857de76b70a7865c306314af567167475c
 dnspython = []
 ecdsa = []
 email-validator = []
 emails = []
 fastapi = []
 fastapi-mail = []
+fonttools = []
+fpdf2 = []
 greenlet = []
 h11 = []
 httpcore = []
@@ -694,7 +773,11 @@ lxml = []
 mako = []
 markupsafe = []
 passlib = []
+<<<<<<< HEAD
+pillow = []
+=======
 premailer = []
+>>>>>>> b78719857de76b70a7865c306314af567167475c
 psycopg2-binary = []
 pyasn1 = [
     {file = "pyasn1-0.4.8-py2.4.egg", hash = "sha256:fec3e9d8e36808a28efb59b489e4528c10ad0f480e57dcc32b4de5c9d8c9fdf3"},
@@ -726,6 +809,7 @@ six = [
 sniffio = []
 sqlalchemy = []
 starlette = []
+"svg.path" = []
 typing-extensions = []
 urllib3 = []
 uvicorn = []

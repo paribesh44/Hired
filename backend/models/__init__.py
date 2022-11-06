@@ -8,3 +8,4 @@ from .preference import Preference
 from .seeker import Seeker
 from .target_field import TargetField
 from .user_assesment import UserAssesment
+from .apply import Apply
