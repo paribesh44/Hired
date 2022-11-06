@@ -16,8 +16,8 @@ function UserAssesment() {
 
             <Grid item>
                 <div className='userassesment-main'>
-                {/* <Assesmentmain/> */}
-                <ListDoneAssesment/>
+                <Assesmentmain/>
+                {/* <ListDoneAssesment/> */}
                     
 
                 </div>

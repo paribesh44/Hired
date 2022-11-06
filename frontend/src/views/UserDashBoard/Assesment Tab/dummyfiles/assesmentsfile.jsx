@@ -6,7 +6,8 @@ export const assesmentsfile=[
         name:"Front ENd WEb",
         languages: "REact",
         time: "40 min",
-        status:"notdone"
+        status:"notdone",
+        difficulty: "Easy"
 
     },
     {
@@ -14,7 +15,9 @@ export const assesmentsfile=[
         name:"Front ENd WEb",
         languages: "REact",
         time: "40 min",
-        status:"notdone"
+        status:"notdone",
+        difficulty: "Medium"
+
 
     },
     {
@@ -22,7 +25,9 @@ export const assesmentsfile=[
         name:"Graphics Designing",
         languages: "C++",
         time: "20 min",
-        status:"notdone"
+        status:"notdone",
+        difficulty: "Hard"
+
         
     },
     {
@@ -30,9 +35,13 @@ export const assesmentsfile=[
         name:"Graphics Designing",
         languages: "C++",
         time: "20 min",
-        status:"notdone"
+        status:"notdone",
+        difficulty: "Easy"
+
         
     },
+    
+    
     
 
 ] 

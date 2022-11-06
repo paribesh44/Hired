@@ -32,7 +32,7 @@ function RecommendAssesment() {
                 <Grid item>
                     {recommendedfile.map((val,key)=>{return(
                         <div key={key}>
-                        <CardAssesment name={val.name} type={val.type}  time={val.time} languages={val.languages} />
+                        <CardAssesment name={val.name} type={val.type}  time={val.time} languages={val.languages} difficulty={val.difficulty} />
 
 
                         </div>

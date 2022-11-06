@@ -21,7 +21,8 @@
 .appliedsidepane-main{
     width: 250px;
     margin-top: 130px;
-    position: fixed;
+    position:absolute;
+    padding-left: 20px;
 }
 
 .imagewrapper{
@@ -106,6 +107,9 @@ padding-top: 5px;
 
 .appliedicons{
     color:#495c83;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-size: 25px;
 }
 
 .Tab-name{
@@ -143,4 +147,36 @@ background-color: red;
     font-weight: 16px;
 
 
+}
+
+input{
+    width: 600px;
+    height:50px
+
+}
+
+.appliedstarheading{
+    font-weight: 500;
+    font-size: 18px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+.appliedstarskill{
+    padding: 5px;
+}
+
+.applied-stars{
+   font-size: 21px;
+   color: #FFD700;
+}
+
+
+.reject-popupbuttons{
+    padding-top: 30px;
+}
+
+.rejectreason{
+    font-weight: 450px;
+    padding-top: 20px;
 }

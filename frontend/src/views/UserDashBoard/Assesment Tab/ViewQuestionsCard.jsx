@@ -4,7 +4,7 @@ import { questionsdummy } from './dummyfiles/questionsdummy';
 import { TiTick } from "react-icons/ti";
 import { ImCross } from "react-icons/im";
 
-
+// View the previous assesment
 
 function QuestionCard() {
 
@@ -28,19 +28,32 @@ function QuestionCard() {
           <div className='questioncardmain'>
 
       <div className='questionnumber'>
-              Question {val.number}/20
+              Question {val.id+1}/20
             </div>
             <div className='question'>
-        {val.question}
+        {val.ques}
 
       </div>
 
       <div className='questionsoptions'>
         <div>
-          {val.answer.map((val1,key)=>{return(
+          {val.options.map((val1,key)=>{return(
             <div>
-              <TiTick/>
-              {val1}
+              {/* {(()=>{
+                 if (val.chosen==val1.id )
+                 if(val1.chosen){
+                   <TiTick/>
+ 
+                 }
+                 <ImCross/>
+
+              })
+              
+             } */}
+              
+              {val.chosen!=val1.id  ? "" : [val1.isCorrect ? <TiTick/> : <ImCross/>]}
+            {val1.isCorrect? <TiTick/>:null}
+              {val1.text}
               {/* <input type="radio" id={val1} name="answer" value={val1} onChange={handleChange}/> {val1} */}
               </div>
           )})}

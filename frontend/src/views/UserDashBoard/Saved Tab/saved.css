@@ -80,7 +80,7 @@
 
 .applyconfirmation-main{
     font-size: 16px;
-    padding: 40px 40px 50px 40px;
+    padding: 20px 40px 20px 20px;
 }
 
 .confirmationrow1{
@@ -100,7 +100,7 @@
     
     width:500px;
     height: 100px;
-    background-color: red;
+    background-color: #FAFBFC;
     border-radius: 8px;}
 
 
@@ -115,6 +115,7 @@
         padding: 10px;
         border-radius: 8px;
         background-color: #FAFBFC;
+        margin-bottom: 40px;
     }
 
     .confirmationvertical-line{
@@ -135,6 +136,6 @@
         }
 
         .confirmsendbutton{
-            margin-left: auto;;
+            margin-left: 15px;
         }
 

@@ -1,17 +1,68 @@
 import React from 'react'
 import { Grid, IconButton } from "@mui/material";
 import CustomButton from '../../../components/Buttons';
+import { useState } from 'react';
 
 
-function ApplyConfirmation() {
+function ApplyConfirmation({statechanger, ...props}) {
+    const [applyanswers, setapplyanswers]=useState({reasontoaccept:"", companyques:""})
+    function handlechange(event){
+        setapplyanswers(prevdata=>{
+            return{
+                ...prevdata,
+                [event.target.name]:event.target.value,
+            }
+            
+        })
+    }
+
+
+    function confirmedbutton(){
+        console.log(applyanswers.reasontoaccept)
+
+        console.log(applyanswers.companyques)
+
+    }
   return (
-    <div className='applyconfirmation-main'>
-        <Grid 
-            container
-            direction="row"
-            className="applyconfirmation-grid">
+    <div>
+        <div className='modal'>
+            <div className='overlay'>
+                <div className="modal-content">
+                <div className='applyconfirmation-main'>
+                    <div className='confirmationquestion'>Let them know why they should hire you. *</div>
+                   <input placeholder='Your answer' name="reasontoaccept" onChange={handlechange} value={applyanswers.reasontoaccept}/>
+                   <div className='confirmationquestion'>COmpany related question goes here</div>
+                   <input placeholder='Your answer' name="companyques" onChange={handlechange} value={applyanswers.companyques}/>
 
-            <Grid item className='confirmationrow1'>
+
+                   <div className='confirmationquestion'>Want to attach a cover letter?</div>
+
+                   <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/>
+
+                   <Grid container direction="row" >
+                      <div className='confirmcancelbutton'>
+                        <CustomButton addStyles={"reject-button"}name="Cancel" onClicked={()=>statechanger(false)}/>
+                        </div>  
+                        <div className='confirmsendbutton'>
+                            <CustomButton addStyles={"accept-button"}name="Send Application"  onClicked={confirmedbutton}/>
+                        </div>
+                    </Grid>
+                    
+        
+      
+                </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  )
+}
+
+export default ApplyConfirmation
+
+
+   {/* <Grid item className='confirmationrow1'>
                 <Grid container direction="column">
                     <Grid item className='confirmation-heading'>
                         Applying to:
@@ -25,52 +76,26 @@ function ApplyConfirmation() {
                     <Grid> 
                         Graphics Designer
                     </Grid>
+                    <Grid item className='confirmation-heading'>
+                        Salary:
+                    </Grid>
+                    <Grid> 
+                        Graphics Designer
+                    </Grid>
 
+                    <Grid item className='confirmation-heading'>
+                        Job Start Date:
+                    </Grid>
+                    <Grid> 
+                        Graphics Designer
+                    </Grid>
 
-                </Grid>
-            </Grid>
-
-            <Grid item >
-            <div className='confirmationvertical-line'></div>
-          </Grid>
-
-            <Grid item className='confirmationrow2'> 
-                <Grid container direction="column">
-                    <Grid item className="confirmationquestion"> Let them know why they should hire you. *</Grid>
-                    <Grid item className="blankcontainer">Text goes here</Grid>
-                    <Grid item className='confirmationquestion'> COmpany related question goes here</Grid>
-                    <Grid item className="blankcontainer">Text goes here</Grid>
-                    <Grid item className='confirmationquestion'> Want to attach a cover letter?</Grid>
-                    <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/>
-                    <Grid item className='confirmbutton-row'>
-                        <Grid container direction="row">
-                      <div className='confirmcancelbutton'><CustomButton addStyles={"reject-button"}name="Cancel"/>
-                        </div>  
-                        <div className='confirmsendbutton'>
-                        <CustomButton addStyles={"accept-button"}name="Send Application"/>
-
-
-                        </div>
-
-
-
-    </Grid>
-</Grid>
-
-
-
+                    <Grid item className='confirmation-heading'>
+                        Work HOur:
+                    </Grid>
+                    <Grid> 
+                        Graphics Designer
+                    </Grid>
 
                 </Grid>
-
-
-            
-            
-            </Grid>
-
-        </Grid>
-      
-    </div>
-  )
-}
-
-export default ApplyConfirmation
+            </Grid> */}

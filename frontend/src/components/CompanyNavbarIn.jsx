@@ -41,24 +41,32 @@ function CompanyNavbarIn() {
                 <Grid item>
               <Link to="/CompanyHome" style={{ textDecoration: "none", color: "#495c83" }}>
                 <p className="navbar-texts"> Home</p>
+                <div className= {`${window.location.pathname=="/CompanyHome" ? "hori-line":""}`}></div>
+                
               </Link>
             </Grid>
 
             <Grid item>
               <Link to="/CompanyApplied" style={{ textDecoration: "none", color: "#495c83" }}>
                 <p className="navbar-texts"> Applied</p>
+                <div className= {`${window.location.pathname=="/CompanyApplied" ? "hori-line":""}`}></div>
+
               </Link>
             </Grid>
 
             <Grid item>
               <Link to="/CompanyAddPost" style={{ textDecoration: "none", color: "#495c83" }}>
                 <p className="navbar-texts"> Add a post</p>
+                <div className= {`${window.location.pathname=="/CompanyAddPost" ? "hori-line":""}`}></div>
+
               </Link>
             </Grid>
 
             <Grid item>
               <Link to="/CompanyMyEmployees" style={{ textDecoration: "none", color: "#495c83" }}>
                 <p className="navbar-texts"> My Employees</p>
+                <div className= {`${window.location.pathname=="/CompanyMyEmployees" ? "hori-line":""}`}></div>
+
               </Link>
             </Grid>
 
