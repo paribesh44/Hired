@@ -3,8 +3,18 @@ import "./myemployee.css"
 
 function EmployeeSidePane() {
   return (
-    <div className='Employeesidepane'>
-        Put the Side Detail of Employees sjnfjasddfdfd sfsdf sdf sdf sdf sdf sdf sdf sdf sdf sdf s fdnfjandfjnajdkfnjk
+    <div className='appliedsidepane-main'>
+         Side Details of Employees 
+         <div className="appliedstarheading">
+          Percentage Match During Recruit:
+          </div>
+          <div>
+            60%
+          </div>
+
+          <div className="appliedstarheading">
+            Current Working Status:
+          </div>
       
     </div>
   )

@@ -19,6 +19,7 @@ function CardAssesment(props) {
                 <Grid container direction="column">
                 <div className='typeofasses'>
                     {props.type}        </div>
+                    <div className='typeofasses'>{props.difficulty}</div>
         <div className='nameofasses'>
             {props.name}
         </div>
@@ -33,6 +34,8 @@ function CardAssesment(props) {
         <div>
             {props.languages}
         </div>
+
+
         <div className='card-buttom'>
         <IoIosTimer className='card-buttomicon'/>  {props.time}
         </div>

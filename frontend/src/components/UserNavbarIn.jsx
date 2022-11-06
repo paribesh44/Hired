@@ -69,6 +69,7 @@ export default function UserNavbarIn() {
             <Grid className="userdp">
 
           <Image  className="border-left pl-2 ml-auto" src={companydummylogo}/>
+          
 
 
 </Grid>

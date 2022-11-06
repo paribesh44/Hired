@@ -6,10 +6,19 @@ import CustomButton from '../../../components/Buttons';
 import {IoLogoGithub} from 'react-icons/io';
 import {IoCall} from 'react-icons/io5';
 import {IoMailOpen} from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import ApplyConfirmation from './ApplyConfirmation';
 
 
 
 function ApplyJobSummary() {
+
+  const [applyconfirm, setapplyconfirm]=useState(false)
+
+  function toggleapplyconfirm(){
+    setapplyconfirm(!applyconfirm)
+  }
   return (
     <div className='applysummary-main'>
         <Grid container direction="row" className='abcd'>
@@ -32,13 +41,16 @@ function ApplyJobSummary() {
 
 
                  
-               <CustomButton name="Apply" addStyles={"accept-button"} >
+               <CustomButton name="Apply Now" addStyles={"accept-button"} onClicked={toggleapplyconfirm} />
+
+               {applyconfirm && <ApplyConfirmation statechanger={setapplyconfirm}/>}
                
-                </CustomButton>
+                
+
 
                </Grid>
                <Grid item>
-               <CustomButton name="Save" addStyles={"reject-button"}/>
+               <CustomButton name="Not Interested" addStyles={"reject-button"}/>
 
                </Grid>
              </Grid>

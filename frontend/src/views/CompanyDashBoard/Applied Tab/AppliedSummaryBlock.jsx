@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import demo from "../../../assets/demoprofileimage.jpg"
 import Image from '../../../components/Image';
 import "./companyapplied.css";
+import "./Modals.css"
 
 
 
@@ -16,11 +17,25 @@ import {IoIosGlobe} from 'react-icons/io';
 import AppliedProfiletab from './AppliedProfiletab.jsx';
 import PopUp from '../../../components/PopUp';
 import AppliedPopupMsg from './AppliedPopupMsg';
+import RejectPopup from './RejectPopup';
 
 export default function AppliedSummaryBlock(props) {
 
-  const [ButtonPopUp, setButtonPopUp]=useState(false)
+  const [acceptModal, setacceptModal]=useState(false);
+  const [rejectModal, setrejectModal]=useState(false);
+
+  const togglerejectModal=()=>{
+    setrejectModal(!rejectModal)
+  }
+
+  const toggleacceptModal=()=>{
+    setacceptModal(!acceptModal)
+  }
+
+  
+  
   return (
+    
     <div className='info-box'>
 
         <Grid /*top row ko grid*/
@@ -51,19 +66,21 @@ export default function AppliedSummaryBlock(props) {
              <Grid container direction="row"   className="accepttab" >
                <Grid item className='accept-button-class'>
 
-               <PopUp trigger={ButtonPopUp} setTrigger={setButtonPopUp}>
+               {/* <PopUp trigger={ButtonPopUp} setTrigger={setButtonPopUp}>
 
                 <AppliedPopupMsg name="Jane Doe" post="Senior Graphics Designer" setTrigger={setButtonPopUp}/>
-                </PopUp>
+                </PopUp> */}
                  
-               <CustomButton name="Accept" addStyles={"accept-button"} onClicked={()=> setButtonPopUp(true)} >
-               
-                </CustomButton>
+               <CustomButton name="Accept" addStyles={"accept-button"} onClicked={toggleacceptModal} />
+               {acceptModal && <AppliedPopupMsg statechanger={setacceptModal} name="aaaa" post="dddd"/>}
 
                </Grid>
-               <Grid item>
-               <CustomButton name="Reject" addStyles={"reject-button"}/>
+               
+               <Grid item >
+              
 
+               <CustomButton name="Reject" addStyles={"reject-button"} onClicked={ togglerejectModal}/>
+               {rejectModal && <RejectPopup statechanger={setrejectModal} name="Jane Doe" post="Senior Graphics Designer"/>}
                </Grid>
              </Grid>
            </Grid> 
@@ -99,22 +116,13 @@ export default function AppliedSummaryBlock(props) {
 
               <Grid item> 
                 <Grid container direction="row"  className="icontab" >
-                  <Grid item className='icons-class'>
-                    <IconButton aria-label='linkedin' >
-                      <IoLogoLinkedin className='appliedicons'/>
-                    </IconButton>
-
-                  </Grid>
-                  <Grid item>
-                    <IconButton aria-label='github'>
-                    <IoLogoGithub className='appliedicons'/>
-
-                    </IconButton>
-
-                    <IconButton aria-label='github'>
-                    <IoIosGlobe className='appliedicons'/>
-
-                    </IconButton>      
+                  <Grid item >
+                    
+                    
+                      <IoLogoLinkedin className='appliedicons'/>  
+                      <IoLogoGithub className='appliedicons'/>
+                      <IoIosGlobe className='appliedicons'/>
+     
                   </Grid>
                 </Grid>
               </Grid>

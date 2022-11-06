@@ -128,3 +128,9 @@ optgroup{
   -webkit-text-fill-color: #ffffff;
   color: white;
 }
+
+.hori-line{
+  margin-top: 10px;
+    border-left: 100px solid #495c83;
+  height: 2px;
+}

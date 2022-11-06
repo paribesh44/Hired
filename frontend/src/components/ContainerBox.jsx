@@ -49,9 +49,22 @@ function ContainerBox() {
                 Display Status: 
            
                 </Grid>
+
                 <Grid item>
+              <select components={{ DropdownIndicator:() => null }} className='status-buttonassesment'>
+                <option value="Ready"> Hide</option>
+                <option value="Open"> Show</option>
+
+                
+
+              {/* <CustomButton name="Ready to interview" addStyles={"status-button"} /> */}
+
+
+              </select>
+            </Grid>
+                {/* <Grid item>
                     <SkillContainer name="Hidden"/>
-                </Grid>
+                </Grid> */}
 
             </Grid>
 
@@ -64,6 +77,7 @@ function ContainerBox() {
 
             <Grid item>
                 <Link to="/Assesment/ViewAssesment">
+                    
                 
                 <CustomButton addStyles={"accept-button"} name="View Assesment"></CustomButton>
                 </Link>

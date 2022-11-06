@@ -4,5 +4,6 @@ export const recommendedfile=[{
     name:"Java LOL",
     type:"mcq",
     time:"50",
-    languages:"sssss"
+    languages:"sssss",
+    difficulty:"easy"
 }]
