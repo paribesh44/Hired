@@ -1,0 +1,141 @@
+.jobdescription-main{
+    padding:10px;
+    padding-left: 55px  ;
+    padding-top: 45px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px;
+    margin-top:80px;
+    /* margin-left: 20px;   */
+    margin-right: 30px;
+     width:1474px;     
+    overflow: hidden;
+    flex-grow: 100;
+    color: #0A1939;
+    
+
+    
+} 
+.applysummary-main{
+    padding-bottom: 60px;
+}
+
+
+.imagewrapper{
+    margin: 10px;
+}
+
+.companylogostyle{
+    display: inline;
+    object-fit: cover;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin-right: 50px;
+}
+
+
+.introinfo{
+    font-size: 20px;
+}
+
+.introinfotext{
+    padding-top: 5px;
+    font-size: 18px;
+    font-weight: 450;
+}
+
+.applyeachline{
+    padding:5px;
+}
+
+.applyicon{
+    padding-right: 15px;
+    font-size: 28px; 
+}
+
+.jobapplieddetailedwhole{
+    padding: 20px;
+    
+}
+
+.jobdetailedheading{
+    font-weight: 500;
+    font-size: 19px;
+    padding-bottom: 10px;
+
+}
+
+.jobdetaileddesc{
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #FAFBFC;
+    margin-right: 30px;
+    text-align: justify;
+    
+}
+
+.jobheadingspacing{
+    padding-right: 160px;
+}
+
+.applyconfirmation-main{
+    font-size: 16px;
+    padding: 20px 40px 20px 20px;
+}
+
+.confirmationrow1{
+    width: auto;
+}
+
+.confirmation-heading{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.confirmation-texts{
+    padding-bottom: 10px;
+}
+
+.blankcontainer{
+    
+    width:500px;
+    height: 100px;
+    background-color: #FAFBFC;
+    border-radius: 8px;}
+
+
+    .confirmationquestion{
+        padding-top: 20px;
+        padding-bottom: 10px;
+        
+    }
+
+    .confirmationbutton{
+        width: 150px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #FAFBFC;
+        margin-bottom: 40px;
+    }
+
+    .confirmationvertical-line{
+        height:500px;
+        border-left: 1px solid #495c83 ;
+        margin-left: 90px;
+        margin-right: 50px;
+    }
+
+    .confirmbutton-row{
+        padding-top: 60px;
+    }
+
+    .confirmcancelbutton{
+        
+        margin-left:auto;
+        padding-right: 19px;
+        }
+
+        .confirmsendbutton{
+            margin-left: 15px;
+        }
+

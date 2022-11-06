@@ -39,7 +39,7 @@ const Navbar = () => {
                 to="Login"
                 style={{ textDecoration: "none", color: "#495c83" }}
               >
-                <CustomButton name="Log in" addStyles={"navbar_button"} />
+                <CustomButton name="Log in" addStyles={" "} />
               </Link>
             </Grid>
             <Grid item style={{ margin: "10px" }}>

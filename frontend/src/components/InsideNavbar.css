@@ -1,0 +1,136 @@
+.navbar-main{
+    background-color: #EBEFF5;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+  }
+
+
+  .navbar-top{
+    width: 100%;
+    height: 100%; 
+    position: relative;
+    padding: 30px 80px 20px 80px ;  
+    display: inline-flex;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
+
+  }
+  
+ 
+
+.navbar-image{
+    width: 150px;
+}
+
+
+.options{
+  padding-left: 40px;
+}
+
+.navbar-texts{
+  padding:0px 60px 0px 5px;
+  color: #495c83;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.notif-icon{
+  padding-right: 35px;
+  padding-left: 650px;
+
+}
+.company-logo{
+  width: 40px;
+  border-radius: 50%;
+ 
+  justify-content: flex-end;
+  
+}
+
+.unlist{
+  display: flex;
+  list-style: none;
+  padding-top: 10px;
+}
+
+
+
+.border-left{
+  width: 40px;
+  border-radius: 50%;
+  margin-left: auto;
+ 
+  /* justify-content: flex-end; */
+
+}
+
+
+
+/* FOR USER */
+
+.navbarunordered{
+  list-style-type: none;
+  padding:0px;
+
+}
+
+.navbarlistitems{
+  display: inline;
+  float: left;
+}
+
+.usernavbarimage{
+  width:200px
+}
+
+.usernavbarbutton{
+  width:300px;
+  
+}
+
+.user-iconsnavbar{
+  padding-right:50px;
+  color:#495C83;
+  opacity: 50%;
+}
+
+.userdp{
+  padding-left:40px;
+  padding-right: 30px;
+}
+
+.status-button{
+  min-width: 200px;
+  outline: none;
+  background: #495c83;
+  border: 2px solid #495c83;
+  border-radius: 10px;
+  padding: 8px 15px 8px 20px;
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
+
+}
+
+/* .status-button:hover{
+  background-color:white ;
+  color: #495c83;
+} */
+optgroup{
+  font-size: 22px;
+}
+
+.status-button:checked,
+.status-button:focus {
+  background-color: #495c83;
+  /* background: linear-gradient(#495c83, #495c83); */
+  -webkit-text-fill-color: #ffffff;
+  color: white;
+}
+
+.hori-line{
+  margin-top: 10px;
+    border-left: 100px solid #495c83;
+  height: 2px;
+}
