@@ -18,7 +18,12 @@ Authlib = "^1.0.1"
 itsdangerous = "^2.1.2"
 httpx = "^0.23.0"
 fastapi-mail = "^1.1.4"
+<<<<<<< HEAD
 fpdf2 = "^2.5.7"
+=======
+python-multipart = "^0.0.5"
+emails = "^0.6"
+>>>>>>> b78719857de76b70a7865c306314af567167475c
 
 [tool.poetry.dev-dependencies]
 
