@@ -4,11 +4,10 @@ import { IoIosTimer } from "react-icons/io";
 import { Grid, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 
-
-
 function CardAssesment(props) {
   return (
     <div>
+        {/* {console.log(data)} */}
          <Link to ="/Assesment/AssesmentQuestions" state={{name:"aaa", address:"bbb"}}className='assesment-link'>
         <div className='cardassesment-main'>
        
