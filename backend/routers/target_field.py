@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from schemas import target_field_schema
 
-from models import target_field
+from models import target_field, user
 from core import database, oauth2
 from sqlalchemy.orm import Session
 
@@ -37,7 +37,7 @@ def update(id: int, schema: target_field_schema.TargetField, db: Session = Depen
 
 
 @router.get('/get_all')
-def all(db: Session = Depends(database.get_db)):
+def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     TargetFields = db.query(target_field.TargetField).all()
     return TargetFields
 

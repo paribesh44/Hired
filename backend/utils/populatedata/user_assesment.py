@@ -4,6 +4,7 @@ from datetime import datetime
 
 user_assesments: List[Json] = [
     {
+        # "choosen_answer": [],
         "score": 18,
         "visibility": True,
         "accessed_date": datetime.utcnow(),
