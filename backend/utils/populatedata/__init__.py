@@ -8,3 +8,4 @@ from .user_assesment import user_assesments
 from .education import educations
 from .preference import preferences
 from .experience import experiences
+from .apply import applies

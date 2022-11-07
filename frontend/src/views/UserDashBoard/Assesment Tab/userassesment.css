@@ -1,0 +1,208 @@
+.assesmentmain-main{
+    padding:62px 30px 30px 0px;
+    width: 100%;
+    height:100%;
+}
+
+
+
+.assesmentmain-heading{
+    font-size: 23px;
+    font-weight: 500;
+    padding: 0px 0px 10px 0px;
+}
+
+.assesmentmain-subheading{
+    font-size: 18px;
+}
+
+.assesment-recommendbox{
+    width:1180px;
+    height:100%;
+    padding:40px 120px 40px 120px;
+    background-color: #EBEFF5;
+    margin: 40px 40px 40px 0px;
+    border-radius: 8px;
+}
+
+.recommended-texts{
+    padding:5px;
+    padding-left: 0px;
+    padding-top: 0px;
+    font-size: 17px;
+}
+
+.assesmentstartbutton{
+    padding-top: 25px;
+}
+
+
+    /* Card css */
+    
+    .cardassesment-main{
+        padding: 15px ;    
+        width:270px;
+        height:140px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 2px 1px rgba(0,0,0,.2);
+        border-color: red; 
+       }
+
+    .status-icon{
+        margin-right:auto;
+        color:rgba(235, 235, 116, 0.838);
+        font-size: 28px;
+    }
+
+    .card-buttom{
+        padding-top: 35px;
+    }
+
+    .card-buttomicon{
+        padding-top: 5px;
+        margin: 0px;
+        font-size: 19px;
+
+
+    }
+
+    .typeofasses{
+        color: rgba(22, 158, 22, 0.89);
+        font-size: 14px;
+    }
+
+    .nameofasses{
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+.assesment-available{
+    width:1180px;
+
+}
+.eachbox{
+    padding: 20px 40px 20px 0px;
+
+}
+
+.assesment-link{
+    text-decoration: none;
+    color: black;
+
+}
+
+/* .asses-subheading{
+    
+} */
+
+.assesmentquestions-main{
+    padding:62px 30px 30px 0px;
+
+}
+
+.assesmentquestions-heading{
+    font-size: 20px;
+    font-weight: 450;
+    padding: 0px 0px 10px 0px;
+
+}
+
+
+    /* QuestionCard */
+
+    .questioncardmain{
+        margin: 40px 10px 0px 10px;
+        padding: 20px 40px 20px 40px;
+        border-radius: 8px ;
+        border: 1px solid black;
+        width: 1150px;
+    }
+
+    .questionnumber{
+        font-size: 15px;
+    }
+
+    .question
+    {
+        font-size: 17px;
+        padding: 25px 0px 14px 0px;
+    }
+
+    .questionsoptions{
+        font-size: 17px;
+        padding-bottom: 8px;
+
+
+    }
+
+
+.questions-nameofasses{
+    padding-top: 30px;
+    font-weight: 500;
+    font-size: 19px;
+}
+
+.mcq-main{
+    margin: 30px 10px 20px 0px;
+    padding: 30px ;
+    border: 1px solid black;
+    border-radius: 8px;
+    height: auto;
+    width:1200px;
+    
+
+}
+
+.mcq-number{
+    font-size: 16px;
+}
+
+.mcq-question{
+    padding: 10px ;
+    font-size: 18px;
+}
+
+.mcq-unordered{
+    list-style: none;
+}
+
+.mcq-unordered > li{
+    padding: 10px 10px 10px 20px;
+    background-color: #EBEFF5;
+    margin: 10px 60px 10px 0px;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+.mcq-unordered > li:hover{
+    background-color:#495c83;
+    color: white;
+
+}
+
+
+
+.final-results{
+    margin: 30px 10px 20px 0px;
+    padding: 30px ;
+    border: 1px solid black;
+    border-radius: 8px;
+    height: auto;
+    width:1000px;
+
+}
+
+.view-checkicons{
+    width:20px;
+}
+
+.mcqcompleteheading{
+    font-size: 22px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.mcqcompletesub{
+    text-align: center;
+}
