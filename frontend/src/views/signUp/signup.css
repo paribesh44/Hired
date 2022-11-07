@@ -1,0 +1,73 @@
+.logIn {
+}
+
+.left_c{
+  margin: 5em 0 0 15em !important;
+  border: 0.2em solid;
+}
+
+.logo_h {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 2em 0em 0em 5em !important;
+  border-radius: 10px;
+}
+
+.create {
+  font-size: 1.8em;
+  font-weight: 500;
+}
+
+.googleLogin {
+  width: 300px;
+  height: 35px;
+  outline: none;
+  background: none;
+  border: 1px solid #495c83;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 550;
+  color: #7a86b6;
+  margin-top: 2em;
+  margin-bottom: 5em;
+}
+.email {
+  font-size: 1.25em;
+  font-weight: 450;
+}
+/* .box {
+  width: 80px;
+  height: 35px;
+} */
+.password {
+  font-size: 1.25em;
+  font-weight: 450;
+}
+.logIn {
+  width: 300px;
+  height: 45px;
+  outline: none;
+  background: none;
+  border: 2px solid #495c83;
+  border-radius: 5px;
+  padding: 0 20px 0 20px;
+  font-size: 1.2em;
+  color: #7a86b6;
+}
+.logIn:hover {
+  background-color: #495c83;
+  color: #ffff;
+}
+.register {
+  font-size: 0.9em;
+  font-weight: 550;
+  color: #495c83;
+  padding: 2em 2em;
+}
+.Right_c {
+  border: 0.2em solid;
+  margin: 5em 15em 0 0 !important;
+}
+.loginImage {
+  height: 50em;
+}

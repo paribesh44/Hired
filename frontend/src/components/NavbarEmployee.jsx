@@ -3,7 +3,6 @@ import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import Hired from "../assets/Hired.png";
 import Image from "./Image";
-import DropDown from "./DropDown";
 import "./navbar.css";
 import CustomButton from "./Buttons";
 
