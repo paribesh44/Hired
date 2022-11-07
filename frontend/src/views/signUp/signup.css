@@ -1,15 +1,18 @@
-.logIn {
+.signUp {
 }
 
-.left_c{
+.left_c {
   margin: 5em 0 0 15em !important;
+}
+.Right_c {
   border: 0.2em solid;
+  margin: 5em 15em 0 0 !important;
+  padding: 3em 0 0 5em;
 }
 
 .logo_h {
   max-width: 100px;
   max-height: 100px;
-  margin: 2em 0em 0em 5em !important;
   border-radius: 10px;
 }
 
@@ -64,10 +67,7 @@
   color: #495c83;
   padding: 2em 2em;
 }
-.Right_c {
-  border: 0.2em solid;
-  margin: 5em 15em 0 0 !important;
-}
+
 .loginImage {
   height: 50em;
 }

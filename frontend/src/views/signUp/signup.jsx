@@ -16,24 +16,22 @@ const Signup = () => {
     setValue(event.target.value);
   };
   return (
-    <Grid container className="logIn">
+    <Grid container className="signUp">
       <Grid item className="left_c" xs>
         <Grid item className="loginImage">
           <Image src={Signin_c}></Image>
         </Grid>
       </Grid>
 
-      <Grid container className="Right_c" xs>
+      <Grid item className="Right_c" xs>
         <Grid item className="logo_h">
           <Link to="/">
             <Image src={Hired} />
           </Link>
         </Grid>
-        {
-          <Grid item className="create">
-            <p>Create Account</p>
-          </Grid>
-          /*
+        <Grid item className="create">
+          <p>Create Account</p>
+        </Grid>
         <Grid item>
           <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
             <Button
@@ -44,7 +42,22 @@ const Signup = () => {
           </Link>
         </Grid>
         <Grid item className="email">
-          <p>Email</p>
+          <p>Full Name</p>
+        </Grid>
+        <Grid item className="box">
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { width: "19em", height: "10em" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField id="outlined-basic" variant="outlined" />
+          </Box>
+        </Grid>
+        <Grid item className="password">
+          <p>Email id</p>
         </Grid>
         <Grid item className="box">
           <Box
@@ -73,23 +86,6 @@ const Signup = () => {
             <TextField id="outlined-basic" variant="outlined" />
           </Box>
         </Grid>
-        <Grid item>
-          <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
-            <Button name="Log In" addStyles="logIn"></Button>
-          </Link>
-        </Grid>
-        <Grid item className="register">
-          <p>
-            Not registered?{" "}
-            <Link
-              to="Signup"
-              style={{ textDecoration: "none", color: "#495c83" }}
-            >
-              <b>Create an Account</b>
-            </Link>
-          </p>
-        </Grid> */
-        }
       </Grid>
     </Grid>
   );

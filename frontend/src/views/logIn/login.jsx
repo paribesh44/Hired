@@ -83,7 +83,7 @@ const Login = () => {
         </Grid>
       </Grid>
 
-      <Grid container className="Right_column" xs>
+      <Grid item className="Right_column" xs>
         <Grid item className="loginImage">
           <Image src={loginC}></Image>
         </Grid>
