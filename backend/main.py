@@ -7,6 +7,7 @@ from routers import (
     )
 from core import database
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 # uvicorn main:app --reload
@@ -16,8 +17,18 @@ database.Base.metadata.create_all(database.engine)
 
 SECRET_KEY = "KWn54X_xI9xAOc1c6AWDAwD-JMURBTutRDt3aNbA"
 
+origins = [
+    "http://localhost:3000"
+]
+
 # middleware
-app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+    )
 
 # exposes our static folder to our users
 # http://127.0.0.1:8000/static/cv/cv-professional.pdf
