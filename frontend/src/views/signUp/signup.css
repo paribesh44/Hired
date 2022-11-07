@@ -2,10 +2,9 @@
 }
 
 .left_c {
-  margin: 5em 0 0 15em !important;
+  margin: 5em 0 0 20em !important;
 }
 .Right_c {
-  border: 0.2em solid;
   margin: 5em 15em 0 0 !important;
   padding: 3em 0 0 5em;
 }
@@ -32,20 +31,14 @@
   font-weight: 550;
   color: #7a86b6;
   margin-top: 2em;
-  margin-bottom: 5em;
+  margin-bottom: 3em !important;
 }
-.email {
+.full_n {
   font-size: 1.25em;
   font-weight: 450;
+  padding: 5px;
 }
-/* .box {
-  width: 80px;
-  height: 35px;
-} */
-.password {
-  font-size: 1.25em;
-  font-weight: 450;
-}
+
 .logIn {
   width: 300px;
   height: 45px;
@@ -56,7 +49,9 @@
   padding: 0 20px 0 20px;
   font-size: 1.2em;
   color: #7a86b6;
+  margin-top: 2em;
 }
+
 .logIn:hover {
   background-color: #495c83;
   color: #ffff;
@@ -68,6 +63,14 @@
   padding: 2em 2em;
 }
 
-.loginImage {
+.signupImage {
   height: 50em;
+}
+
+#outlined-basic{
+  width: 17em;
+  color: #7a86b6 ;
+}
+.fullnamebox{
+  padding: 10px 0;
 }

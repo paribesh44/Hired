@@ -35,36 +35,32 @@ const Login = () => {
             ></Button>
           </Link>
         </Grid>
-        <Grid item className="email">
-          <p>Email</p>
+        <Grid container className="emailbox" direction="column">
+          <Grid item className="email">
+            <p>Email</p>
+          </Grid>
+          <Grid item className="box">
+            <Box component="form" noValidate autoComplete="off">
+              <TextField id="outlined-basic" variant="outlined" />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className="box">
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { width: "19em", height: "10em" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField id="outlined-basic" variant="outlined" />
-          </Box>
+        <Grid container className="emailbox" direction="column">
+          <Grid item className="email">
+            <p>Password</p>
+          </Grid>
+          <Grid item className="box">
+            <Box component="form" noValidate autoComplete="off">
+              <TextField
+                id="outlined-basic"
+                hiddenLabel="Password"
+                type="password"
+                autoComplete="current-password"
+              />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className="password">
-          <p>Password</p>
-        </Grid>
-        <Grid item className="box">
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { width: "19em", height: "10em" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField id="outlined-basic" variant="outlined" />
-          </Box>
-        </Grid>
+
         <Grid item>
           <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
             <Button name="Log In" addStyles="logIn"></Button>
@@ -74,7 +70,7 @@ const Login = () => {
           <p>
             Not registered?{" "}
             <Link
-              to="Signup"
+              to="/Signup"
               style={{ textDecoration: "none", color: "#495c83" }}
             >
               <b>Create an Account</b>

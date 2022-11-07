@@ -3,6 +3,7 @@
 
 .left_column {
   margin: 5em 0 0 15em !important;
+   padding: 3em 0 0 5em;
 }
 
 .logo {
@@ -28,20 +29,18 @@
   font-weight: 550;
   color: #7a86b6;
   margin-top: 2em;
-  margin-bottom: 5em;
+  margin-bottom: 3em !important;
 }
 .email {
   font-size: 1.25em;
   font-weight: 450;
+  padding: 5px;
 }
 /* .box {
   width: 80px;
   height: 35px;
 } */
-.password {
-  font-size: 1.25em;
-  font-weight: 450;
-}
+
 .logIn {
   width: 300px;
   height: 45px;
@@ -65,7 +64,15 @@
 }
 .Right_column {
   margin: 5em 15em 0 0 !important;
+ 
 }
 .loginImage {
   height: 50em;
+}
+.emailbox{
+   padding: 10px 0;
+}
+#outlined-basic{
+  width: 17em;
+  border:2px #7a86b6 ;
 }

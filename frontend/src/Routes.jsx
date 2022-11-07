@@ -28,7 +28,8 @@ import ApplyConfirmation from "./views/UserDashBoard/Saved Tab/ApplyConfirmation
 const Routedpath = () => {
   return (
     <Routes>
-      <Route path="/" element={<UserHomeTab />}></Route>
+      {/* <Route path="/" element={<UserHomeTab />}></Route> */}
+      <Route path="/" element={<EmployeeLanding />}></Route>
       {/* <Route path="/" element={<CompanyHome />}></Route> */}
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
       <Route path="/Login" element={<Login />}></Route>

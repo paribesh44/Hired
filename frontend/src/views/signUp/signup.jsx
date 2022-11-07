@@ -18,7 +18,7 @@ const Signup = () => {
   return (
     <Grid container className="signUp">
       <Grid item className="left_c" xs>
-        <Grid item className="loginImage">
+        <Grid item className="signupImage">
           <Image src={Signin_c}></Image>
         </Grid>
       </Grid>
@@ -41,50 +41,56 @@ const Signup = () => {
             ></Button>
           </Link>
         </Grid>
-        <Grid item className="email">
-          <p>Full Name</p>
+        <Grid container className="fullnamebox" direction="column">
+          <Grid item className="full_n">
+            <p>Full Name</p>
+          </Grid>
+          <Grid item className="box">
+            <Box component="form" noValidate autoComplete="off">
+              <TextField hiddenLabel id="outlined-basic" variant="outlined" />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className="box">
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { width: "19em", height: "10em" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField id="outlined-basic" variant="outlined" />
-          </Box>
+        <Grid container className="fullnamebox" direction="column">
+          <Grid item className="full_n">
+            <p>Email id</p>
+          </Grid>
+          <Grid item className="box">
+            <Box component="form" noValidate autoComplete="off">
+              <TextField id="outlined-basic" variant="outlined" />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className="password">
-          <p>Email id</p>
+        <Grid container className="fullnamebox" direction="column">
+          <Grid item className="full_n">
+            <p>Password</p>
+          </Grid>
+          <Grid item className="box">
+            <Box component="form" noValidate autoComplete="off">
+              <TextField
+                id="outlined-basic"
+                type="password"
+                autoComplete="current-password"
+              />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className="box">
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { width: "19em", height: "10em" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField id="outlined-basic" variant="outlined" />
-          </Box>
+
+        <Grid item>
+          <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
+            <Button name="Sign Up" addStyles="logIn"></Button>
+          </Link>
         </Grid>
-        <Grid item className="password">
-          <p>Password</p>
-        </Grid>
-        <Grid item className="box">
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { width: "19em", height: "10em" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField id="outlined-basic" variant="outlined" />
-          </Box>
+        <Grid item className="register">
+          <p>
+            Already have an account?{" "}
+            <Link
+              to="/Login"
+              style={{ textDecoration: "none", color: "#495c83" }}
+            >
+              <b>Login</b>
+            </Link>
+          </p>
         </Grid>
       </Grid>
     </Grid>
