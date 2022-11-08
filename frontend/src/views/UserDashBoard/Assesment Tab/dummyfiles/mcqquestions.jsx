@@ -37,5 +37,12 @@ export const mcqquestions=[
     "id":1
 
 },
+{"question": "what is hwdrwerfewtml",
+    "answers": ["html", "css", "js", "none"],
+    "correct_answer": "html",
+    "target_field_id": 1,
+    "id":1
+
+},
 
 ]

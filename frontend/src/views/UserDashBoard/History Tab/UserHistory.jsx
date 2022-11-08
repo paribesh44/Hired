@@ -14,7 +14,8 @@ function UserHistory() {
       jobName: "Software Developer",
       applieedate: "5 sec ago",
       location: "Pokhara, Nepal",
-      status:"pending"
+      status:"Rejected",
+      estdsalary:"60000"
     },
     {
       company: "Twitter Inc",
@@ -23,7 +24,8 @@ function UserHistory() {
       jobName: "Software Developer",
       applieedate: "5 sec ago",
       location: "Pokhara, Nepal",
-      status:"pending"
+      status:"Reviewed",
+      estdsalary:"60000"
     },
     {
       company: "Twitter Inc",
@@ -32,7 +34,8 @@ function UserHistory() {
       jobName: "Software Developer",
       applieedate: "5 sec ago",
       location: "Pokhara, Nepal",
-      status:"pending"
+      status:"Pending",
+      estdsalary:"60000"
     },
     
 
@@ -51,7 +54,15 @@ function UserHistory() {
 
           <Grid item>
             {appliedjobs.map((job)=>(
-              <AppliedComponentUser/>
+              <AppliedComponentUser 
+                  company={job.company}
+                  applieedate={job.applieedate}
+                  location={job.location}
+                  status={job.status}
+                  jobname={job.jobName}
+                  estdsalary={job.estdsalary}
+                  
+                  />
             ))}
           </Grid>
 
