@@ -10,10 +10,12 @@ function Featured_box({
   description,
   jobName,
   timeElapsed,
+  onClicked,
   location,
+
 }) {
   return (
-    <Grid container direction="column" className="featureBox_root">
+    <Grid container direction="column" className="featureBox_root" onClick={onClicked}>
       <Grid item>
         <Grid
           container
@@ -68,7 +70,7 @@ function Featured_box({
               alignItems="center"
             >
               <Grid>
-                <a className="posttime">{timeElapsed}</a>
+                <a className="posttime">Posted: {timeElapsed}</a>
               </Grid>
               <Grid item className="buttonBox">
                 <Button name="Save" addStyles="button_a"></Button>

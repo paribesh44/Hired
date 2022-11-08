@@ -1,0 +1,20 @@
+.savedcomponent{
+    background-color: red;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    border-radius: 8px;
+}
+
+.savedcompimage{
+    width: 70px;
+    display: inline;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 50px;
+    margin-left: 20px;   
+}
+
+.imagewrapperapplied{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

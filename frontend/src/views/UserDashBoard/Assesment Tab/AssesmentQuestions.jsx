@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material'
 import React from 'react'
+import DashboardLayout from '../../../components/DashhboardLayout'
 import UserNavbarIn from '../../../components/UserNavbarIn'
 import UserSideBar from '../../../components/UserSideBar'
 import MCQQuestionCard from './MCQQuestionCard'
@@ -14,13 +15,9 @@ function AssesmentQuestions() {
     // const{address}=location.state
   return (
     <div>
-      <UserNavbarIn/>
-      <Grid container direction="row">
-            <Grid item>
-            <UserSideBar/>
+      <DashboardLayout>
 
-
-            </Grid>
+           
             <Grid item className='assesmentquestions-main'>
                 <div className='assesmentmain-heading'>
                 Assesment
@@ -38,7 +35,9 @@ function AssesmentQuestions() {
             </Grid>
 
            
-        </Grid>
+      
+      </DashboardLayout>
+      
 
 
     </div>
