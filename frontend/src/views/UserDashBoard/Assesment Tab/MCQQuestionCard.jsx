@@ -11,7 +11,10 @@ function MCQQuestionCard() {
     const [score, setScore]=useState(0);
     const [currentQuestion, setcurrentQuestion]=useState(0);
     const [selectedans, setselecredans]=useState("");
-    const [listofselected, setlistofselected]=useState([]);
+    const [targetfield, settargetfield ]=useState("");
+    const [chosenn, setchosenn]=useState([])
+
+    const [listofselected, setlistofselected]=useState({target_field_id:"", chosen_answers:[], visibility:false});
 
     // function retakebutton(){
     //     setFinalResult(false);
@@ -20,9 +23,10 @@ function MCQQuestionCard() {
         
     // }
 
-    const optionClicked=(isCorrect)=>{
+    const optionClicked=(isCorrect, id)=>{
         // console.log(isCorrect)
         setselecredans(isCorrect)
+        settargetfield(id)
 
        
         // setselecredans(myArrray=>[...myArrray, isCorrect]
@@ -41,10 +45,20 @@ function MCQQuestionCard() {
     }
 
     const nextClicked=()=>{
-        console.log(selectedans)
+        setchosenn([...chosenn,selectedans])
+        console.log(chosenn)
+        
+        setlistofselected(prevState => ({...prevState,
+            target_field_id: targetfield, 
+            chosen_answers:chosenn,
+            visibility:true}))
         console.log(listofselected)
-        setlistofselected([selectedans,...listofselected])
-        console.log(listofselected)
+      
+        // console.log(selectedans)
+        // console.log(listofselected)
+        // let copyfoo=
+        // setlistofselected( [selectedans,...listofselected] )
+        // console.log(listofselected)
         
         if (currentQuestion+1< mcqquestions.length){
             setcurrentQuestion(currentQuestion+1);
@@ -54,6 +68,14 @@ function MCQQuestionCard() {
             setFinalResult(true);
         }
 
+    }
+
+    const FinishClicked=()=>{
+        console.log(listofselected)
+              
+
+      
+      
     }
 
 
@@ -70,7 +92,8 @@ function MCQQuestionCard() {
         <div> {score}/{mcqquestions.length} correct</div>
         <Link to="/UserAssesment">
         <CustomButton addStyles={"accept-button"} name="Finish" 
-        onClicked={console.log(listofselected)}
+        onClicked={()=>FinishClicked()}
+       
         />
         </Link>
         
@@ -90,7 +113,7 @@ function MCQQuestionCard() {
              {mcqquestions[currentQuestion].answers.map((option)=>{
                  return(
                      <li 
-                     onClick={()=>optionClicked(option)}
+                     onClick={()=>optionClicked(option, mcqquestions[currentQuestion].target_field_id)}
                      key={option}>
                          {option}
                      </li>
@@ -99,7 +122,9 @@ function MCQQuestionCard() {
                   </ul>
          </div>
          <CustomButton addStyles={"accept-button"} name="Next" onClicked={()=>nextClicked()}/>       
-         
+
+         <CustomButton addStyles={"accept-button"} name="Next" onClicked={()=>FinishClicked()}/>       
+
          </div>
 
         
