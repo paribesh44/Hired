@@ -4,17 +4,13 @@ import UserSideBar from '../../../components/UserSideBar'
 import Assesmentmain from './Assesmentmain'
 import {Grid} from "@mui/material";
 import ListDoneAssesment from './ListDoneAssesment';
+import DashboardLayout from '../../../components/DashhboardLayout';
 
 function UserAssesment() {
   return (
     <div>
-      <UserNavbarIn/>
-      <Grid container direction="row">
-            <Grid item>
-            <UserSideBar/>
-            </Grid>
-
-            <Grid item>
+      <DashboardLayout>
+      <Grid item>
                 <div className='userassesment-main'>
                 <Assesmentmain/>
                 {/* <ListDoneAssesment/> */}
@@ -23,7 +19,13 @@ function UserAssesment() {
                 </div>
                 
             </Grid>
-        </Grid>
+
+      </DashboardLayout>
+   
+     
+
+            
+       
        
         
       
