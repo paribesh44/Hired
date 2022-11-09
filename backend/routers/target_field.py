@@ -53,4 +53,34 @@ def show(id: int, db: Session = Depends(database.get_db)):
     # return {"Target Field": hired_TargetField}
     # print(hired_TargetField.id)
     return hired_TargetField
-    # return {"id":2, "name":"hello", "fuck": "fuck yopu"}
+
+# frontend
+# backend
+# Mobile development
+# ml engineer
+# dl engineer
+# data scientist
+
+@router.get("/recommend_target_field")
+def recommend_target_field(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    target_field_id = 1
+    # get all the element in the list to lowercase
+    seeker_interested_jobs = list(map(str.lower, current_user.seeker[0].preference[0].interested_jobs))
+
+    if "frontend" in seeker_interested_jobs:
+        target_field_id = 1
+    elif "backend" in seeker_interested_jobs:
+        target_field_id = 2
+    elif "mobile development" in seeker_interested_jobs:
+        target_field_id = 3
+    elif "ml engineer" in seeker_interested_jobs:
+        target_field_id = 4
+    elif "dl engineer" in seeker_interested_jobs:
+        target_field_id = 5
+    elif "data scientist" in seeker_interested_jobs:
+        target_field_id = 6
+
+    hired_TargetField = db.query(target_field.TargetField).filter(
+        target_field.TargetField.id == target_field_id).first()
+    
+    return hired_TargetField

@@ -65,15 +65,15 @@ def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.Use
     # hunai parne kura haru and vitra rakum j hos or ra and ma divide garnu parxa.
     hired_recommended_jobs = db.query(job_post.JobPost).filter(or_(
         # -> Search in the list and convert the each element of list to lowercase.
-        # *[func.lower(job_post.JobPost.job_location).like("%" + location.lower() + "%") for location in hired_user.preference[0].preferred_location]
-        # job_post.JobPost.job_location.like("%"+ hired_user.address +"%"),
-        # job_post.JobPost.remote_onsite == hired_user.preference[0].remote_onsite,
-        # func.lower(job_post.JobPost.education_required).like("%" + func.lower(hired_user.education[0].qualification) + "%"),
+        *[func.lower(job_post.JobPost.job_location).like("%" + location.lower() + "%") for location in hired_user.preference[0].preferred_location],
+        job_post.JobPost.job_location.like("%"+ hired_user.address +"%"),
+        job_post.JobPost.remote_onsite == hired_user.preference[0].remote_onsite,
+        func.lower(job_post.JobPost.education_required).like("%" + func.lower(hired_user.education[0].qualification) + "%"),
         # -> Their maximum salary should be higher than our expected minimum salary.
-        # job_post.JobPost.max_salary >= hired_user.preference[0].expected_min_salary,
-        # job_post.JobPost.minimum_years_of_experience <= hired_user_experience,
+        job_post.JobPost.max_salary >= hired_user.preference[0].expected_min_salary,
+        job_post.JobPost.minimum_years_of_experience <= hired_user_experience,
         # -> skills (JobPost) is an array and similary preferred_job_skills is also array. So need "any" for comparing. (maybe put this in and_)
-        # *[job_post.JobPost.skills.any("%" + skill + "%") for skill in hired_user.preference[0].preferred_job_skills],
+        *[job_post.JobPost.skills.any("%" + skill + "%") for skill in hired_user.preference[0].preferred_job_skills],
         *[func.lower(job_post.JobPost.job_level).like("%" + jobLevel + "%") for jobLevel in hired_job_level]
         # NOTE: add another field in the "job_post" what they are looking for machine leraning engineer or front end developer and so on. (put this in and_)
         )).filter(and_(

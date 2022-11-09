@@ -4,32 +4,35 @@ from datetime import datetime
 
 user_assesments: List[Json] = [
     {
-        # "choosen_answer": [],
         "score": 18,
         "visibility": True,
         "accessed_date": datetime.utcnow(),
         "target_field_id": 1, 
-        "seeker_id": 1
+        "seeker_id": 1,
+        "chosen_answers": ["html", "js"]
     },
     {
         "score": 20,
         "visibility": False,
         "accessed_date": datetime.utcnow(),
         "target_field_id": 2, 
-        "seeker_id": 1
+        "seeker_id": 1,
+        "chosen_answers": ["css", "jsx"]
     },
     {
         "score": 10,
         "visibility": True,
         "accessed_date": datetime.utcnow(),
         "target_field_id": 1, 
-        "seeker_id": 2
+        "seeker_id": 2,
+        "chosen_answers": ["html", "js"]
     },
     {
         "score": 14,
         "visibility": True,
         "accessed_date": datetime.utcnow(),
         "target_field_id": 2, 
-        "seeker_id": 2
+        "seeker_id": 2,
+        "chosen_answers": ["ml", "dl"]
     }
 ]

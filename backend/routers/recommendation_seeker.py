@@ -15,6 +15,13 @@ router = APIRouter(
     prefix="/recommend-seekers"
 )
 
+# we have four field to define the percentage: (maximum percentage division)
+# Skills -> 25
+# YOE -> 25
+# RequiredEducation -> 25 
+# job_level -> 25
+
+# Penalty system.
 
 # This will calculate the priority by calculating the percentage. Seeker with higesh percentage value will be highly priorize.
 @router.get('/recommend-seekers{jobpost_id}')
@@ -50,9 +57,127 @@ def RecommendSeekers(jobpost_id: int, db: Session = Depends(database.get_db), cu
         # initilize percentage
         # After this percentage is also initilize to 0 value in dictionary but will be updated according to matched between job_seeker's skills and job requirements.
         percentage = 0
+           
+        
+        ########### Percentage Division: ###########
+        ### NOTE According to years of experience
+        seekerExperience_minus_jobRequiredExperience = hired_seeker_who_applied_for_job[no_of_seeker].yearsOfExperience - hired_job_post.minimum_years_of_experience
+        jobRequiredExperience_minus_seekerExperience = hired_job_post.minimum_years_of_experience - hired_seeker_who_applied_for_job[no_of_seeker].yearsOfExperience
+
+        if seekerExperience_minus_jobRequiredExperience == 0 or seekerExperience_minus_jobRequiredExperience == 1:
+            percentage +=  15
+        elif seekerExperience_minus_jobRequiredExperience == 2:
+            percentage +=  20
+        elif seekerExperience_minus_jobRequiredExperience >= 3:
+            percentage +=  25
+        # penalty. if seekerEx is 2 and required is 3 then seeker will be penalized.
+        elif seekerExperience_minus_jobRequiredExperience < 0:
+            percentage -= 10
+
+
+        ### NOTE According to education
+        seekerEducation = hired_seeker_who_applied_for_job[no_of_seeker].education[0].qualification.lower()
+        jobRequiredEducation = hired_job_post.education_required.lower()
+
+        # IF required is "phd"
+        if jobRequiredEducation == "phd":
+            if seekerEducation == "phd":
+                percentage += 25
+            # penalized
+            else:
+                percentage -= 10
+
+        # If required is "masters"
+        if jobRequiredEducation == "masters":
+            if seekerEducation == "masters":
+                percentage += 20
+            elif seekerEducation == "phd":
+                percentage += 25
+            else:
+                percentage -= 10 
+
+        # If required is "bachlors"
+        if jobRequiredEducation == "bachlors":
+            if seekerEducation == "bachlors":
+                percentage += 15
+            elif seekerEducation == "masters":
+                percentage += 20
+            elif seekerEducation == "phd":
+                percentage += 25
+            else:
+                percentage -= 10 
+
+
+        ### NOTE: According to job_level (senior, midlevel , junior, internship)
+        jobRequiredLevel = hired_job_post.job_level.lower()
+        seeker_experience=hired_seeker_who_applied_for_job[no_of_seeker].yearsOfExperience
+        seeker_job_level = ""
+
+        # determine seeker's job_level by seeing seeker_experience
+        if seeker_experience == 0 or seeker_experience == 1.0:
+            seeker_job_level = "junior"
+        elif seeker_experience == 2:
+            seeker_job_level = "midlevel"
+        elif seeker_experience > 2:
+            seeker_job_level = "senior"
+
+        # if required job_level is internship then directly give 25 percentage.
+        if jobRequiredLevel == "internship":
+            percentage += 25
+        
+        # IF required is "senior"
+        if jobRequiredLevel == "senior":
+            if seeker_job_level == "senior":
+                percentage += 25
+            # penalized
+            else:
+                percentage -= 10
+
+        # If required is "midlevel"
+        if jobRequiredLevel == "midlevel":
+            if seeker_job_level == "midlevel":
+                percentage += 20
+            elif seeker_job_level == "senior":
+                percentage += 25
+            else:
+                percentage -= 10 
+
+        # If required is "junior"
+        if jobRequiredLevel == "junior":
+            if seeker_job_level == "junior":
+                percentage += 15
+            elif seeker_job_level == "midlevel":
+                percentage += 20
+            elif seeker_job_level == "senior":
+                percentage += 25
+        
+
+        ### NOTE According to skills
+        # Find out the total number of elements in the skills requried in the job.
+        # Assignmnet the weight by fiding (weight = 25 / number_of_elements_in_skills_required_array)
+        # Jati wota skills match hunxa job required ra seeker ko skills sanga due wota array compare garera. Tete number lai weight le multiply garne.
+        # For eg: number_of_elements_in_skills_required_array 4, weight=25/4=6.25, compare the elements in array of jobRequiredSkills and UserSkills,
+        # if 2 elements matched then 2 * 6.25 = 12.5 will be given to the user.
+        
+        # convert every elements of list to lowercase
+        jobRequiredSkills = list(map(str.lower, hired_job_post.skills))
+        seekerSkills = list(map(str.lower, hired_seeker_who_applied_for_job[no_of_seeker].skills))
+        maximum_marks_from_skills = 25
+        weight = maximum_marks_from_skills / len(jobRequiredSkills)
+
+        # compare two arrays/lists and find out how many of the elements in both lists matches and multiply by weight to find the total marks obtained.
+        common_elements = set(jobRequiredSkills)&set(seekerSkills)
+        number_of_matched_elements = len(common_elements)
+        total_marks = weight * number_of_matched_elements
+        # update percentage
+        percentage += total_marks
+
+        # NOTE NOTE NOTE (ASK) If the seeker_skills and jobRequiredSkills dont match. Then penalize or put percentage to 0.
+        if number_of_matched_elements == 0:
+            percentage *= 0
+        
         dictionary[no_of_seeker+1]["percentage"] = percentage
 
-        # Percentage Division:
-
-
+    # return hired_job_post
+    # return hired_seeker_who_applied_for_job
     return dictionary
