@@ -6,12 +6,13 @@ import UserSideBar from '../../../components/UserSideBar'
 import MCQQuestionCard from './MCQQuestionCard'
 import "./userassesment.css"
 import QuestionCard from './ViewQuestionsCard'
+import { useLocation } from 'react-router-dom';
 
 
 
 function AssesmentQuestions() {
-    // const location = useLocation()
-    // const{name}=location.state
+    const location = useLocation()
+    const{target_field_id}=location.state
     // const{address}=location.state
   return (
     <div>
@@ -31,10 +32,8 @@ function AssesmentQuestions() {
                         <div>TIme:20 mins</div>
                     </Grid>
                 </Grid>
-                <MCQQuestionCard/>
+                <MCQQuestionCard target_field_id={target_field_id}/>
             </Grid>
-
-           
       
       </DashboardLayout>
       

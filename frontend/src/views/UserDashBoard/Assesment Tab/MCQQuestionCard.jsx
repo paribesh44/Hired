@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { questionsdummy } from './dummyfiles/questionsdummy';
 
-import { mcqquestions } from './dummyfiles/mcqquestions';
+// import { mcqquestions } from './dummyfiles/mcqquestions';
 import CustomButton from '../../../components/Buttons';
 import { Link } from 'react-router-dom';
+import callAPI from "../../../utils/callAPI";
+import useAPI from "../../../utils/useAPI";
 
-function MCQQuestionCard() {
+function MCQQuestionCard(props) {
+    const target_field_id = props.target_field_id
     const myArrray=["sdss",, "ddd"]
     const [showFinalResult, setFinalResult]=useState(false);
     const [score, setScore]=useState(0);
@@ -22,6 +25,18 @@ function MCQQuestionCard() {
     //     setcurrentQuestion(0);
         
     // }
+
+    const [mcqquestions, setResult] = useState(null);
+
+    const message = async() => {
+        let response_obj = await callAPI({endpoint: `/mcq/get_id/${target_field_id}`});
+        // console.log(response_obj.data)
+        setResult(response_obj.data);
+    }
+
+    useEffect(() => {
+        message()
+    }, [])
 
     const optionClicked=(isCorrect, id)=>{
         // console.log(isCorrect)
@@ -78,7 +93,7 @@ function MCQQuestionCard() {
       
     }
 
-
+    if (mcqquestions != null) {
   return (
     <div>
         {showFinalResult ?
@@ -101,6 +116,19 @@ function MCQQuestionCard() {
         </div>
 
         :
+
+        // {
+//     "answers": [
+//       "html",
+//       "css",
+//       "js",
+//       "none"
+//     ],
+//     "question": "what is html",
+//     "target_field_id": 1,
+//     "correct_answer": "html",
+//     "id": 1
+//   },
 
          <div className='mcq-main'>
          <div>
@@ -137,6 +165,7 @@ function MCQQuestionCard() {
    
     
   )
+};
 }
 
 export default MCQQuestionCard
