@@ -116,7 +116,7 @@ def populate_mcq():
 def populate_user_asesment():
     for user_asesment_populate in user_assesments:
         print(f"Populating user assesment: {user_asesment_populate}")
-        new_UserAssesment = user_assesment.UserAssesment(score= user_asesment_populate["score"], visibility= user_asesment_populate["visibility"], accessed_date= user_asesment_populate["accessed_date"], 
+        new_UserAssesment = user_assesment.UserAssesment(score= user_asesment_populate["score"], visibility= user_asesment_populate["visibility"], chosen_answers= user_asesment_populate["chosen_answers"], accessed_date= user_asesment_populate["accessed_date"], 
         target_field_id=user_asesment_populate["target_field_id"], seeker_id=user_asesment_populate["seeker_id"])
         db.add(new_UserAssesment)
         db.commit()

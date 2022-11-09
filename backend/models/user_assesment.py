@@ -10,6 +10,7 @@ class UserAssesment(Base):
     id = Column(Integer, primary_key=True, index=True)
     score = Column(Integer, nullable=True)
     visibility = Column(Boolean, default=True)
+    chosen_answers = Column(ARRAY(String), nullable=True)
     accessed_date = Column(DateTime, default=datetime.datetime.utcnow)
 
     target_field_id = Column(Integer,

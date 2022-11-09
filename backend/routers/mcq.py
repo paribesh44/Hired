@@ -42,13 +42,13 @@ def all(db: Session = Depends(database.get_db)):
     MCQs = db.query(mcq.MCQ).all()
     return MCQs
 
-
-@router.get('/get_id/{id}')
-def show(id: int, db: Session = Depends(database.get_db)):
+# , response_model=mcq_schema.MCQShow
+@router.get('/get_id/{target_field_id}')
+def show(target_field_id: int, db: Session = Depends(database.get_db)):
     hired_MCQ = db.query(mcq.MCQ).filter(
-        mcq.MCQ.id == id).first()
+        mcq.MCQ.target_field_id == target_field_id).all()
     if not hired_MCQ:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Job seeker's MCQ with the id {id} is not available")
+                            detail=f"Job seeker's MCQ with the target_field_id {target_field_id} is not available")
     # return {"mcq": hired_MCQ, "target_field_name": hired_MCQ.target_field.name}
     return hired_MCQ
