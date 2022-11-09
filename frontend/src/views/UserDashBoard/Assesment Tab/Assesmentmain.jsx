@@ -12,18 +12,21 @@ import useAPI from "../../../utils/useAPI";
 
 function Assesmentmain() {
   // yo "result" ko value chai "hello" hunxa jaba "setResult()" vitra "hello" xiraye paxi.
-    // const [result, setResult] = useState(null);
+    const [result, setResult] = useState(null);
+    const [recommendedTF, setRecommendedTF] = useState(null);
 
-    // const message = async() => {
-    //     let response_obj = await callAPI({endpoint:"/targetfield/get_all"});
-    //     setResult(response_obj);
-    // }
+    const message = async() => {
+        let response_obj = await callAPI({endpoint:"/targetfield/get_all"});
+        let recommendedTF_obj = await callAPI({endpoint:"/targetfield/recommend_target_field"});
+        setResult(response_obj);
+        setRecommendedTF(recommendedTF_obj.data);
+    }
 
-    // useEffect(() => {
-    //     message()
-    // }, [])
+    useEffect(() => {
+        message()
+    }, [])
     
-    // if (result != null) {
+    if (result != null) {
 
     // const [data] = useAPI({endpoint:"/targetfield/get_all", fire: false});
     return (
@@ -43,21 +46,21 @@ function Assesmentmain() {
             </Link>
         
           <div className='assesment-recommendbox'>
-            <RecommendAssesment/>
+            <RecommendAssesment recommended_target_field={recommendedTF}/>
               
           </div>
 
           <div className='assesment-available'>
             
           <Grid container direction="row" >
-          {assesmentsfile.map((val,key)=>{
-              return(
-                <Grid item className='eachbox' key={key}>
-                <CardAssesment name={val.name} type="MCQ" time="20 min" languages={val.languages} difficulty="Easy"/>
-                </Grid>            
-              
-              )
-            })}
+            {result.data.map((val,key)=>{
+                return(
+                  <Grid item className='eachbox' key={key}>
+                  <CardAssesment id={val.id} name={val.name} type="MCQ" time="20 min" languages={val.languages} difficulty="Easy"/>
+                  </Grid>            
+                
+                )
+              })}
                 </Grid>       
 
           </div>
@@ -67,6 +70,6 @@ function Assesmentmain() {
         
       </div>
     )
-  // }
+  }
 }
 export default Assesmentmain

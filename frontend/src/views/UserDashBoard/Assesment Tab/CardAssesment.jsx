@@ -7,10 +7,9 @@ import { Link } from "react-router-dom";
 function CardAssesment(props) {
   return (
     <div>
-        {/* {console.log(data)} */}
-         <Link to ="/Assesment/AssesmentQuestions" state={{name:"aaa", address:"bbb"}}className='assesment-link'>
+         <Link to ="/Assesment/AssesmentQuestions" state={{target_field_id: props.id}} className='assesment-link'>
+        
         <div className='cardassesment-main'>
-       
 
         
         <Grid container direction="row" justifyContent={"space-between"} >
@@ -29,9 +28,12 @@ function CardAssesment(props) {
      
 
         </Grid>
-       
         <div>
-            {props.languages}
+            {
+            props.languages.map(function(item, index) {
+                return <span key={`demo_snap_${index}`}>{ (index ? ', ' : '') + item }</span>;
+            })
+            }
         </div>
 
 
