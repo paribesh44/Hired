@@ -5,7 +5,14 @@ import UserSideBar from '../../../components/UserSideBar'
 import { Grid, IconButton } from "@mui/material";
 import ViewQuestionsCard from './ViewQuestionsCard';
 
+
 function ViewAssesment() {
+    const location = useLocation()
+    const{target_field_id}=location.state
+    const{user_assesment_id}=location.state
+    const{score}=location.state
+    const{visibility}=location.state
+    console.log(visibility)
   return (
     <div>
         <UserNavbarIn/>
@@ -22,17 +29,17 @@ function ViewAssesment() {
                     <Grid container direction="row" justifyContent="space-between">
                         <Grid item>
                         <div className='assesmentquestions-heading'> Name of the Assesment</div>
-                        <div> Marks Obtained: 5/10</div>
+                        <div> Marks Obtained: {score} / 20</div>
                         </Grid>
                         <Grid item className='asses-subheading'>
-                            <div> Type: Multiple CHoice</div>
+                            <div>Type: Multiple Choice</div>
                             <div>Difficulty : Easy</div>
                             <div>Finished in: 20 mins</div>
-                            <div> Status: Hidden</div>
+                            <div>Status: {visibility ? "Show": "Hidden"}</div>
 
                         </Grid>
                     </Grid>
-                    <ViewQuestionsCard/> 
+                    <ViewQuestionsCard target_field_id={target_field_id} user_assesment_id={user_assesment_id}/> 
                 </Grid>
             </Grid>
 

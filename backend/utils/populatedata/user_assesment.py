@@ -9,7 +9,7 @@ user_assesments: List[Json] = [
         "accessed_date": datetime.utcnow(),
         "target_field_id": 1, 
         "seeker_id": 1,
-        "chosen_answers": ["html", "js"]
+        "chosen_answers": ["html", "js", "js"]
     },
     {
         "score": 20,
@@ -17,7 +17,7 @@ user_assesments: List[Json] = [
         "accessed_date": datetime.utcnow(),
         "target_field_id": 2, 
         "seeker_id": 1,
-        "chosen_answers": ["css", "jsx"]
+        "chosen_answers": ["css", "jsx", "html"]
     },
     {
         "score": 10,
@@ -25,7 +25,7 @@ user_assesments: List[Json] = [
         "accessed_date": datetime.utcnow(),
         "target_field_id": 1, 
         "seeker_id": 2,
-        "chosen_answers": ["html", "js"]
+        "chosen_answers": ["html", "js", "css"]
     },
     {
         "score": 14,
@@ -33,6 +33,6 @@ user_assesments: List[Json] = [
         "accessed_date": datetime.utcnow(),
         "target_field_id": 2, 
         "seeker_id": 2,
-        "chosen_answers": ["ml", "dl"]
+        "chosen_answers": ["ml", "dl", "ai"]
     }
 ]

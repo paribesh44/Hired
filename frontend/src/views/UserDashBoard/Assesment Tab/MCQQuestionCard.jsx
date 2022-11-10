@@ -29,8 +29,8 @@ function MCQQuestionCard(props) {
     const [mcqquestions, setResult] = useState(null);
 
     const message = async() => {
-        let response_obj = await callAPI({endpoint: `/mcq/get_id/${target_field_id}`});
-        // console.log(response_obj.data)
+        let response_obj = await callAPI({endpoint: `/mcq/get_mcq/${target_field_id}`});
+        console.log(response_obj.data)
         setResult(response_obj.data);
     }
 
@@ -75,7 +75,7 @@ function MCQQuestionCard(props) {
         // setlistofselected( [selectedans,...listofselected] )
         // console.log(listofselected)
         
-        if (currentQuestion+1< mcqquestions.length){
+        if (currentQuestion+1< mcqquestions.mcq.length){
             setcurrentQuestion(currentQuestion+1);
 
         }
@@ -104,7 +104,7 @@ function MCQQuestionCard(props) {
                 <div className='mcqcompletesub'>
                     Name of the assesment
                 </div>
-        <div> {score}/{mcqquestions.length} correct</div>
+        <div> {score}/{mcqquestions.mcq.length} correct</div>
         <Link to="/UserAssesment">
         <CustomButton addStyles={"accept-button"} name="Finish" 
         onClicked={()=>FinishClicked()}
@@ -117,31 +117,18 @@ function MCQQuestionCard(props) {
 
         :
 
-        // {
-//     "answers": [
-//       "html",
-//       "css",
-//       "js",
-//       "none"
-//     ],
-//     "question": "what is html",
-//     "target_field_id": 1,
-//     "correct_answer": "html",
-//     "id": 1
-//   },
-
          <div className='mcq-main'>
          <div>
          <div className='mcq-number'>
-             Question {currentQuestion +1}/{mcqquestions.length}
+             Question {currentQuestion +1}/ {mcqquestions.mcq.length}
          </div>
-         <div className='mcq-question'> {mcqquestions[currentQuestion].question}</div>
+         <div className='mcq-question'> {mcqquestions.mcq[currentQuestion].question}</div>
          
          <ul className='mcq-unordered'>
-             {mcqquestions[currentQuestion].answers.map((option)=>{
+             {mcqquestions.mcq[currentQuestion].answers.map((option)=>{
                  return(
                      <li 
-                     onClick={()=>optionClicked(option, mcqquestions[currentQuestion].target_field_id)}
+                     onClick={()=>optionClicked(option, mcqquestions.mcq[currentQuestion].target_field_id)}
                      key={option}>
                          {option}
                      </li>

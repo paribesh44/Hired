@@ -53,11 +53,12 @@ def all(db: Session = Depends(database.get_db), current_user: user.User = Depend
 
 
 # , response_model=schemas.job_post
-@router.get('/get_id/{id}')
-def show(id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+@router.get('/get_job_post/{job_post_id}')
+def show(job_post_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     hired_job_post = db.query(job_post.JobPost).filter(
-        job_post.JobPost.id == id).first()
+        job_post.JobPost.id == job_post_id).first()
     if not hired_job_post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker's job_post with the id {id} is not available")
-    return {"Job Post": hired_job_post, "user": hired_job_post.employer.user.email, "seeker": hired_job_post.employer.companyName}
+    # return {"Job Post": hired_job_post, "user": hired_job_post.employer.user.email, "seeker": hired_job_post.employer.companyName}
+    return hired_job_post
