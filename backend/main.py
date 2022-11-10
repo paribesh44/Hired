@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from routers import (
     recommendation_jobs, user, authentication, google_authentication, email_verification, seeker, 
-    employer, experience, preference, mcq, target_field, user_assesment, 
+    employer, experience, preference, mcq, target_field, user_assesment, job_post,
     cvmaker, recommendation_seeker
     )
 from core import database
@@ -41,6 +41,7 @@ app.include_router(user.router)
 app.include_router(email_verification.router)
 app.include_router(seeker.router)
 app.include_router(employer.router)
+app.include_router(job_post.router)
 app.include_router(experience.router)
 app.include_router(preference.router)
 app.include_router(mcq.router)

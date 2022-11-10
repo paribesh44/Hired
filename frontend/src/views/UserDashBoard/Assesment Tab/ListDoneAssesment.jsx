@@ -1,10 +1,24 @@
 import { Grid } from '@mui/material'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ContainerBox from '../../../components/ContainerBox'
 import UserNavbarIn from '../../../components/UserNavbarIn'
 import UserSideBar from '../../../components/UserSideBar'
+import callAPI from "../../../utils/callAPI";
 
 function ListDoneAssesment() {
+  const [user_assesments, setResult] = useState(null);
+
+    const message = async() => {
+        let response_obj = await callAPI({endpoint:"/userAssesment/get_user_assesment_current_user"});
+        setResult(response_obj);
+    }
+
+    useEffect(() => {
+        message()
+    }, [])
+  
+  if (user_assesments != null) {
+
   return (
     <div>
 
@@ -21,8 +35,19 @@ function ListDoneAssesment() {
         <div className='assesmentmain-subheading'>
             List of all the assesments that you have attempted.
         </div>
-        
-        <ContainerBox/>
+
+        <Grid>
+          {user_assesments.data.map((val,key)=>{
+                return(
+                  <Grid item key={key}>
+                    <ContainerBox user_assesment={val}/>
+                  </Grid>            
+                
+                )
+              })}
+        </Grid>
+
+      
 
 
             </Grid>
@@ -38,6 +63,7 @@ function ListDoneAssesment() {
 
     
   )
+  }
 }
 
 export default ListDoneAssesment

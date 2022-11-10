@@ -6,7 +6,7 @@ import "./ContainerBox.css"
 import SkillContainer from './SkillContainer'
 
 
-function ContainerBox() {
+function ContainerBox(props) {
   return (
     <div className='containerboxmain'>
         <Grid container direction="row" justifyContent="space-between">
@@ -26,7 +26,7 @@ function ContainerBox() {
            
                 </Grid>
                 <Grid item>
-                    878789009
+                    {props.user_assesment.accessed_date}
                 </Grid>
 
             </Grid>
@@ -38,7 +38,7 @@ function ContainerBox() {
            
                 </Grid>
                 <Grid item>
-                    18/20
+                    {props.user_assesment.score} / 20
                 </Grid>
 
             </Grid>
@@ -46,14 +46,18 @@ function ContainerBox() {
             <Grid container direction="row">
                 <Grid item className='containersub'>
              
-                Display Status: 
+                Visibility: 
            
                 </Grid>
 
                 <Grid item>
               <select components={{ DropdownIndicator:() => null }} className='status-buttonassesment'>
-                <option value="Ready"> Hide</option>
-                <option value="Open"> Show</option>
+                <option value={false}> Hide</option>
+                <option value={true}> Show</option>
+
+                {/* Backend bata aayeko Visibility true xa vane SHow vanera tyo dropdown ma lekne. */}
+                {/* Dropdown change vaye paxi backend bata update api call garera visibility change garne. */}
+                
 
                 
 
@@ -76,7 +80,7 @@ function ContainerBox() {
             </Grid>
 
             <Grid item>
-                <Link to="/Assesment/ViewAssesment">
+                <Link to="/Assesment/ViewAssesment"  state={{target_field_id: props.user_assesment.target_field_id, user_assesment_id: props.user_assesment.id, score: props.user_assesment.score, visibility: props.user_assesment.visibility}}  className='assesment-link'>
                     
                 
                 <CustomButton addStyles={"accept-button"} name="View Assesment"></CustomButton>

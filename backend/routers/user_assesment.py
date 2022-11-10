@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from schemas import user_assesment_schema
 
-from models import user_assesment, user, mcq
+from models import user_assesment, user, mcq, seeker
 from core import database, oauth2
 from sqlalchemy.orm import Session
 from forms import userAssesmentForm
@@ -65,6 +65,20 @@ def update(id: int, schema:user_assesment_schema.UserAssesment, db: Session = De
     db.commit()
     return 'updated'
 
+# change visibility of the assesment
+@router.put("update_visibility/{user_assesment_id}")
+def update_visibility(id:int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    update_UserAssesment = db.query(user_assesment.UserAssesment).filter(
+        user_assesment.UserAssesment.id == id)
+
+    if not update_UserAssesment.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User Assesment with id {id} not found")
+
+    update_UserAssesment.update({"visibility": False})
+    db.commit()
+    return update_UserAssesment
+
 
 # , response_model=List[schemas.ShowUserAssesment]
 @router.get('/get_all')
@@ -83,3 +97,11 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
                             detail=f"User Assesment with the id {id} is not available")
     return {"user_assesment": hired_UserAssesment, "target_field": hired_UserAssesment.target_field, "seeker": hired_UserAssesment.seeker, "mcq": hired_UserAssesment.target_field.mcq}
     # return hired_UserAssesment
+
+# get user assesment of the current login user
+@router.get("/get_user_assesment_current_user")
+def user_assesment_current_user(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    hired_UserAssesment = db.query(user_assesment.UserAssesment).filter(
+        user_assesment.UserAssesment.seeker_id == current_user.seeker[0].id).all()
+
+    return hired_UserAssesment

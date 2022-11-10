@@ -1,8 +1,8 @@
 """cleandb
 
-Revision ID: c3de38d07b1d
+Revision ID: c93f6e610676
 Revises: 
-Create Date: 2022-11-08 09:59:35.114882
+Create Date: 2022-11-10 16:30:29.730099
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c3de38d07b1d'
+revision = 'c93f6e610676'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -154,6 +154,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('score', sa.Integer(), nullable=True),
     sa.Column('visibility', sa.Boolean(), nullable=True),
+    sa.Column('chosen_answers', sa.ARRAY(sa.String()), nullable=True),
     sa.Column('accessed_date', sa.DateTime(), nullable=True),
     sa.Column('target_field_id', sa.Integer(), nullable=True),
     sa.Column('seeker_id', sa.Integer(), nullable=True),
