@@ -29,7 +29,7 @@ function UserHomeTab() {
   ];
   return (
     <DashboardLayout>
-      <Grid container  direction="column">
+      <Grid container  direction="column"  className='assesmentmain-main'>
         <Grid item className='userhomemtitle'>
           Recommended Jobs
         </Grid>

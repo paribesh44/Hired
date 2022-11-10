@@ -7,28 +7,28 @@ import {MdEventNote} from 'react-icons/md';
  export const usersidebardata=[
     {
         title:"Home",
-        icon:   <MdHome size={45}/>,
+        icon:   <MdHome size={38}/>,
         selected:true,
 
         link:"/UserHomeTab"
     },
     {
         title:"History",
-        icon:   <MdOutlineHistory size={45}/>,
+        icon:   <MdOutlineHistory size={38}/>,
         selected:false,
 
         link:"/UserHistory"
     },
     {
         title:"Saved",
-        icon:   <IoMdBookmark size={45}/>,
+        icon:   <IoMdBookmark size={38}/>,
         selected:false,
 
-        link:"/ApplyJob"
+        link:"/UserSaved"
     },
     {
         title:"Assesment",
-        icon:   <MdEventNote size={45} />,
+        icon:   <MdEventNote size={38} />,
         selected:false,
 
         link:"/UserAssesment"

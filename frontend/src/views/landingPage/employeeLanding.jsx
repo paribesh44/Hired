@@ -126,6 +126,7 @@ const EmployeeLanding = () => {
                       jobName={job.jobName}
                       timeElapsed={job.timeElapsed}
                       location={job.location}
+                      state={true}
                     ></FeaturedBox>
                   ))}
                 </Grid>

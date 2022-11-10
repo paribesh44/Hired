@@ -1,0 +1,58 @@
+.searchbymain{
+    border: 1px solid black;
+    margin: 50px 30px;
+ 
+}
+.appliedhomemain{
+    padding: 60px 0px 40px 40px;
+    width: 100;
+    border: 1px solid black;
+    
+ 
+}
+.searchbyspacing{
+    padding-right: 10px;
+    background-color: #EBEFF5 ;
+    padding: 10px 40px 10px 15px;
+    border-radius: 8px;
+    height: 80vh;
+    border: 1px solid black;
+
+}
+
+
+
+.searchbysub{
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 6px;
+    padding-top: 5px;
+}
+
+.searchbyeach{
+    padding-bottom: 3px;
+    padding-left: 3px;
+}
+
+.appliedlistmain{
+    margin-left: 70px;
+}
+
+.single_applicant{
+    border: 1px solid black;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 8px;
+    padding: 30px ;
+}
+
+.appliedlisttopic{
+    font-size: 17px;
+
+}
+
+.appliedlisttext{
+    font-size: 17px;
+    font-weight: 500;
+
+}

@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import Image from "./Image";
 import Button from "./Buttons";
 import "./featureBox.css";
-import Profile from "../assets/Solid_black.png";
+import dummylogo2 from "../assets/dummylogo2.png";
 
 function Featured_box({
   company,
@@ -12,6 +12,7 @@ function Featured_box({
   timeElapsed,
   onClicked,
   location,
+  state
 
 }) {
   return (
@@ -25,7 +26,7 @@ function Featured_box({
           className="company_name"
         >
           <Grid item className="profileContainer">
-            <Image src={Profile} addStyles="profile" />
+            <Image src={dummylogo2 } addStyles="profile" />
           </Grid>
           <Grid item>
             <Grid container direction="column">
@@ -73,10 +74,13 @@ function Featured_box({
                 <a className="posttime">Posted: {timeElapsed}</a>
               </Grid>
               <Grid item className="buttonBox">
-                <Button name="Save" addStyles="button_a"></Button>
+                <Button name="Apply" addStyles="button_a"></Button>
               </Grid>
               <Grid item>
-                <Button name="Apply" addStyles="button_a"></Button>
+                {state  &&  <Button name="Save" addStyles="button_a"></Button>}
+
+                {!state  &&  <Button name="Unsave" addStyles="button_a"></Button>}
+
               </Grid>
             </Grid>
           </Grid>

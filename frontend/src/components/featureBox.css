@@ -7,19 +7,19 @@
 
 }
 .profileContainer{
-width: 50px;
+  width: 50px;
   height: 50px;
-  margin: 10px;
-}
-.profile {
-  border-radius: 10px;
-
-
-}
-.company_name{
+  margin: 20px;
  
 }
+.profile {
+  border-radius: 8px;
+
+
+}
+
 .companyname{
+  padding-left: 20px;
   padding: 10px;
 }
 .description{
@@ -41,13 +41,13 @@ width: 50px;
 }
 .button_a{
     min-width: 80px;
-    height: 25px;
+    height: 30px;
     outline: none;
     background: none;
     border: 2px solid #495c83;
     border-radius: 5px;
-    padding: 0 20px 0 20px;
-    font-size: 0.8em;
+    padding: 0px 20px 0px 20px;
+    font-size: 0.9em;
     font-weight: 500;
     color: #495c83;
 

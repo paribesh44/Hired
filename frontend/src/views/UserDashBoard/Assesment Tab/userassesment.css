@@ -1,10 +1,15 @@
 .assesmentmain-main{
     padding:62px 30px 30px 0px;
     width: 100%;
-    height:100%;
+    /* height:100%; */
+    /* border:1px solid black; */
 }
 
+.userassesment{
+    border:1px solid black;
 
+
+}
 
 .assesmentmain-heading{
     font-size: 23px;
@@ -42,11 +47,12 @@
     .cardassesment-main{
         padding: 15px ;    
         width:270px;
-        height:140px;
+        height:170px;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 2px 1px rgba(0,0,0,.2);
         border-color: red; 
+        position: relative;
        }
 
     .status-icon{
@@ -56,15 +62,14 @@
     }
 
     .card-buttom{
-        padding-top: 35px;
+        top:160px;
+        position: absolute;
+
     }
 
     .card-buttomicon{
         padding-top: 5px;
-        margin: 0px;
         font-size: 19px;
-
-
     }
 
     .typeofasses{
@@ -75,12 +80,11 @@
     .nameofasses{
         font-weight: 500;
         font-size: 18px;
+
     }
+   
 
-.assesment-available{
-    width:1180px;
 
-}
 .eachbox{
     padding: 20px 40px 20px 0px;
 

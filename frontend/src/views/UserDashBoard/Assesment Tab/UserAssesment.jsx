@@ -10,13 +10,13 @@ function UserAssesment() {
   return (
     <div>
       <DashboardLayout>
-      <Grid item>
-                <div className='userassesment-main'>
+      <Grid container>
+                <Grid item className='userassesment-main'>
                 <Assesmentmain/>
                 {/* <ListDoneAssesment/> */}
                     
 
-                </div>
+                </Grid>
                 
             </Grid>
 

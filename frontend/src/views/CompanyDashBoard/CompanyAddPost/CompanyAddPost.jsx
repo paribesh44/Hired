@@ -1,5 +1,5 @@
 import React from 'react'
-import CompanyNavbarIn from '../../components/CompanyNavbarIn'
+import CompanyNavbarIn from '../../../components/CompanyNavbarIn'
 
 function CompanyAddPost() {
   return (
