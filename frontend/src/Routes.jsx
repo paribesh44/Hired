@@ -5,8 +5,9 @@ import ConfirmProfile from "./views/BuildProfile/ConfirmProfile";
 import CompanyLanding from "./views/landingPage/companyLanding";
 import EmployeeLanding from "./views/landingPage/employeeLanding";
 import Login from "./views/logIn/login";
-
 import Signup from "./views/signUp/signup";
+import EmployeeProfile from "./views/profile/employeeProfile";
+import CompanyProfile from "./views/profile/companyProfile";
 import CompanyHome from "./views/CompanyDashBoard/CompanyHome";
 import CompanyApplied from "./views/CompanyDashBoard/Applied Tab/CompanyApplied";
 import CompanyAddPost from "./views/CompanyDashBoard/CompanyAddPost";
@@ -34,6 +35,8 @@ const Routedpath = () => {
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
       <Route path="/Login" element={<Login />}></Route>
       <Route path="/Signup" element={<Signup />}></Route>
+      <Route path="/EmployeeProfile" element={<EmployeeProfile />}></Route>
+      <Route path="/CompanyProfile" element={<CompanyProfile />}></Route>
       <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/CompanyApplied" element={<CompanyApplied />}></Route>
       <Route path="/CompanyAddPost" element={<CompanyAddPost />}></Route>

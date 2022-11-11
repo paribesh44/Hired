@@ -84,6 +84,22 @@ const Login = () => {
           <Image src={loginC}></Image>
         </Grid>
       </Grid>
+      <Grid item>
+        <Link
+          to="/EmployeeProfile"
+          style={{ textDecoration: "none", color: "#495c83" }}
+        >
+          <p>Employee Profile</p>
+        </Link>
+      </Grid>
+      <Grid item>
+        <Link
+          to="/CompanyProfile"
+          style={{ textDecoration: "none", color: "#495c83" }}
+        >
+          <p>Company Profile</p>
+        </Link>
+      </Grid>
     </Grid>
   );
 };

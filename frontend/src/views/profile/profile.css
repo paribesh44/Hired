@@ -1,0 +1,93 @@
+.profile {
+  font-size: 1.8rem;
+  margin-top: 2em !important;
+  font-weight: 500;
+}
+.view {
+  margin-top: 1em !important;
+}
+.profileContainer1 {
+  display: flex;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.profileContainer1 > img {
+  height: 8em;
+  width: 8em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.name {
+  margin-left: 3em;
+}
+.name > h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+.form {
+  margin-top: 3em;
+}
+
+.form .field {
+  margin: 1.1em 0 !important;
+}
+.roles {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 0;
+}
+.roles_container {
+  display: flex;
+  align-items: center;
+  margin: 2em 0;
+}
+.roles_container > .role {
+  padding: 0.5em 2em;
+  background-color: #ebeff550;
+  margin-right: 6em;
+  border-radius: 6px;
+}
+.select_roles {
+  width: 25rem;
+}
+
+.role_container1 {
+  margin-bottom: 3em;
+}
+.save_changes {
+  width: fit-content;
+  outline: none;
+  background: none;
+  border: 2px solid #495c83;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #495c83;
+  margin: 7em auto;
+}
+.save_changes:hover {
+  background-color: #495c83;
+  color: #ffff;
+}
+
+.field_container {
+  margin-bottom: 2em;
+}
+
+.main_container{
+
+padding:0 20em;
+}
+.vision{
+  margin: 1em;
+}
+.vision>p{
+  display: flex;
+  padding: 2em;
+  font-size: 0.8em;
+  background-color: #EBEFF550;
+}
