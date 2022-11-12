@@ -4,17 +4,31 @@ import "./saved.css"
 import { Grid, IconButton } from "@mui/material";
 
 
-function ApplyJobDetailed() {
+function ApplyJobDetailed({job_post}) {
+
+  function capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   return (
     <div className='jobapplieddetailed-main'>
+      <div className="jobapplieddetailedwhole">
+      <div className='jobdetailedheading'>
+        About Job
+      </div>
+      <div className='jobdetaileddesc'>
+        {job_post.description}
+        </div>
+
+      </div>
+
       <div className="jobapplieddetailedwhole">
       <div className='jobdetailedheading'>
         About Company
       </div>
       <div className='jobdetaileddesc'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente repudiandae amet temporibus repellendus nisi itaque ad. Accusamus voluptate nisi explicabo nostrum asperiores nemo, nam consequatur libero consequuntur sunt temporibus voluptatum.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, consequatur! Consectetur veniam quae qui labore sapiente vitae reprehenderit laboriosam consequatur fugiat necessitatibus officiis odio, aperiam voluptatibus id eveniet sequi error!
-      </div>
+        {job_post.employer.description}
+        </div>
 
       </div>
 
@@ -24,11 +38,9 @@ function ApplyJobDetailed() {
         Responsibilities
       </div>
       <div className='jobdetaileddesc'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente repudiandae amet temporibus repellendus nisi itaque ad. Accusamus voluptate nisi explicabo nostrum asperiores nemo, nam consequatur libero consequuntur sunt temporibus voluptatum.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, consequatur! Consectetur veniam quae qui labore sapiente vitae reprehenderit laboriosam consequatur fugiat necessitatibus officiis odio, aperiam voluptatibus id eveniet sequi error!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, obcaecati quidem mollitia iusto nam qui voluptatibus culpa exercitationem repellat saepe iure dolorem quia inventore incidunt atque possimus ipsam optio ea?
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, repellat! Impedit amet vitae sit esse ipsam, perferendis earum necessitatibus voluptatem maiores repudiandae expedita. Hic deserunt, est provident ipsam maiores laboriosam?
-
+        {job_post.job_responsibilities.map((val, key) => {return (
+                <div key={val}>{"->"} {val}.</div>
+              );})}
       </div>
 
       </div>
@@ -38,11 +50,9 @@ function ApplyJobDetailed() {
         Job Benefits
       </div>
       <div className='jobdetaileddesc'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente repudiandae amet temporibus repellendus nisi itaque ad. Accusamus voluptate nisi explicabo nostrum asperiores nemo, nam consequatur libero consequuntur sunt temporibus voluptatum.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, consequatur! Consectetur veniam quae qui labore sapiente vitae reprehenderit laboriosam consequatur fugiat necessitatibus officiis odio, aperiam voluptatibus id eveniet sequi error!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, obcaecati quidem mollitia iusto nam qui voluptatibus culpa exercitationem repellat saepe iure dolorem quia inventore incidunt atque possimus ipsam optio ea?
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, repellat! Impedit amet vitae sit esse ipsam, perferendis earum necessitatibus voluptatem maiores repudiandae expedita. Hic deserunt, est provident ipsam maiores laboriosam?
-        
+        {job_post.job_benefits.map((val, key) => {return (
+                <div key={val}>{"->"} {val}.</div>
+              );})} 
       </div>
 
       </div>
@@ -53,11 +63,11 @@ function ApplyJobDetailed() {
       </div>
       <div className='jobdetailedpoints'>
       <Grid container  direction="row" className="profiletab-desc">
-                        <Grid item >
-                            <SkillContainer name="Role One"/>  
-                             </Grid> 
-                        <Grid item> <SkillContainer name="Role Two"></SkillContainer></Grid> 
-                    </Grid>        
+        {job_post.skills.map((val, key) => {return (
+                <Grid item key={val}><SkillContainer name={capitalize(val)}/></Grid>
+              );})} 
+          
+      </Grid>
       </div>
       </div>
 
@@ -66,7 +76,7 @@ function ApplyJobDetailed() {
         Minimum Educational Requirement
       </div>
       <div className='jobdetaileddesc'>
-        Undergraduate in thisthisthis
+        {capitalize(job_post.education_required)} in Computer Science.
       </div>
 
       </div>
@@ -74,15 +84,11 @@ function ApplyJobDetailed() {
 
       <div className="jobapplieddetailedwhole">
       <div className='jobdetailedheading'>
-        Minimum Experience
+        Minimum year of experience
       </div>
       <div className='jobdetaileddesc'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente repudiandae amet temporibus repellendus nisi itaque ad. Accusamus voluptate nisi explicabo nostrum asperiores nemo, nam consequatur libero consequuntur sunt temporibus voluptatum.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, consequatur! Consectetur veniam quae qui labore sapiente vitae reprehenderit laboriosam consequatur fugiat necessitatibus officiis odio, aperiam voluptatibus id eveniet sequi error!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, obcaecati quidem mollitia iusto nam qui voluptatibus culpa exercitationem repellat saepe iure dolorem quia inventore incidunt atque possimus ipsam optio ea?
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, repellat! Impedit amet vitae sit esse ipsam, perferendis earum necessitatibus voluptatem maiores repudiandae expedita. Hic deserunt, est provident ipsam maiores laboriosam?
-        
-      </div>
+        {job_post.minimum_years_of_experience}
+        </div>
 
       </div> 
 
@@ -90,8 +96,9 @@ function ApplyJobDetailed() {
       <div className='jobdetailedheading'>
         Salary
       </div>
+      {/* {job_post.remote_onsite === "remote" ? } */}
       <div className='jobdetaileddesc'>
-          Negotiable        
+          {job_post.max_salary} - {job_post.min_salary}
       </div>
 
       </div>
@@ -107,7 +114,7 @@ function ApplyJobDetailed() {
               </Grid>
 
               <Grid item >
-              <div className='jobdetaileddesc'> 0202020202:</div> 
+              <div className='jobdetaileddesc'> {job_post.deadline}</div> 
                 </Grid> 
 
             </Grid>
@@ -116,11 +123,11 @@ function ApplyJobDetailed() {
                 <Grid item >
             <Grid container direction="column">
               <Grid item>
-              <div className='jobdetailedheading'> Earliest Job Start Date:</div> 
+              <div className='jobdetailedheading'> Job Start Date:</div> 
               </Grid>
 
               <Grid item >
-              <div className='jobdetaileddesc'> 0202020202:</div> 
+              <div className='jobdetaileddesc'> {job_post.job_start_date}</div> 
                 </Grid> 
 
             </Grid>
@@ -134,7 +141,7 @@ function ApplyJobDetailed() {
             Work Hours:
           </div>
           <div className='jobdetaileddesc'>
-              10-5 daily for 5 days per week        
+              {job_post.work_hours} daily for 5 days per week        
           </div>
 
       </div>

@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from routers import (
     recommendation_jobs, user, authentication, google_authentication, email_verification, seeker, 
     employer, experience, preference, mcq, target_field, user_assesment, job_post,
-    cvmaker, recommendation_seeker
+    cvmaker, recommendation_seeker, save_job
     )
 from core import database
 from starlette.middleware.sessions import SessionMiddleware
@@ -47,6 +47,7 @@ app.include_router(preference.router)
 app.include_router(mcq.router)
 app.include_router(target_field.router)
 app.include_router(user_assesment.router)
+app.include_router(save_job.router)
 app.include_router(cvmaker.router)
 app.include_router(recommendation_jobs.router)
 app.include_router(recommendation_seeker.router)

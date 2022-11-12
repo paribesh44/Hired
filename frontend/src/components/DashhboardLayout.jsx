@@ -19,7 +19,7 @@ const DashboardLayout = ({
         {leftbar}
       </Grid>
 
-      <Grid sm={12} item className="dashboardLayout_mainArea">
+      <Grid sm={8} item className="dashboardLayout_mainArea">
         {children}
       </Grid>
       {/* <Grid sm={3} item className="dashboardLayout_profileBar">

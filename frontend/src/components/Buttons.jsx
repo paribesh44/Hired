@@ -8,6 +8,7 @@ const CustomButton = ({
   addStyles,
   onClicked,
   iconbutton,
+  type,
   ...rest
 }) => {
   return (
@@ -17,8 +18,10 @@ const CustomButton = ({
       onClick={onClicked}
       iconbutton={IconButton}
       {...rest}
+      type = {type==="submit" ? "submit": "button"}
     >
       {name}
+  
     </button>
   );
 };

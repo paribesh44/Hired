@@ -55,6 +55,17 @@
         position: relative;
        }
 
+    .already-not-done {
+        padding: 15px;
+        width: 270px;
+        height: 170px;
+        background-color: grey;
+        border-radius: 8px;
+        box-shadow: 0 2px 2px 1px rgba(0, 0, 0, .2);
+        border-color: red;
+        position: relative;
+    }
+
     .status-icon{
         margin-right:auto;
         color:rgba(235, 235, 116, 0.838);
@@ -209,4 +220,34 @@
 
 .mcqcompletesub{
     text-align: center;
+}
+
+.assesmentstart-heading {
+    font-size: 23px;
+    font-weight: 500;
+    padding: 60px 0px 10px 0px;
+}
+
+.startasseshead {
+    font-size: 21px;
+    font-weight: 500;
+
+}
+
+.startabout {
+    padding-top: 8px;
+    padding-bottom: 10px;
+}
+
+.startfield {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.starttext {
+    font-size: 18px;
+}
+
+.startspacing {
+    padding-bottom: 6px;
 }

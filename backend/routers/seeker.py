@@ -41,7 +41,7 @@ async def createSeekerProfile(form: jobSeekerForm.JobSeekerForm = Depends(), db:
         name=form.name, age=form.age, address=form.address, contactNumber=form.contact_number, write_about_you=form.write_about_you,
         yearsOfExperience=form.years_of_experience,  skills=form.skills,  linkedIn=form.linkedIn,
         website=form.website,  cv=pdf_file_location,  githubProfile=form.github_profile,
-        profilePhoto=profile_picture_file_location,  drivingLicenseNum=form.driving_license_num, last_job_applied=form.last_job_applied, user_id=current_user.id)
+        profilePhoto=profile_picture_file_location,  drivingLicenseNum=form.driving_license_num, last_job_applied=form.last_job_applied, status=form.status, user_id=current_user.id)
 
     db.add(new_seeker)
     db.commit()
@@ -102,13 +102,13 @@ def all(db: Session = Depends(database.get_db), current_user: user.User = Depend
 
 
 # , response_model=schemas.Seeker
-@router.get('/get_id/{id}')
-def show(id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+@router.get('/get_seeker/{id}', response_model=List[seeker_schema.ShowSeeker])
+def show(id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     hired_seeker = db.query(seeker.Seeker).filter(
-        seeker.Seeker.id == id).first()
+        seeker.Seeker.id == id).all()
     if not hired_seeker:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Sekeer with the id {id} is not available")
     # , "experience": hired_seeker.experience[0].workPlace
-    return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user, "user_assesment": hired_seeker.userAssesment}
-    # return seeker
+    # return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user, "user_assesment": hired_seeker.userAssesment}
+    return hired_seeker

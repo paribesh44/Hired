@@ -59,7 +59,7 @@ function Assesmentmain() {
                     type="MCQ"
                     time="20 min"
                     languages={val.languages}
-                    difficulty="Easy"
+                    difficulty={val.difficulty}
                   />
                 </Grid>
               );

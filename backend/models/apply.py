@@ -1,5 +1,3 @@
-from email.policy import default
-from telnetlib import STATUS
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, null
 from core.database import Base
 from sqlalchemy.orm import relationship

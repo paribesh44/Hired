@@ -19,7 +19,8 @@ seekers: List[Json] = [
         "profilePhoto": None,
         "drivingLicenseNum": None,
         "last_job_applied": None,
-        "user_id": 1
+        "user_id": 1,
+        "status": "Ready to Interview"
     },
     {
         "name": "Job seeker2",
@@ -37,6 +38,7 @@ seekers: List[Json] = [
         "profilePhoto": None,
         "drivingLicenseNum": None,
         "last_job_applied": None,
-        "user_id": 2
+        "user_id": 2,
+        "status": "Ready to Interview"
     }
 ]

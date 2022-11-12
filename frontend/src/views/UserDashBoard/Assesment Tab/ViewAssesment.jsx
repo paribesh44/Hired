@@ -12,7 +12,9 @@ function ViewAssesment() {
     const{user_assesment_id}=location.state
     const{score}=location.state
     const{visibility}=location.state
+    const{difficulty}=location.state
     console.log(visibility)
+    console.log(difficulty)
   return (
     <div>
         <UserNavbarIn/>
@@ -33,7 +35,7 @@ function ViewAssesment() {
                         </Grid>
                         <Grid item className='asses-subheading'>
                             <div>Type: Multiple Choice</div>
-                            <div>Difficulty : Easy</div>
+                            <div>Difficulty : {difficulty}</div>
                             <div>Finished in: 20 mins</div>
                             <div>Status: {visibility ? "Show": "Hidden"}</div>
 
