@@ -9,3 +9,4 @@ from .education import educations
 from .preference import preferences
 from .experience import experiences
 from .apply import applies
+from .savePost import savePosts

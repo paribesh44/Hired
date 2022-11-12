@@ -17,7 +17,7 @@ user_assesments: List[Json] = [
         "accessed_date": datetime.utcnow(),
         "target_field_id": 2, 
         "seeker_id": 1,
-        "chosen_answers": ["css", "jsx", "html"]
+        "chosen_answers": ["fastapi", "sql", "django"]
     },
     {
         "score": 10,

@@ -42,17 +42,29 @@ def all(db: Session = Depends(database.get_db)):
     MCQs = db.query(mcq.MCQ).all()
     return MCQs
 
-# , response_model=mcq_schema.MCQShow
-@router.get('/get_mcq/{target_field_id}')
+@router.get("/get_mcq_only/{target_field_id}")
 def show(target_field_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     hired_MCQ = db.query(mcq.MCQ).filter(
         mcq.MCQ.target_field_id == target_field_id).all()
     if not hired_MCQ:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker's MCQ with the target_field_id {target_field_id} is not available")
+    return {"mcq": hired_MCQ}
+    # return hired_user_assesment
+
+# , response_model=mcq_schema.MCQShow
+@router.get('/get_mcq/{target_field_id}/{user_assesment_id}')
+def show(target_field_id: int, user_assesment_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    hired_MCQ = db.query(mcq.MCQ).filter(
+        mcq.MCQ.target_field_id == target_field_id).all()
+    if not hired_MCQ:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Job seeker's MCQ with the target_field_id {target_field_id} is not available")
     
-    hired_user_assesment = db.query(user_assesment.UserAssesment).filter(user_assesment.UserAssesment.seeker_id==current_user.seeker[0].id, user_assesment.UserAssesment.target_field_id==target_field_id).all()
-   
+    hired_user_assesment = db.query(user_assesment.UserAssesment).filter(user_assesment.UserAssesment.seeker_id==current_user.seeker[0].id, user_assesment.UserAssesment.target_field_id==target_field_id, user_assesment.UserAssesment.id==user_assesment_id).all()
+    print(target_field_id)
+    print(hired_user_assesment[0].chosen_answers)
+    print(hired_MCQ[0].answers)
     # convert answer into dictionary so that we can operate in ViewAssesment    
     answer_dict = []
 
@@ -67,7 +79,8 @@ def show(target_field_id: int, db: Session = Depends(database.get_db), current_u
         
         answer_dict.append(hired_dict)
     import json
-    print(json.dumps(answer_dict))
+    # print(json.dumps(answer_dict))
 
     # return {"mcq": hired_MCQ, "target_field_name": hired_MCQ.target_field.name}
     return {"mcq": hired_MCQ, "answer_dict": answer_dict}
+    # return hired_user_assesment

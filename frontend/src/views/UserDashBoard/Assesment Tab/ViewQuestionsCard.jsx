@@ -11,8 +11,9 @@ function QuestionCard(props) {
   const [hired_mcq, setMCQ] = useState(null);
 
     const message = async() => {
-        let mcq_response_obj = await callAPI({endpoint: `/mcq/get_mcq/${props.target_field_id}`})
+        let mcq_response_obj = await callAPI({endpoint: `/mcq/get_mcq/${props.target_field_id}/${props.user_assesment_id}`})
         setMCQ(mcq_response_obj);
+        console.log(mcq_response_obj.data)
     }
 
     useEffect(() => {
@@ -40,7 +41,7 @@ function QuestionCard(props) {
           <div key={key} className='questioncardmain'>
 
       <div className='questionnumber'>
-              Question {val.id}/20
+              Question {val.id+1}/20
             </div>
             <div className='question'>
         Q. {val.question}?

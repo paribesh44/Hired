@@ -15,7 +15,7 @@ router = APIRouter(
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def createTargetField(schema: target_field_schema.TargetField, db: Session = Depends(database.get_db)):
-    new_targetField = target_field.TargetField(name=schema.name, languages=schema.languages)
+    new_targetField = target_field.TargetField(name=schema.name, languages=schema.languages, difficulty=schema.difficulty)
     db.add(new_targetField)
     db.commit()
     db.refresh(new_targetField)

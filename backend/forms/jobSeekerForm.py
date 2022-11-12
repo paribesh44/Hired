@@ -16,6 +16,7 @@ class JobSeekerForm:
         linkedIn: Optional[str] = Form(None),
         website: Optional[str] = Form(None),
         cv: Optional[UploadFile] = File(None),
+        status: str = Form(...),
         github_profile: Optional[str] = Form(None),
         profile_photo: Optional[UploadFile] = File(None),
         driving_license_num: Optional[str] = Form(None),
@@ -31,6 +32,7 @@ class JobSeekerForm:
         self.linkedIn = linkedIn
         self.website = website
         self.cv = cv
+        self.status = status
         self.github_profile = github_profile
         self.profile_photo = profile_photo
         self.driving_license_num = driving_license_num

@@ -16,6 +16,11 @@ function ApplyConfirmation({statechanger, ...props}) {
         })
     }
 
+    function submitApply(e){
+        e.preventDefault()
+        const cover_letter = e.target.cover_letter.files[0]
+    }
+
 
     function confirmedbutton(){
         console.log(applyanswers.reasontoaccept)
@@ -24,27 +29,29 @@ function ApplyConfirmation({statechanger, ...props}) {
 
     }
   return (
-    <div>
+    <form onSubmit={submitApply}>
         <div className='modal'>
             <div className='overlay'>
                 <div className="modal-content">
                 <div className='applyconfirmation-main'>
                     <div className='confirmationquestion'>Let them know why they should hire you. *</div>
                    <input placeholder='Your answer' name="reasontoaccept" onChange={handlechange} value={applyanswers.reasontoaccept}/>
-                   <div className='confirmationquestion'>COmpany related question goes here</div>
-                   <input placeholder='Your answer' name="companyques" onChange={handlechange} value={applyanswers.companyques}/>
 
 
-                   <div className='confirmationquestion'>Want to attach a cover letter?</div>
+                   <div className='confirmationquestion'>Attach your cover letter?</div>
+                   <input type="file" name="cover_letter"/>
 
-                   <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/>
+                   <div className='confirmationquestion'>Attach your CV.</div>
+                   <input type="file" name="cv"/>
+
+                   {/* <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/> */}
 
                    <Grid container direction="row" >
                       <div className='confirmcancelbutton'>
                         <CustomButton addStyles={"reject-button"}name="Cancel" onClicked={()=>statechanger(false)}/>
                         </div>  
                         <div className='confirmsendbutton'>
-                            <CustomButton addStyles={"accept-button"}name="Send Application"  onClicked={confirmedbutton}/>
+                            <CustomButton addStyles={"accept-button"}name="Send Application"  onClicked={confirmedbutton} type="submit"/>
                         </div>
                     </Grid>
                     
@@ -54,7 +61,7 @@ function ApplyConfirmation({statechanger, ...props}) {
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     
   )
 }

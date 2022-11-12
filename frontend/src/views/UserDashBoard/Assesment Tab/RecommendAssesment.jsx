@@ -31,7 +31,7 @@ function RecommendAssesment(props) {
                 </Grid>
                 <Grid item>
                         <div>
-                        <CardAssesment id={props.recommended_target_field.id} name={props.recommended_target_field.name} type="MCQ" time="20 min" languages={props.recommended_target_field.languages} difficulty="Easy"/>
+                        <CardAssesment id={props.recommended_target_field.id} name={props.recommended_target_field.name} type="MCQ" time="20 min" languages={props.recommended_target_field.languages} difficulty={props.recommended_target_field.difficulty}/>
 
 
                         </div>

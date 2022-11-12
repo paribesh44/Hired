@@ -80,7 +80,7 @@ function ContainerBox(props) {
             </Grid>
 
             <Grid item>
-                <Link to="/Assesment/ViewAssesment"  state={{target_field_id: props.user_assesment.target_field_id, user_assesment_id: props.user_assesment.id, score: props.user_assesment.score, visibility: props.user_assesment.visibility}}  className='assesment-link'>
+                <Link to="/Assesment/ViewAssesment"  state={{target_field_id: props.user_assesment.target_field_id, user_assesment_id: props.user_assesment.id, score: props.user_assesment.score, visibility: props.user_assesment.visibility, difficulty: props.user_assesment.target_field.difficulty}}  className='assesment-link'>
                     
                 
                 <CustomButton addStyles={"accept-button"} name="View Assesment"></CustomButton>

@@ -11,6 +11,7 @@ class JobPost(Base):
     __tablename__ = "jobposts"
 
     id = Column(Integer, primary_key=True, index=True)
+    job = Column(String, nullable=False)
     description = Column(Text, nullable=False)
     job_location = Column(String, nullable=False)
     # Senior, junior, etc.

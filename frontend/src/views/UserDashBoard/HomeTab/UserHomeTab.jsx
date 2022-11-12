@@ -1,5 +1,5 @@
 import { Grid, Switch } from '@mui/material'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import CustomButton from '../../../components/Buttons'
 import DashboardLayout from '../../../components/DashhboardLayout'
@@ -7,8 +7,20 @@ import Featured_box from '../../../components/featuredBox'
 import UserNavbarIn from '../../../components/UserNavbarIn'
 import UserSideBar from '../../../components/UserSideBar'
 import "./Hometab.css";
+import callAPI from "../../../utils/callAPI";
 
 function UserHomeTab() {
+  const [recommendedJobs, setRecommendedJobs] = useState(null);
+
+  const message = async () => {
+    let response_obj = await callAPI({ endpoint: "/recommendation_jobs/recommend_jobs" });
+    setRecommendedJobs(response_obj);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
   const jobs = [
     {
       company: "Twitter Inc",
@@ -27,6 +39,9 @@ function UserHomeTab() {
       location: "Pokhara, Nepal",
     },
   ];
+
+  if (recommendedJobs != null) {
+    console.log(recommendedJobs.data)
   return (
     <DashboardLayout>
       <Grid container  direction="column"  className='assesmentmain-main'>
@@ -34,10 +49,10 @@ function UserHomeTab() {
           Recommended Jobs
         </Grid>
         <Grid item>
-        {jobs.map((job) => (
+        {recommendedJobs.data.map((job) => (
           <Link to='/ApplyJob'  style={{ textDecoration: "none", color: "black" }}>
             <Featured_box
-                      company={job.company}
+                      company={job.job}
                       description={job.description}
                       jobName={job.jobName}
                       timeElapsed={job.timeElapsed}
@@ -68,6 +83,7 @@ function UserHomeTab() {
         
 //     </div>
   )
+}
 }
 
 export default UserHomeTab

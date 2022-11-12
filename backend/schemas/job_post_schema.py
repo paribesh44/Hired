@@ -1,9 +1,13 @@
-from datetime import datetime
+from datetime import date, datetime
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
+from schemas.employer_schema import Employer
+from schemas.apply_schema import Apply
 
 
 class JobPost(BaseModel):
+    id: int
+    job: str
     description: str
     job_location: str
     job_level: str
@@ -14,14 +18,26 @@ class JobPost(BaseModel):
     education_required: str
     no_of_vacancy: int
     work_hours: str
-    min_salary = int
-    max_salary = int
+    min_salary: int
+    max_salary: int
     job_benefits: List[str]
-    job_start_date: datetime
+    job_start_date: date
     remote_onsite: str
     status_of_jobs: str
-    posted_date: datetime
-    deadline: datetime
+    posted_date: date
+    deadline: date
 
-    class config:
+    class Config:
+        orm_mode = True
+
+class JobPostShow(JobPost):
+    employer: Optional[Employer]
+
+    class Config:
+        orm_mode = True
+
+class JobPostApply(JobPost):
+    apply: Optional[Apply]
+
+    class Config:
         orm_mode = True

@@ -11,11 +11,11 @@ from sqlalchemy.sql import text
 
 router = APIRouter(
     tags=['Recommendation Jobs'],
-    prefix="/recommendation-jobs"
+    prefix="/recommendation_jobs"
 )
 
 
-@router.get('/recommend-jobs')
+@router.get('/recommend_jobs')
 def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     # print(current_user.seeker[0].experience)
     # hired_experience = db.query(experience.Experience).filter(experience.Experience.seeker_id == current_user.seeker[0].id).all()
@@ -80,6 +80,8 @@ def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.Use
             job_post.JobPost.status_of_jobs == "published",
             job_post.JobPost.deadline >= datetime.utcnow()
             )).all()
+
+    print(hired_recommended_jobs)
     
     return hired_recommended_jobs
     # return "success"
