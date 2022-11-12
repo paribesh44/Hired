@@ -12,7 +12,7 @@ export const dummydata = [
     name: "Jane Doe",
     applieddate: "sss",
     position: "ssss",
-    skills: ["a", "bbbb", "fff"],
-    experience: ["a", "bbbb", "fff"],
+    skills: ["Illustrator", "Photoshop", "Maarketing", "datamining"],
+    experience: ["2 years"],
   },
 ];

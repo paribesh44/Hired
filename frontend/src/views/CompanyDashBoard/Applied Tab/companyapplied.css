@@ -59,12 +59,12 @@ padding-top: 5px;
 }
 
 .accept-button{
-    height:42px;
+    height:39px;
     outline: none;
     background:  #495c83;
     border: 2px solid #495c83;
     border-radius: 7px;
-    padding: 5px 25px 5px 25px;
+    padding: 5px 22px 5px 22px;
     font-size: 1.2em;
     font-weight: 400;
     color: white;       
@@ -77,12 +77,12 @@ padding-top: 5px;
 }
 
 .reject-button{
-    height:42px;
+    height:39px;
     outline: none;
     background:  white;
     border: 2px solid #495c83;
     border-radius: 7px;
-    padding: 5px 25px 5px 25px;
+    padding: 5px 22px 5px 22px;
     font-size: 1.2em;
     font-weight: 400;
     color: #495c83; 

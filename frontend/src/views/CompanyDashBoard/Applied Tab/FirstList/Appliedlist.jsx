@@ -25,8 +25,8 @@ function Appliedlist() {
               className="single_applicant"
               direction={"row"}
             >
-              <Grid item className="imagewrapper">
-                <Image addStyles={"profile-image"} src={demo} />
+              <Grid item className="appliedimagewrapper">
+                <Image addStyles={"applied-image"} src={demo} />
               </Grid>
               <Grid item>
                 <Grid container direction={"column"}>
@@ -41,30 +41,42 @@ function Appliedlist() {
                     </Grid>
 
                     <Grid container direction="row">
-                      <Grid item> Position:</Grid>
-                      <Grid item> {val.position}</Grid>
+                      <Grid item className="appliedlisttopic">
+                        Position:
+                      </Grid>
+                      <Grid item className="appliedlisttext">
+                        {val.position}
+                      </Grid>
                     </Grid>
 
                     <Grid container direction="row">
-                      <Grid item> Applied date:</Grid>
-                      <Grid item> {val.applieddate}</Grid>
+                      <Grid item className="appliedlisttopic">
+                        Applied date:
+                      </Grid>
+                      <Grid item className="appliedlisttext">
+                        {val.applieddate}
+                      </Grid>
                     </Grid>
 
                     <Grid container direction="row">
-                      <Grid item> Criterias met:</Grid>
+                      <Grid item className="appliedlisttopic">
+                        Criterias met:
+                      </Grid>
                       <Grid container direction="column">
                         <Grid item>
                           <Grid
                             container
                             direction="row"
-                            justifyContent={"space-between"}
+                            className="skillpadding"
                           >
-                            <Grid item>Skills</Grid>
-                            <Grid item>
+                            <Grid item className="appliedlisttopic">
+                              Skills
+                            </Grid>
+                            <Grid item className="skillleftpadding">
                               <Grid container direction="row">
                                 {val.skills.map((val, key) => {
                                   return (
-                                    <Grid item>
+                                    <Grid item className="appliedlisttext">
                                       <SkillContainer name={val} />
                                     </Grid>
                                   );
@@ -74,18 +86,19 @@ function Appliedlist() {
                           </Grid>
                         </Grid>
                         <Grid item>
-                          <Grid
-                            container
-                            direction="row"
-                            justifyContent={"space-between"}
-                          >
-                            <Grid item>Experience</Grid>
+                          <Grid container direction="row">
+                            <Grid item className="appliedlisttopic">
+                              Experience
+                            </Grid>
                             <Grid item>
-                              <Grid container direction="row">
+                              <Grid
+                                container
+                                direction="row"
+                                className="experiencepadding"
+                              >
                                 {val.experience.map((val, key) => {
                                   return (
-                                    <Grid item>
-                                      {" "}
+                                    <Grid item className="appliedlisttext">
                                       <SkillContainer name={val} />
                                     </Grid>
                                   );
@@ -104,14 +117,20 @@ function Appliedlist() {
                   <Link to="/CompanyApplied">
                     <Grid item> View Employee Profile</Grid>
                   </Link>
-                  <Grid item>
+                  <Grid item className="appliedbuttons">
                     <Grid container direction="row">
                       <Grid item>
-                        <CustomButton name="Reject" />
+                        <CustomButton
+                          addStyles={"reject-button"}
+                          name="Reject"
+                        />
                       </Grid>
 
-                      <Grid item>
-                        <CustomButton name="Accept" />
+                      <Grid item className="between-button">
+                        <CustomButton
+                          addStyles={"accept-button"}
+                          name="Accept"
+                        />
                       </Grid>
                     </Grid>
                   </Grid>

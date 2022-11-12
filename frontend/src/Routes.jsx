@@ -63,6 +63,7 @@ const Routedpath = () => {
         path="/Assesment/ViewAssesment"
         element={<ViewAssesment />}
       ></Route>
+      <Route path="/ListDoneAssesment" element={<ListDoneAssesment />}></Route>
 
       <Route path="/aaa" element={<Aaa />}></Route>
     </Routes>

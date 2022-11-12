@@ -251,3 +251,21 @@
 .startspacing {
     padding-bottom: 6px;
 }
+
+.typeofasses{
+    color: rgba(22, 158, 22, 0.89);
+    font-size: 14px;
+}
+.easyasses{
+    color: rgba(22, 158, 22, 0.89);
+    font-size: 14px;
+}
+.mediumasses{
+    color: rgb(125, 125, 206);
+    font-size: 14px;
+}
+
+.hardasses{
+    color: red;
+    font-size: 14px;
+}
