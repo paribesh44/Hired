@@ -22,9 +22,10 @@ function UserSaved() {
     message();
   }, []);
 
+  let newDate = new Date()
+
 
   if (saved_job_post != null) {
-    console.log(saved_job_post.data)
   return (
     <div>
        <DashboardLayout>
@@ -36,17 +37,17 @@ function UserSaved() {
             List of all the jobs that you have saved.
           </Grid>
           
-          {saved_job_post.data.map((val, key) => {return (
+          {saved_job_post.data.map((val, key) => { return (
             <Grid item>
-              <Link to="/ApplyJob" state={{ job_post: saved_job_post.data[key] }} style={{ textDecoration: "none", color: "black" }}>
-              <Featured_box 
+              <Featured_box
+              job_post_id = {val.id}
+              job_post= {saved_job_post.data[key]}
               company= {val.employer.companyName}
               description= {val.description} 
               jobName= {val.job} 
-                location= {val.job_location} 
-                timeElapsed={"3 days ago"}
-                state={false}/>
-              </Link>
+              location= {val.job_location} 
+              timeElapsed={"3 days ago"}
+              state={false}/>
             </Grid>
               );})}
           

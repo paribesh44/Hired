@@ -2,10 +2,12 @@ import React from 'react'
 import { Grid, IconButton } from "@mui/material";
 import CustomButton from '../../../components/Buttons';
 import { useState } from 'react';
+import callAPI from "../../../utils/callAPI";
 
 
-function ApplyConfirmation({statechanger, ...props}) {
-    const [applyanswers, setapplyanswers]=useState({reasontoaccept:"", companyques:""})
+
+function ApplyConfirmation({job_post_id, statechanger, ...props}) {
+    const [applyanswers, setapplyanswers]=useState({reasontoaccept:""})
     function handlechange(event){
         setapplyanswers(prevdata=>{
             return{
@@ -16,16 +18,30 @@ function ApplyConfirmation({statechanger, ...props}) {
         })
     }
 
-    function submitApply(e){
+    async function submitApply(e){
         e.preventDefault()
         const cover_letter = e.target.cover_letter.files[0]
+        const cv = e.target.cv.files[0]
+        const reasonToAccept = e.target.reasontoaccept.value
+
+        let dataForm = new FormData()
+        dataForm.append("description", reasonToAccept)
+        dataForm.append("cv", cv)
+        dataForm.append("coverletter", cover_letter)
+        dataForm.append("job_post_id", job_post_id)
+
+        // update visibility in the database
+        let response_obj = await callAPI({
+            endpoint: "/apply/create/",
+            method: "POST",
+            data: dataForm,
+            });
+
     }
 
 
     function confirmedbutton(){
         console.log(applyanswers.reasontoaccept)
-
-        console.log(applyanswers.companyques)
 
     }
   return (

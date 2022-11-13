@@ -48,7 +48,7 @@ function ApplyJobSummary(props) {
                  
                <CustomButton name="Apply Now" addStyles={"accept-button"} onClicked={toggleapplyconfirm} />
 
-               {applyconfirm && <ApplyConfirmation statechanger={setapplyconfirm}/>}
+               {applyconfirm && <ApplyConfirmation job_post_id={props.job_post.id} statechanger={setapplyconfirm}/>}
                
                 
 

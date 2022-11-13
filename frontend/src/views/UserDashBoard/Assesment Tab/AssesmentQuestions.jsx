@@ -20,6 +20,7 @@ function AssesmentQuestions() {
     const location = useLocation()
     const{target_field_id}=location.state
     const{target_field_name}=location.state
+    const {languages}=location.state
     // const{address}=location.state
   return (
     <div>
@@ -34,7 +35,7 @@ function AssesmentQuestions() {
             <Grid item>
               <Grid container direction="row">
                 <Grid item className="startasseshead">
-                  Java Script
+                  {target_field_name}
                 </Grid>
               </Grid>
             </Grid>
@@ -50,18 +51,26 @@ function AssesmentQuestions() {
               <Grid container direction="row" className="startspacing">
                 <Grid item className="startfield">
                   {" "}
-                  Languages:
+                  Languages: {" "}
                 </Grid>
-                <Grid item className="starttext">
-                  Java Script, react
-                </Grid>
+
+                {languages.map(function (item, index) {
+                return (
+                  <Grid item className="starttext">
+                    <span key={`demo_snap_${index}`}>
+                      {(index ? ", " : "") + item}
+                    </span>
+                  </Grid>
+                );
+              })}
+                
               </Grid>
             </Grid>
             <Grid item>
               <Grid container direction="row" className="startspacing">
                 <Grid item className="startfield">
                   {" "}
-                  Type of Assesment:
+                  Type of Assesment: 
                 </Grid>
                 <Grid item className="starttext">
                   MCQ
@@ -75,7 +84,7 @@ function AssesmentQuestions() {
                   Time:
                 </Grid>
                 <Grid item className="starttext">
-                  Java Script
+                   20 minutes
                 </Grid>
               </Grid>
             </Grid>{" "}
@@ -83,10 +92,10 @@ function AssesmentQuestions() {
               <Grid container direction="row" className="startspacing">
                 <Grid item className="startfield">
                   {" "}
-                  Marks:
+                  Score:
                 </Grid>
                 <Grid item className="starttext">
-                  Java Script
+                  20
                 </Grid>
               </Grid>
             </Grid>{" "}

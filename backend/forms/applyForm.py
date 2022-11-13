@@ -7,13 +7,11 @@ class ApplyForm:
     def __init__(
         self,
         description: str = Form(...),
-        status: str = Form(...),
         cv: Optional[UploadFile] = File(None),
         coverletter: Optional[UploadFile] = File(None),
-        applied_date: Optional[datetime] = Form(None)
+        job_post_id: int = Form(...)
     ):
         self.description = description
-        self.status = status
         self.cv = cv
         self.coverletter = coverletter
-        self.applied_date = applied_date
+        self.job_post_id = job_post_id

@@ -25,3 +25,9 @@ class UserAssesmentTargetField(UserAssesment):
 
     class Config:
         orm_mode = True
+
+class ChangeVisibility(BaseModel):
+    visibility: bool
+
+    class Config:
+        orm_mode = True

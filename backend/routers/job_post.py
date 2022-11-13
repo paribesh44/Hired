@@ -5,7 +5,7 @@ from schemas import job_post_schema
 from models import job_post, user, save_job, apply
 from core import database, oauth2
 from sqlalchemy.orm import Session
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from typing import List
 
 
@@ -60,9 +60,12 @@ def all_saved_job(db: Session = Depends(database.get_db), current_user: user.Use
     # get all the save_jobs with the save=True of the current loged in user.
     hired_save_jobs = db.query(save_job.SaveJob).filter(save_job.SaveJob.save==True, save_job.SaveJob.seeker_id==current_user.seeker[0].id).all()
 
-    # get the job_posts which are saved by the current_user
-    hired_job_posts = db.query(job_post.JobPost).filter(or_(*[job_post.JobPost.id == hired_save_jobs[i].job_post_id  for i in range(len(hired_save_jobs))])).all()
-    
+    if hired_save_jobs != []:
+        # get the job_posts which are saved by the current_user
+        hired_job_posts = db.query(job_post.JobPost).filter(or_(*[job_post.JobPost.id == hired_save_jobs[i].job_post_id  for i in range(len(hired_save_jobs))])).all()
+    else:
+        hired_job_posts = []
+
     # return hired_job_posts[0].employer
     return hired_job_posts
 
