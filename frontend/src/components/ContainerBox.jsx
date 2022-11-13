@@ -1,12 +1,28 @@
 import { Grid } from '@mui/material'
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import CustomButton from './Buttons'
 import "./ContainerBox.css"
 import SkillContainer from './SkillContainer'
+import callAPI from "../utils/callAPI";
 
 
 function ContainerBox(props) {
+    const [visibilityState, setVisibilityState] = useState(props.user_assesment.visibility)
+    
+    async function handleChange(e) {
+        // console.log(props.user_assesment.id)
+        console.log(e.target.value)
+        // change option when clicked in the dropdown
+        setVisibilityState(e.target.value)
+
+        // update visibility in the database
+        let response_obj = await callAPI({
+            endpoint: `/userAssesment/update_visibility/${props.user_assesment.id}`,
+            method: "PUT",
+            data: {visibility: e.target.value},
+            });
+    };
   return (
     <div className='containerboxmain'>
         <Grid container direction="row" justifyContent="space-between">
@@ -51,7 +67,7 @@ function ContainerBox(props) {
                 </Grid>
 
                 <Grid item>
-              <select components={{ DropdownIndicator:() => null }} className='status-buttonassesment'>
+              <select components={{ DropdownIndicator:() => null }} onChange={handleChange} className='status-buttonassesment' value={visibilityState}>
                 <option value={false}> Hide</option>
                 <option value={true}> Show</option>
 

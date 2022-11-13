@@ -7,6 +7,8 @@ from core import database, oauth2
 from sqlalchemy.orm import Session
 from datetime import datetime
 from sqlalchemy.sql import text
+from typing import List
+from schemas import job_post_schema
 
 
 router = APIRouter(
@@ -15,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get('/recommend_jobs')
+@router.get('/recommend_jobs', response_model=List[job_post_schema.JobPostShow])
 def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     # print(current_user.seeker[0].experience)
     # hired_experience = db.query(experience.Experience).filter(experience.Experience.seeker_id == current_user.seeker[0].id).all()

@@ -15,30 +15,13 @@ function UserHomeTab() {
   const message = async () => {
     let response_obj = await callAPI({ endpoint: "/recommendation_jobs/recommend_jobs" });
     setRecommendedJobs(response_obj);
+    console.log("motherfucker")
+    console.log(response_obj.data)
   };
 
   useEffect(() => {
     message();
   }, []);
-
-  const jobs = [
-    {
-      company: "Twitter Inc",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      jobName: "Software Developer",
-      timeElapsed: "5 sec ago",
-      location: "Pokhara, Nepal",
-    },
-    {
-      company: "Twitter Inc",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      jobName: "Software Developer",
-      timeElapsed: "5 sec ago",
-      location: "Pokhara, Nepal",
-    },
-  ];
 
   if (recommendedJobs != null) {
     console.log(recommendedJobs.data)
@@ -49,21 +32,21 @@ function UserHomeTab() {
           Recommended Jobs
         </Grid>
         <Grid item>
-        {recommendedJobs.data.map((job) => (
-          <Link to='/ApplyJob'  style={{ textDecoration: "none", color: "black" }}>
+        {recommendedJobs.data.map((job, val) => {return (
+            <Grid item>
             <Featured_box
-                      company={job.job}
+                      job_post_id={job.id}
+                      job_post = {job}
+                      company={job.employer.companyName}
                       description={job.description}
-                      jobName={job.jobName}
-                      timeElapsed={job.timeElapsed}
-                      location={job.location}
-                      
-                    ></Featured_box>
-          </Link>
-                  
-                  ))}
+                      location={job.job_location}
+                      jobName= {job.job}
+                      timeElapsed={"3 days ago"}
+                      state={false}
+                    />
+                  </Grid>
+                  );})}
        
-
         </Grid>
         
       </Grid>

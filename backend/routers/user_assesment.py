@@ -64,8 +64,10 @@ def update(id: int, schema:user_assesment_schema.UserAssesment, db: Session = De
     return 'updated'
 
 # change visibility of the assesment
-@router.put("update_visibility/{user_assesment_id}")
-def update_visibility(user_assesment_id:int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+@router.put("/update_visibility/{user_assesment_id}")
+def update_visibility(data: user_assesment_schema.ChangeVisibility, user_assesment_id:int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    # # print(data.visibility)
+    # return "success"
     update_UserAssesment = db.query(user_assesment.UserAssesment).filter(
         user_assesment.UserAssesment.id == user_assesment_id).first()
    
@@ -73,7 +75,8 @@ def update_visibility(user_assesment_id:int, db: Session = Depends(database.get_
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"User Assesment with id {user_assesment_id} not found")
 
-    update_UserAssesment.visibility = False
+    update_UserAssesment.visibility = data.visibility
+    print(data.visibility)
     db.commit()
     db.refresh(update_UserAssesment)
 
