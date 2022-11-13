@@ -15,29 +15,35 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-async def createApplyProfile(form: applyForm.ApplyForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+async def createApplyProfile(data: applyForm.ApplyForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     cv_file_location = None
     cover_letter_file_location = None
 
     # upload cv in local memory and save the file_location in database
     try:
-        cv_file_location = f"static/cv/{form.cv.filename}"
+        cv_file_location = f"static/cv/{data.cv.filename}"
         with open(cv_file_location, "wb") as buffer:
-            shutil.copyfileobj(form.cv.file, buffer)
+            shutil.copyfileobj(data.cv.file, buffer)
     except:
         cv_file_location = None
 
     # upload cover letter
     try:
-        cover_letter_file_location = f"static/cover_letters/{form.coverletter.filename}"
+        cover_letter_file_location = f"static/cover_letters/{data.coverletter.filename}"
         with open(cover_letter_file_location, "wb") as buffer:
-            shutil.copyfileobj(form.profile_photo.file, buffer)
-    except:
+            shutil.copyfileobj(data.coverletter.file, buffer)
+        print(cover_letter_file_location)
+    except Exception as e :
+        print(e)
+        print("yaha aayo ki aayena")
+
         cover_letter_file_location = None
 
+    print(cover_letter_file_location)
+
     new_apply = apply.Apply(
-        description=form.description, cv=cv_file_location,  status=form.status,
-        coverletter=cover_letter_file_location,  applied_date=form.applied_date, seeker_id=current_user.seeker[0].id, job_post_id=2)
+        description=data.description, cv=cv_file_location,  status="applied",
+        coverletter=cover_letter_file_location, seeker_id=current_user.seeker[0].id, job_post_id=data.job_post_id)
 
     db.add(new_apply)
     db.commit()

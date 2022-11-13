@@ -23,6 +23,8 @@ class Seeker(Base):
     profilePhoto = Column(String, nullable=True)
     drivingLicenseNum = Column(String, nullable=True)
     last_job_applied = Column(DateTime, nullable=True)
+    # status of seeker: Ready to Interview, Open to offer, Close to Interview
+    status = Column(String, nullable=True)
     # if parent(User) is deleted then this seeker will also be deleted.
     user_id = Column(Integer,
                      ForeignKey("users.id", ondelete="CASCADE"),

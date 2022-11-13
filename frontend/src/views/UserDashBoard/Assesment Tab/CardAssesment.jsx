@@ -1,50 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import { ImClipboard } from "react-icons/im";
 import { IoIosTimer } from "react-icons/io";
 import { Grid, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-
-
+import { grid } from "@mui/system";
+import callAPI from "../../../utils/callAPI";
+import TargetFieldComponent from "./TargetFieldComponent";
 
 function CardAssesment(props) {
+  const [already_solved, setAlreadySolved] = useState(false);
+  var link_path = ""
+
+  const message = async () => {
+    let response_obj = await callAPI({ endpoint: `/userAssesment/compelete_assesment/${props.id}` });
+    setAlreadySolved(response_obj.data);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
   return (
     <div>
-         <Link to ="/Assesment/AssesmentQuestions" state={{name:"aaa", address:"bbb"}}className='assesment-link'>
-        <div className='cardassesment-main'>
-       
-
-        
-        <Grid container direction="row" justifyContent={"space-between"} >
-            <Grid item>
-                <Grid container direction="column">
-                <div className='typeofasses'>
-                    {props.type}        </div>
-                    <div className='typeofasses'>{props.difficulty}</div>
-        <div className='nameofasses'>
-            {props.name}
-        </div>
-
-                </Grid>
-            </Grid>
-        <div > <ImClipboard className='status-icon'/></div>
-     
-
-        </Grid>
-       
-        <div>
-            {props.languages}
-        </div>
-
-
-        <div className='card-buttom'>
-        <IoIosTimer className='card-buttomicon'/>  {props.time}
-        </div>
+      {already_solved ?  
+      <Link
+        to="/Assesment/AssesmentQuestions"
+        state={{ target_field_id: props.id, target_field_name: props.name, languages: props.languages }}
+        className="assesment-link"
+      >
+        <TargetFieldComponent data={props} already_solved={already_solved}/>
+      </Link> : 
+      <TargetFieldComponent data={props} already_solved={already_solved}/>}
       
     </div>
-    </Link>
-    </div>
-    
-  )
+  );
 }
 
-export default CardAssesment
+export default CardAssesment;

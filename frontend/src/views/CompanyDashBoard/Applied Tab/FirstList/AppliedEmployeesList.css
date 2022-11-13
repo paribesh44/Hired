@@ -1,0 +1,117 @@
+.searchbymain{
+    border: 1px solid black;
+    margin: 50px 30px;
+ 
+}
+.appliedhomemain{
+    padding: 60px 0px 40px 30px;
+    width: 100;
+    
+ 
+}
+.searchbyspacing{
+    padding-right: 10px;
+    background-color: #EBEFF5 ;
+    padding: 10px 40px 10px 15px;
+    border-radius: 8px;
+    height: 80vh;
+    border: 1px solid black;
+
+}
+
+
+
+.searchbysub{
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 6px;
+    padding-top: 5px;
+}
+
+.searchbyeach{
+    padding-bottom: 3px;
+    padding-left: 3px;
+}
+
+.appliedlistmain{
+    margin-left: 70px;
+}
+
+.single_applicant{
+    border: 1px solid black;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 8px;
+    padding: 30px ;
+    padding-left: 40px;
+}
+
+.appliedlisttopic{
+    font-size: 17px;
+    font-weight: 500;
+
+}
+
+.appliedlisttext{
+    font-size: 18px;
+}
+
+.skillpadding{
+    padding-bottom: 8px;
+}
+
+.experiencepadding{
+    padding-left: 15px;
+}
+
+.skillleftpadding{
+    padding-left: 8px;
+}
+
+.appliedbuttons{
+    padding-top: 45px;
+}
+.between-button{
+    padding-left: 10px;
+}
+
+.checkbox{
+    padding: 0;
+}
+
+.applied-image{
+    display: inline;
+  object-fit: cover;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-right: 50px;
+
+}
+
+.appliedimagewrapper{
+    margin: 10px;
+   
+ }
+
+ .checkbox-css{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    margin-top: 4px;
+    
+}
+.checkboxspacing{
+    padding-right: 4px;
+}
+
+.searchbox{
+    text-align: center;
+}
+
+.searchbox input{
+    margin: 0px 0px 0px 0px;
+}
+

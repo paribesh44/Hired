@@ -8,10 +8,11 @@ import Login from "./views/logIn/login";
 import Signup from "./views/signUp/signup";
 import EmployeeProfile from "./views/profile/employeeProfile";
 import CompanyProfile from "./views/profile/companyProfile";
-import CompanyHome from "./views/CompanyDashBoard/CompanyHome";
+// import CompanyHome from "./views/CompanyDashBoard/CompanyHome";
+import CompanyHome from "./views/CompanyDashBoard/CompanyHome/CompanyHome";
 import CompanyApplied from "./views/CompanyDashBoard/Applied Tab/CompanyApplied";
-import CompanyAddPost from "./views/CompanyDashBoard/CompanyAddPost";
-import CompanyAnalytics from "./views/CompanyDashBoard/CompanyAnalytics";
+import CompanyAddPost from "./views/CompanyDashBoard/CompanyAddPost/CompanyAddPost";
+import CompanyAnalytics from "./views/CompanyDashBoard/CompanyAnalytics/CompanyAnalytics";
 import DetailedCompanyApplied from "./views/CompanyDashBoard/Applied Tab/DetailedCompanyApply";
 import UserNavbarIn from "./components/UserNavbarIn";
 import UserHomeTab from "./views/UserDashBoard/HomeTab/UserHomeTab";
@@ -25,6 +26,7 @@ import Aaa from "./views/UserDashBoard/HomeTab/aaa";
 import ViewAssesment from "./views/UserDashBoard/Assesment Tab/ViewAssesment";
 import ListDoneAssesment from "./views/UserDashBoard/Assesment Tab/ListDoneAssesment";
 import ApplyConfirmation from "./views/UserDashBoard/Saved Tab/ApplyConfirmation";
+import AppliedEmployeesList from "./views/CompanyDashBoard/Applied Tab/FirstList/AppliedEmployeesList";
 
 const Routedpath = () => {
   return (
@@ -40,6 +42,10 @@ const Routedpath = () => {
       <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/CompanyApplied" element={<CompanyApplied />}></Route>
       <Route path="/CompanyAddPost" element={<CompanyAddPost />}></Route>
+      <Route
+        path="/AppliedEmployeesList"
+        element={<AppliedEmployeesList />}
+      ></Route>
 
       <Route path="/ApplyJob" element={<ApplyJob />}></Route>
       <Route path="/CompanyMyEmployees" element={<CompanyMyEmployes />}></Route>
@@ -65,6 +71,7 @@ const Routedpath = () => {
         path="/Assesment/ViewAssesment"
         element={<ViewAssesment />}
       ></Route>
+      <Route path="/ListDoneAssesment" element={<ListDoneAssesment />}></Route>
 
       <Route path="/aaa" element={<Aaa />}></Route>
     </Routes>

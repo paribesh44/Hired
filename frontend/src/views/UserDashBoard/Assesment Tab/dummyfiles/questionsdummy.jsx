@@ -1,5 +1,10 @@
 import React from 'react'
-
+// {
+//     "question": "what is html",
+//     "answers": ["html", "css", "js", "none"],
+//     "correct_answer": "html",
+//     "target_field_id": 1
+// }
 export const questionsdummy=[
     {
         id:0,

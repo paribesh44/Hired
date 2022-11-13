@@ -5,6 +5,7 @@ from typing import List
 class TargetField(BaseModel):
     name: str
     languages: List[str] = []
+    difficulty: str
 
     class Config:
         orm_mode = True

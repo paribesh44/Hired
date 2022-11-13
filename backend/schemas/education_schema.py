@@ -10,5 +10,5 @@ class Education(BaseModel):
     major: str
     cgpa: float
 
-    class config:
+    class Config:
         orm_mode = True

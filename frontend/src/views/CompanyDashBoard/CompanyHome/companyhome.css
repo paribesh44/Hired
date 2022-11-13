@@ -1,0 +1,79 @@
+
+.companyhomemain{
+    padding: 60px 70px 40px 40px;
+
+}
+
+.overviewspacing{
+    margin-right: 70px;
+    background-color: #EBEFF5;
+
+}
+
+.companyoverviewmain{
+    padding: 10px 15px 10px 15px;
+    border-radius: 8px;
+    height: 80vh;
+    border: 1px solid black;
+}
+
+.overviewheading{
+    /* width: 100%; */
+    font-size: 23px;
+    font-weight: 500;
+    padding: 0px 0px 20px 0px;
+}
+
+.overviewtext{
+    padding-bottom: 5px;
+
+}
+
+.reminderbox{
+    border: 1px solid black;
+    border-radius: 8px;
+    align-items: center;
+    padding:20px 40px;
+    width: 150vh;
+    margin-bottom: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.joblistmain{
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.joblistsubtext{
+    font-size: 15px;
+    position: absolute;
+    right: 150px;
+    display: 'flex';
+   justify-content: flex-end;
+}
+
+.joblistsub{
+    padding-bottom: 6px;
+    font-size: 18px;
+    font-weight: 400;
+
+}
+.joblistsub2{
+    padding-left: 80px;
+    padding-bottom: 6px;
+    
+}
+
+.joblisthead{
+    font-weight:500;
+    font-size: 18px;
+    padding-bottom: 6px;
+}
+
+.mypostedjobmain{
+    padding-top: 40px;
+}

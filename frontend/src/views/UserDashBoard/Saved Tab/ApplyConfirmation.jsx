@@ -2,10 +2,12 @@ import React from 'react'
 import { Grid, IconButton } from "@mui/material";
 import CustomButton from '../../../components/Buttons';
 import { useState } from 'react';
+import callAPI from "../../../utils/callAPI";
 
 
-function ApplyConfirmation({statechanger, ...props}) {
-    const [applyanswers, setapplyanswers]=useState({reasontoaccept:"", companyques:""})
+
+function ApplyConfirmation({job_post_id, statechanger, ...props}) {
+    const [applyanswers, setapplyanswers]=useState({reasontoaccept:""})
     function handlechange(event){
         setapplyanswers(prevdata=>{
             return{
@@ -16,35 +18,56 @@ function ApplyConfirmation({statechanger, ...props}) {
         })
     }
 
+    async function submitApply(e){
+        e.preventDefault()
+        const cover_letter = e.target.cover_letter.files[0]
+        const cv = e.target.cv.files[0]
+        const reasonToAccept = e.target.reasontoaccept.value
+
+        let dataForm = new FormData()
+        dataForm.append("description", reasonToAccept)
+        dataForm.append("cv", cv)
+        dataForm.append("coverletter", cover_letter)
+        dataForm.append("job_post_id", job_post_id)
+
+        // update visibility in the database
+        let response_obj = await callAPI({
+            endpoint: "/apply/create/",
+            method: "POST",
+            data: dataForm,
+            });
+
+    }
+
 
     function confirmedbutton(){
         console.log(applyanswers.reasontoaccept)
 
-        console.log(applyanswers.companyques)
-
     }
   return (
-    <div>
+    <form onSubmit={submitApply}>
         <div className='modal'>
             <div className='overlay'>
                 <div className="modal-content">
                 <div className='applyconfirmation-main'>
                     <div className='confirmationquestion'>Let them know why they should hire you. *</div>
                    <input placeholder='Your answer' name="reasontoaccept" onChange={handlechange} value={applyanswers.reasontoaccept}/>
-                   <div className='confirmationquestion'>COmpany related question goes here</div>
-                   <input placeholder='Your answer' name="companyques" onChange={handlechange} value={applyanswers.companyques}/>
 
 
-                   <div className='confirmationquestion'>Want to attach a cover letter?</div>
+                   <div className='confirmationquestion'>Attach your cover letter?</div>
+                   <input type="file" name="cover_letter"/>
 
-                   <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/>
+                   <div className='confirmationquestion'>Attach your CV.</div>
+                   <input type="file" name="cv"/>
+
+                   {/* <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/> */}
 
                    <Grid container direction="row" >
                       <div className='confirmcancelbutton'>
                         <CustomButton addStyles={"reject-button"}name="Cancel" onClicked={()=>statechanger(false)}/>
                         </div>  
                         <div className='confirmsendbutton'>
-                            <CustomButton addStyles={"accept-button"}name="Send Application"  onClicked={confirmedbutton}/>
+                            <CustomButton addStyles={"accept-button"}name="Send Application"  onClicked={confirmedbutton} type="submit"/>
                         </div>
                     </Grid>
                     
@@ -54,7 +77,7 @@ function ApplyConfirmation({statechanger, ...props}) {
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     
   )
 }

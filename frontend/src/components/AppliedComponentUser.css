@@ -1,0 +1,61 @@
+.appliedcomponent{
+   border: 1px solid black;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+}
+
+.appliedcompimage{
+    width: 60px;
+    height:60px;
+    display: inline;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 50px;
+    margin-left: 20px;   
+}
+
+.imagewrapperapplied{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.appliedcompcompany{
+    font-weight: 500;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+.appliedcompjob{
+    font-weight: 500;
+    font-size: 18px;
+    padding-bottom: 4px;
+}
+
+.rejectedstatus{
+    color: red;
+    font-weight: 500;
+}
+
+.reviewedstatus{
+    color:blue;
+    font-weight: 500;
+}
+
+.pendingstatus{
+    color:yellow;
+    font-weight: 500;
+}
+.appliedmidtext{
+    padding-right:700px;
+}
+.appliedbutton{
+   
+    padding: 40px;
+    height: max-content;
+}
+
+.appliedtexts{
+    font-weight: 500;
+}

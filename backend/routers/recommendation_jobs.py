@@ -7,15 +7,17 @@ from core import database, oauth2
 from sqlalchemy.orm import Session
 from datetime import datetime
 from sqlalchemy.sql import text
+from typing import List
+from schemas import job_post_schema
 
 
 router = APIRouter(
     tags=['Recommendation Jobs'],
-    prefix="/recommendation-jobs"
+    prefix="/recommendation_jobs"
 )
 
 
-@router.get('/recommend-jobs')
+@router.get('/recommend_jobs', response_model=List[job_post_schema.JobPostShow])
 def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     # print(current_user.seeker[0].experience)
     # hired_experience = db.query(experience.Experience).filter(experience.Experience.seeker_id == current_user.seeker[0].id).all()
@@ -65,21 +67,23 @@ def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.Use
     # hunai parne kura haru and vitra rakum j hos or ra and ma divide garnu parxa.
     hired_recommended_jobs = db.query(job_post.JobPost).filter(or_(
         # -> Search in the list and convert the each element of list to lowercase.
-        # *[func.lower(job_post.JobPost.job_location).like("%" + location.lower() + "%") for location in hired_user.preference[0].preferred_location]
-        # job_post.JobPost.job_location.like("%"+ hired_user.address +"%"),
-        # job_post.JobPost.remote_onsite == hired_user.preference[0].remote_onsite,
-        # func.lower(job_post.JobPost.education_required).like("%" + func.lower(hired_user.education[0].qualification) + "%"),
+        *[func.lower(job_post.JobPost.job_location).like("%" + location.lower() + "%") for location in hired_user.preference[0].preferred_location],
+        job_post.JobPost.job_location.like("%"+ hired_user.address +"%"),
+        job_post.JobPost.remote_onsite == hired_user.preference[0].remote_onsite,
+        func.lower(job_post.JobPost.education_required).like("%" + func.lower(hired_user.education[0].qualification) + "%"),
         # -> Their maximum salary should be higher than our expected minimum salary.
-        # job_post.JobPost.max_salary >= hired_user.preference[0].expected_min_salary,
-        # job_post.JobPost.minimum_years_of_experience <= hired_user_experience,
+        job_post.JobPost.max_salary >= hired_user.preference[0].expected_min_salary,
+        job_post.JobPost.minimum_years_of_experience <= hired_user_experience,
         # -> skills (JobPost) is an array and similary preferred_job_skills is also array. So need "any" for comparing. (maybe put this in and_)
-        # *[job_post.JobPost.skills.any("%" + skill + "%") for skill in hired_user.preference[0].preferred_job_skills],
+        *[job_post.JobPost.skills.any("%" + skill + "%") for skill in hired_user.preference[0].preferred_job_skills],
         *[func.lower(job_post.JobPost.job_level).like("%" + jobLevel + "%") for jobLevel in hired_job_level]
         # NOTE: add another field in the "job_post" what they are looking for machine leraning engineer or front end developer and so on. (put this in and_)
         )).filter(and_(
             job_post.JobPost.status_of_jobs == "published",
             job_post.JobPost.deadline >= datetime.utcnow()
             )).all()
+
+    print(hired_recommended_jobs)
     
     return hired_recommended_jobs
     # return "success"
