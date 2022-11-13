@@ -1,4 +1,3 @@
-import { IconButton } from "@mui/material";
 import React from "react";
 import "./button.css";
 
@@ -7,6 +6,7 @@ const CustomButton = ({
   name,
   addStyles,
   onClicked,
+  Icon,
   iconbutton,
   type,
   ...rest
@@ -16,10 +16,10 @@ const CustomButton = ({
       id={name}
       className={"main_button " + addStyles}
       onClick={onClicked}
-      iconbutton={IconButton}
       {...rest}
       type = {type==="submit" ? "submit": "button"}
     >
+      {Icon && <Icon />}
       {name}
   
     </button>

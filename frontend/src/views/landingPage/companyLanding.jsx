@@ -5,6 +5,7 @@ import company from "../../assets/companyLanding.jpg";
 import Image from "../../components/Image";
 import "./landingPage.css";
 import Button from "../../components/Buttons";
+import { Link } from "react-router-dom";
 
 const CompanyLanding = () => {
   const [value, setValue] = React.useState("");
@@ -82,7 +83,12 @@ const CompanyLanding = () => {
               justifyContent="center"
             >
               <Grid item>
-                <Button name="Sign Up Now" addStyles="signUpNow"></Button>
+                <Link
+                  to="/Signup"
+                  style={{ textDecoration: "none", color: "#495c83" }}
+                >
+                  <Button name="Sign Up Now" addStyles="signUpNow"></Button>
+                </Link>
               </Grid>
             </Grid>
           </Grid>

@@ -8,18 +8,15 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const DropDown = ({ label, value, options, onChange }) => {
   return (
-    <Grid item>
-      <div>
-        <FormControl variant="standard">
-          <InputLabel>{label}</InputLabel>
-          <Select value={value} label={label} onChange={onChange}>
-            {options.map((item) => (
-              <MenuItem value={item.value}>{item.label}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    </Grid>
+    <FormControl fullWidth variant="standard">
+      <InputLabel>{label}</InputLabel>
+      <Select value={value} label={label} onChange={onChange}>
+        {options.map((item) => (
+          <MenuItem value={item.value}>{item.label}</MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  
   );
 };
 

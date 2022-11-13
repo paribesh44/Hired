@@ -36,15 +36,15 @@ const Navbar = () => {
             </Grid>
             <Grid item style={{ margin: "10px" }}>
               <Link
-                to="Login"
+                to="/Login"
                 style={{ textDecoration: "none", color: "#495c83" }}
               >
-                <CustomButton name="Log in" addStyles={" "} />
+                <CustomButton name="Log in" addStyles={"navbar_button "} />
               </Link>
             </Grid>
             <Grid item style={{ margin: "10px" }}>
               <Link
-                to="Signup"
+                to="/Signup"
                 style={{ textDecoration: "none", color: "#495c83" }}
               >
                 <CustomButton name="Sign up" addStyles={"navbar_button"} />
