@@ -46,7 +46,7 @@ const validationschema = Yup.object({
   location: Yup.string().required('Required'),
   description: Yup.string().matches(/(\b[A-Za-z0-9\s'_-]+\b){50,}/, 'Word count exceeds 50').required('Required'),
   contact: Yup.string().matches(phoneRegExp, 'Contact number is not valid').min(10, "The number is too short")
-  .max(10, "The number is too long").required('Required'),
+    .max(10, "The number is too long").required('Required'),
   responsibilities: Yup.string().required('Required'),
   benefits: Yup.string().required('Required'),
   vancancy: Yup.string().required('Required'),
@@ -66,300 +66,318 @@ function Cformtwo() {
     setValue(newValue);
   }
 
+  const options=[
+{
+  value: 1,
+  description:'Intern'
+},
+{
+  value: 2,
+  description:'Full time employee'
+},
+{
+  value: 3,
+  description:'Par-time employee'
+},
+
+
+  ]
+
   return (
     <Formik initialValues={initialValues}
-    validationSchema={validationschema}
-    onSubmit={onSubmit}>
+      validationSchema={validationschema}
+      onSubmit={onSubmit}>
 
-<Form>
-<Grid
-            container
-            justifyContent="center"
-          >
-            <h2>
-              Post a job
-            </h2>
-          </Grid>
-          <Grid
-            container
-            justifyContent="center"
-          >  
-      <h3>
-            Fill up the following fields to post a job vacancy. 
-            </h3> 
+      <Form>
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <h2>
+            Post a job
+          </h2>
+        </Grid>
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <h3>
+            Fill up the following fields to post a job vacancy.
+          </h3>
+        </Grid>
+
+
+        <Grid
+          container
+          justifyContent="center">
+          <div>
+            <label htmlFor='lookingfor'>
+              What are you looking for?
+            </label>
+            <Grid
+              container
+              justifyContent="center">
+              <DropDown options={options}
+              />
             </Grid>
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='position'>
+              Job Position                        </label>
+
+            <Field
+              type='text'
+              id='position'
+              name='position'
+              placeholder='e.g. Graphic Designer'
+            />
+
+            <ErrorMessage name='position' />
+          </div>
+        </Grid>
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='location'>
+              Job Location                        </label>
+
+            <Field
+              type='text'
+              id='location'
+              name='location'
+              placeholder='Dhulikhel'
+            />
+
+            <ErrorMessage name='location' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='description'>Description</label>
 
 
-                <Grid
-                    container
-                    justifyContent="center">
-                    <div>
-                        <label htmlFor='lookingfor'>
-                            What are you looking for?
-                        </label>
-                        <Grid
-                            container
-                            justifyContent="center">
-                            <DropDown
-                            />
-                        </Grid>
-                    </div>
-                </Grid>
+            <h7>Minimum 50 words</h7>
+<br/>
+            <Field
+           
+              type='text'
+              id='description'
+              name='description'
+              placeholder='Lorem ipsum dolor sit amet'
+              multiline={true}
 
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='position'>
-Job Position                        </label>
+            />
+            <ErrorMessage name='description' />
+          </div>
+        </Grid>
 
-                        <Field
-                            type='text'
-                            id='position'
-                            name='position'
-                            placeholder='e.g. Graphic Designer'
-                        />
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='responsibilities'>
+              Gradutating Institution
+            </label>
 
-                        <ErrorMessage name='position' />
-                    </div>
-                </Grid>
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='location'>
-Job Location                        </label>
+            <Field
+              type='text'
+              id='responsibilities'
+              name='responsibilities'
+              placeholder='Kathmandu University'
+            />
 
-                        <Field
-                            type='text'
-                            id='location'
-                            name='location'
-                            placeholder='Dhulikhel'
-                        />
+            <ErrorMessage name='responsibilities' />
+          </div>
+        </Grid>
 
-                        <ErrorMessage name='location' />
-                    </div>
-                </Grid>
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='benefits'>
+              Job Benefits
+            </label>
 
-                <Grid
-            container
-            justifyContent="center"
-          >
-            <div>
-              <label htmlFor='description'>Description</label>
+            <Field
+              type='text'
+              id='benefits'
+              name='benefits'
+              placeholder='Lorem ipsum dolor sit amet'
+            />
+
+            <ErrorMessage name='benefits' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='vacancy'>
+              Number of vancancies
+            </label>
+
+            <Field
+              type='text'
+              id='vacancy'
+              name='vacancy'
+              placeholder='10'
+            />
+
+            <ErrorMessage name='vacancy' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='hours'>
+              Work Hours per week
+            </label>
+
+            <Field
+              type='text'
+              id='hours'
+              name='hours'
+              placeholder='40'
+            />
+
+            <ErrorMessage name='hours' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='contact'>Contact Number</label>
+            <Field
+              type='text'
+              id='contact'
+              name='contact'
+              placeholder='98XXXXXXXX'
+            />
+            <ErrorMessage name='contact' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='experience'>
+              Minimun years of experience
+            </label>
+
+            <Field
+              type='text'
+              id='experience'
+              name='experience'
+              placeholder='2'
+            />
+
+            <ErrorMessage name='experience' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='education'>
+              Education Required
+            </label>
+
+            <Field
+              type='text'
+              id='education'
+              name='education'
+              placeholder='2'
+            />
+
+            <ErrorMessage name='education' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label htmlFor='skills'>
+              Skills Required
+            </label>
+
+            <Field
+              type='text'
+              id='skills'
+              name='skills'
+              placeholder='should have knowledge on this/that'
+            />
+
+            <ErrorMessage name='skills' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center">
+          <div>
+            <label htmlFor='type'>
+              Job Type
+            </label>
+            <Grid
+              container
+              justifyContent="center">
+              <RadioButtonsGroup options={[
+                'Remote',
+                'On-Site',
+                'Closed to Offers'
+              ]} />
+            </Grid>
+          </div>
+        </Grid>
 
 
-              <h7>Minimum 50 words</h7>
+        <Grid
+          container
+          justifyContent="center">
+          <div>
+            <label htmlFor='status'>
+              Status of post
+            </label>
+            <Grid
+              container
+              justifyContent="center">
+              <RadioButtonsGroup options={[
+                'Currently active',
+                'Inactive',
 
-              <Field
-                type='text'
-                id='description'
-                name='description'
-                placeholder='Lorem ipsum dolor sit amet'
-                multiline={true}
-
-              />
-              <ErrorMessage name='description' />
-            </div>
-          </Grid>
-
-          <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='responsibilities'>
-                            Gradutating Institution
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='responsibilities'
-                            name='responsibilities'
-                            placeholder='Kathmandu University'
-                        />
-
-                        <ErrorMessage name='responsibilities' />
-                    </div>
-                </Grid>
-                
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='benefits'>
-                           Job Benefits
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='benefits'
-                            name='benefits'
-                            placeholder='Lorem ipsum dolor sit amet'
-                        />
-
-                        <ErrorMessage name='benefits' />
-                    </div>
-                </Grid>
-
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='vacancy'>
-                           Number of vancancies
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='vacancy'
-                            name='vacancy'
-                            placeholder='10'
-                        />
-
-                        <ErrorMessage name='vacancy' />
-                    </div>
-                </Grid>
-
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='hours'>
-                           Work Hours per week
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='hours'
-                            name='hours'
-                            placeholder='40'
-                        />
-
-                        <ErrorMessage name='hours' />
-                    </div>
-                </Grid>
-
-                <Grid
-            container
-            justifyContent="center"
-          >
-            <div>
-              <label htmlFor='contact'>Contact Number</label>
-              <Field
-                type='text'
-                id='contact'
-                name='contact'
-                placeholder='98XXXXXXXX'
-              />
-              <ErrorMessage name='contact' />
-            </div>
-          </Grid>
-
-          <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='experience'>
-                          Minimun years of experience
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='experience'
-                            name='experience'
-                            placeholder='2'
-                        />
-
-                        <ErrorMessage name='experience' />
-                    </div>
-                </Grid>
-
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='education'>
-                          Education Required
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='education'
-                            name='education'
-                            placeholder='2'
-                        />
-
-                        <ErrorMessage name='education' />
-                    </div>
-                </Grid>
-
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='skills'>
-                          Skills Required
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='skills'
-                            name='skills'
-                            placeholder='should have knowledge on this/that'
-                        />
-
-                        <ErrorMessage name='skills' />
-                    </div>
-                </Grid>
-
-                <Grid
-                    container
-                    justifyContent="center">
-                    <div>
-                        <label htmlFor='type'>
-                           Job Type
-                        </label>
-                        <Grid
-                            container
-                            justifyContent="center">
-                            <RadioButtonsGroup options={[
-                                'Remote',
-                                'On-Site',
-                                'Closed to Offers'
-                            ]} />
-                        </Grid>
-                    </div>
-                </Grid>
-
-                
-                <Grid
-                    container
-                    justifyContent="center">
-                    <div>
-                        <label htmlFor='status'>
-                           Status of post
-                        </label>
-                        <Grid
-                            container
-                            justifyContent="center">
-                            <RadioButtonsGroup options={[
-                                'Currently active',
-                                'Inactive',
-                                
-                            ]} />
-                        </Grid>
-                    </div>
-                </Grid>
-                <Grid
+              ]} />
+            </Grid>
+          </div>
+        </Grid>
+        <Grid
           container
           justifyContent="center"
         >
@@ -405,17 +423,17 @@ Job Location                        </label>
           </LocalizationProvider>
         </Grid>
 
-<br />
+        <br />
 
         <Grid container
-              justifyContent="center">
-                {/* <Link to= '/Formtwo'> */}
-              <Button variant='contained' >Post</Button>
-              {/* </Link> */}
-            </Grid>
-          
+          justifyContent="center">
+          {/* <Link to= '/Formtwo'> */}
+          <Button variant='contained' >Post</Button>
+          {/* </Link> */}
+        </Grid>
 
-</Form>
+
+      </Form>
 
     </Formik>
   )

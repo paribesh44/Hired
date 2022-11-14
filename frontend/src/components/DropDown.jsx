@@ -35,7 +35,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { height } from '@mui/system';
 
-export default function DropDown() {
+export default function DropDown({options}) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
@@ -55,10 +55,12 @@ export default function DropDown() {
           <MenuItem value="">
             <em>Select</em>
           </MenuItem>
-          <MenuItem value={10}>Grade 10</MenuItem>
+          {options&&options.map((i)=>( <MenuItem value={i.value}>{i.description}</MenuItem>))}
+
+        {/*   <MenuItem value={10}>Grade 10</MenuItem>
           <MenuItem value={20}>Plus2/ A Levels</MenuItem>
           <MenuItem value={30}>Undergraduate</MenuItem>
-          <MenuItem value={30}>Graduate</MenuItem>
+          <MenuItem value={30}>Graduate</MenuItem> */}
         </Select>
       
       </FormControl>

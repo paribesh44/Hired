@@ -65,12 +65,94 @@ function Formfour() {
                         <Grid
                             container
                             justifyContent="center">
-                            <DropDown
+                            <DropDown options={[
+        {
+          value: 1,
+          description:'1 hour'
+        },
+        {
+          value: 2,
+          description:'2 hours'
+        },
+        {
+          value: 3,
+          description:'3 hours'
+        },
+        {
+          value: 4,
+          description:'4 hours'
+        },
+        {
+            value: 5,
+            description:'5 hours'
+          },
+          {
+            value: 6,
+            description:'6 hours'
+          },
+          {
+            value: 7,
+            description:'7 hours'
+          },
+          {
+            value: 8,
+            description:'8 hours'
+          },
+          {
+              value: 9,
+              description:'9 hours'
+            },
+            {
+              value: 10,
+              description:'10+ hours'
+            },
+          
+        
+          ]
+}
                             />
                         </Grid>
                     </div>
                 </Grid>
+                <Grid
+                    container
+                    justifyContent="center"
+                >
+                    <div>
+                        <label htmlFor='Roles'>
+                           What role are you looking for?
+                        </label>
 
+                        <Field
+                            type='text'
+                            id='roles'
+                            name='roles'
+                            placeholder='e.g.Graphic Designer'
+                        />
+
+                        <ErrorMessage name='roles' />
+                    </div>
+                </Grid>
+
+                <Grid
+                    container
+                    justifyContent="center"
+                >
+                    <div>
+                        <label htmlFor='Roles'>
+                        What are your preferred job skills?
+                        </label>
+
+                        <Field
+                            type='text'
+                            id='skills'
+                            name='skills'
+                            placeholder='e.g. Illustrator'
+                        />
+
+                        <ErrorMessage name='skills' />
+                    </div>
+                </Grid>
 
 
           <Grid
@@ -83,7 +165,7 @@ function Formfour() {
                         <Grid
                             container
                             justifyContent="center">
-                                <h7>Use slider to select manixum salary (in thousands)</h7>
+                                <h7>Use slider to select maximum salary (in thousands)</h7>
                                 </Grid>
                                 <br />
                                 <Grid
@@ -127,7 +209,7 @@ function Formfour() {
                             <RadioButtonsGroup options={[
                                 'Full-time',
                                 'Part-time',
-                                'INternship',
+                                'Internship',
                             ]} />
                         </Grid>
                         <ErrorMessage name='interest' />

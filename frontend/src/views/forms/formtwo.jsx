@@ -39,6 +39,8 @@ function Formtwo() {
         setValue(newValue);
     }
 
+ 
+         
 
     return (
         <Formik
@@ -65,7 +67,26 @@ function Formtwo() {
                         <Grid
                             container
                             justifyContent="center">
-                            <DropDown
+                            <DropDown options={[
+        {
+          value: 10,
+          description:'Grade 10'
+        },
+        {
+          value: 20,
+          description:'A levels'
+        },
+        {
+          value: 30,
+          description:'Undergraduate'
+        },
+        {
+          value: 40,
+          description:'Graduate'
+        },
+        
+          ]
+}
                             />
                         </Grid>
                     </div>
@@ -81,7 +102,123 @@ function Formtwo() {
                         <Grid
                             container
                             justifyContent="center">
-                            <DropDown
+                            <DropDown options={[
+        {
+          value: 1,
+          description:'Agriculture'
+        },
+        {
+          value: 2,
+          description:'Forestry'
+        },
+        {
+          value: 3,
+          description:'Environmental Engineering'
+        },
+        {
+          value: 4,
+          description:'Environmental Science'
+        },
+        {
+            value: 1,
+            description:'Agriculture'
+          },
+          {
+            value: 2,
+            description:'Forestry'
+          },
+          {
+            value: 3,
+            description:'Environmental Engineering'
+          },
+          {
+            value: 4,
+            description:'Environmental Science'
+          },
+        
+          {
+            value: 5,
+            description:'Civil Engineering'
+          },
+          {
+            value: 6,
+            description:'Computer Engineering'
+          },
+          {
+            value: 7,
+            description:'Computer Science'
+          },
+          {
+            value: 8,
+            description:'Graphic Design'
+          },
+          
+          {
+            value: 9,
+            description:'Interior Design'
+          },
+          {
+            value: 10,
+            description:'Theatre Arts/ Drama'
+          },
+          {
+            value: 11,
+            description:'Accounting'
+          },
+          {
+            value: 12,
+            description:'Buisness'
+          },
+          {
+            value: 8,
+            description:'Graphic Design'
+          },
+          
+          {
+            value: 9,
+            description:'Interior Design'
+          },
+          {
+            value: 10,
+            description:'Theatre Arts/ Drama'
+          },
+          {
+            value: 11,
+            description:'Accounting'
+          },
+          {
+            value: 12,
+            description:'Buisness'
+          },{
+            value: 13,
+            description:'Journalism'
+          },
+          
+          {
+            value: 14,
+            description:'Law'
+          },
+          {
+            value: 15,
+            description:'Computataional Mathematics'
+          },
+          {
+            value: 16,
+            description:'Mathematics'
+          },
+          {
+            value: 17,
+            description:'Mechanical Engineering'
+          },
+          {
+            value: 18,
+            description:'Pharmacy'
+          },
+          {
+            value: 19,
+            description:'Medicine'
+          },
+          ]}
                             />
                         </Grid>
                     </div>
