@@ -110,6 +110,7 @@ const Login = () => {
           <Grid item className="box">
             <Box component="form" noValidate autoComplete="off">
               <TextField
+                required
                 id="outlined-basic"
                 variant="outlined"
                 type="email"
