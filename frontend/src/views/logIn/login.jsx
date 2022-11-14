@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import loginC from "../../assets/login_c.svg";
+import loginCds from "../../assets/login_cccc.svg";
 import Image from "../../components/Image";
 import Hired from "../../assets/Hired.png";
 import "./login.css";
@@ -9,12 +10,75 @@ import Button from "../../components/Buttons";
 import { FcGoogle } from "react-icons/fc";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-const Login = () => {
-  const [value, setValue] = React.useState("");
+import callAPI from "../../utils/callAPI";
+import { useLocation } from 'react-router-dom';
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+
+const Login = () => {
+  const location = useLocation()
+  const{user_type}=location.state
+
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [invalidEmail, setInvalid] = React.useState(false);
+  const [invalidPassword, setInvalidPassword] = React.useState(false);
+  const [incorrectEmail, setIncorrectEmail] = React.useState(false);
+  const [incorrectPassword, setIncorrectPassword] = React.useState(false);
+  const [fillEmailPassword, setEmailPassword] = React.useState(false);
+
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+    setInvalid(false)
+    setIncorrectEmail(false)
+    fillEmailPassword(false)
   };
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+    setInvalidPassword(false)
+    setIncorrectPassword(false)
+    fillEmailPassword(false)
+  }
+
+  const loginWithGoogle = async() => {
+    window.location = `http://localhost:8000/google-login`
+  }
+
+  const loginSeeker = async()=>{
+    if (email != "" & password != ""){
+      // email and password are correct add this to the database
+      if(email.includes("@") && email.includes(".") && password.length >= 8) {
+
+        var user_data = {
+          email: email,
+          password: password
+        }
+
+        let response_obj = await callAPI({
+            endpoint: "/user-login",
+            method: "POST",
+            data: user_data,
+            });
+          
+        console.log(response_obj)
+
+        if (response_obj.data.msg == "Success") {
+          console.log("login vayo re")
+          // redirect to another page
+        }
+        if (response_obj.data.detail == "Incorrect Password" && response_obj.status == 404) {
+          setIncorrectPassword(true)
+        }
+        if (response_obj.data.detail == "Invalid Credentials" && response_obj.status == 404) {
+          setIncorrectEmail(true)
+        }
+      } 
+    } else {
+      setEmailPassword(true)
+    }
+  }
+
   return (
     <Grid container className="logIn_c">
       <Grid item className="left_column" xs>
@@ -29,9 +93,10 @@ const Login = () => {
         <Grid item>
           <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
             <Button
-              name="Log in with Google"
+              name="Login with Google"
               addStyles={"googleLogin"}
               Icon={FcGoogle}
+              onClicked={loginWithGoogle}
             ></Button>
           </Link>
         </Grid>
@@ -41,7 +106,12 @@ const Login = () => {
           </Grid>
           <Grid item className="box">
             <Box component="form" noValidate autoComplete="off">
-              <TextField id="outlined-basic" variant="outlined" />
+              <TextField id="outlined-basic" 
+              variant="outlined" 
+              type="email" 
+              placeholder="Enter your email" 
+              error={invalidEmail || incorrectEmail} 
+              onChange={handleChangeEmail} />
             </Box>
           </Grid>
         </Grid>
@@ -55,15 +125,39 @@ const Login = () => {
                 id="outlined-basic"
                 hiddenLabel="Password"
                 type="password"
+                error={invalidPassword || incorrectPassword}
+                placeholder="Enter your password"
                 autoComplete="current-password"
+                onChange={handleChangePassword}
               />
             </Box>
           </Grid>
         </Grid>
 
+        {/* check from backend */}
+        {/* <Grid>
+          <h5 style={{color: "red"}}>Incorrect Email & Password</h5>
+        </Grid> */}
+
+        {incorrectEmail ? 
+        <Grid>
+          <h5 style={{color: "red"}}>Incorrect Email</h5>
+        </Grid> : "" }
+
+        {incorrectPassword ? 
+        <Grid>
+          <h5 style={{color: "red"}}>Incorrect Password</h5>
+        </Grid> : "" }
+
+        {fillEmailPassword ?
+        <Grid>
+          <h5 style={{color: "red"}}>Fill all the fields</h5>
+        </Grid> : "" }
+        
+
         <Grid item>
           <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
-            <Button name="Log In" addStyles="logIn"></Button>
+            <Button name="Log In" addStyles="logIn" onClicked={loginSeeker}></Button>
           </Link>
         </Grid>
         <Grid item className="register">
@@ -81,7 +175,7 @@ const Login = () => {
 
       <Grid item className="Right_column" xs>
         <Grid item className="loginImage">
-          <Image src={loginC}></Image>
+          <Image src={user_type == 1 ? loginC: loginCds}></Image>
         </Grid>
       </Grid>
       <Grid item>

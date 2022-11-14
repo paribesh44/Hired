@@ -1,45 +1,25 @@
 import { Grid } from '@mui/material'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import AppliedComponentUser from '../../../components/AppliedComponentUser'
 import DashboardLayout from '../../../components/DashhboardLayout'
 import UserNavbarIn from '../../../components/UserNavbarIn'
 import UserSideBar from '../../../components/UserSideBar'
+import callAPI from "../../../utils/callAPI";
 
 function UserHistory() {
-  const appliedjobs=[
-    {
-      company: "Twitter Inc",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      jobName: "Software Developer",
-      applieedate: "5 sec ago",
-      location: "Pokhara, Nepal",
-      status:"Rejected",
-      estdsalary:"60000"
-    },
-    {
-      company: "Twitter Inc",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      jobName: "Software Developer",
-      applieedate: "5 sec ago",
-      location: "Pokhara, Nepal",
-      status:"Reviewed",
-      estdsalary:"60000"
-    },
-    {
-      company: "Twitter Inc",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      jobName: "Software Developer",
-      applieedate: "5 sec ago",
-      location: "Pokhara, Nepal",
-      status:"Pending",
-      estdsalary:"60000"
-    },
-    
+  const [applyHistories, setApplyHistories] = useState(null);
 
-  ]
+  const message = async () => {
+    let response_obj = await callAPI({ endpoint: "/apply/get_apply_user" });
+    setApplyHistories(response_obj);
+    console.log(response_obj.data)
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
+  if (applyHistories != null) {
   return (
     <div>
        <DashboardLayout>
@@ -53,14 +33,15 @@ function UserHistory() {
           </Grid>
 
           <Grid item>
-            {appliedjobs.map((job)=>(
+            {applyHistories.data.map((job, key)=>(
               <AppliedComponentUser 
-                  company={job.company}
-                  applieedate={job.applieedate}
-                  location={job.location}
+                  key={job.id}
+                  company={job.job_post.employer.companyName}
+                  applieedate={job.applied_date}
+                  location={job.job_post.job_location}
                   status={job.status}
-                  jobname={job.jobName}
-                  estdsalary={job.estdsalary}
+                  jobname={job.job}
+                  estdsalary={job.job_post.max_salary}
                   
                   />
             ))}
@@ -73,6 +54,7 @@ function UserHistory() {
        </DashboardLayout>
     </div>
   )
+}
 }
 
 export default UserHistory

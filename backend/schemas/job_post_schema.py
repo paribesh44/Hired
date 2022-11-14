@@ -2,8 +2,6 @@ from datetime import date, datetime
 from pydantic import BaseModel
 from typing import List, Optional
 from schemas.employer_schema import Employer
-from schemas.apply_schema import Apply
-
 
 class JobPost(BaseModel):
     id: int
@@ -37,6 +35,7 @@ class JobPostShow(JobPost):
         orm_mode = True
 
 class JobPostApply(JobPost):
+    from schemas.apply_schema import Apply
     apply: Optional[Apply]
 
     class Config:

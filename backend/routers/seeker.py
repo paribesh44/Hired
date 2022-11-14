@@ -112,3 +112,12 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
     # , "experience": hired_seeker.experience[0].workPlace
     # return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user, "user_assesment": hired_seeker.userAssesment}
     return hired_seeker
+
+
+@router.get("/does_this_seeker_has_cv")
+def hasCV(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    has_cv = None
+    hired_seeker = db.query(seeker.Seeker).filter(seeker.Seeker.id == current_user.seeker[0].id).first()
+    has_cv = hired_seeker.cv
+
+    return has_cv

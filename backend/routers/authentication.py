@@ -8,6 +8,7 @@ from forms import loginForm
 
 from models import user
 from core import database, hashing, JWTtokens
+from schemas import authentication_schema
 
 router = APIRouter(
     tags=["User Authentication"]
@@ -18,9 +19,9 @@ router = APIRouter(
 @router.post('/user-login')
 # request:.... means that the 'request' depends upon "OAuth2PasswordRequestForm"
 # whatever is returned by 'oau..' will be the value of 'request'
-def login(response: Response, form: loginForm.LoginForm = Depends(), db: Session = Depends(database.get_db)):
+def login(response: Response, data: authentication_schema.Login, db: Session = Depends(database.get_db)):
     hired_user = db.query(user.User).filter(
-        user.User.email == form.username).first()
+        user.User.email == data.email).first()
 
     # check if this user exists
     if not hired_user:
@@ -28,7 +29,7 @@ def login(response: Response, form: loginForm.LoginForm = Depends(), db: Session
                             detail="Invalid Credentials")
 
     # checking for the password
-    if not hashing.Hash.verify_password(form.password, hired_user.password):
+    if not hashing.Hash.verify_password(data.password, hired_user.password):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Incorrect Password")
 

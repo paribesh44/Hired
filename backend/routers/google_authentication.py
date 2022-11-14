@@ -78,7 +78,7 @@ async def login(request: Request):
 
 @router.get('/auth')
 async def auth(request: Request, db: Session = Depends(database.get_db)):
-    response = RedirectResponse(url="/")
+    response = RedirectResponse(url="http://localhost:3000")
     try:
         # Perform Google OAuth
         token = await oauth.google.authorize_access_token(request)
@@ -94,7 +94,6 @@ async def auth(request: Request, db: Session = Depends(database.get_db)):
     if hired_user == None:
         new_google_user = user.User(
             user_type=1, email=token["userinfo"]["email"], is_verified=True)
-        print(jsonable_encoder(new_google_user))
         db.add(new_google_user)
         db.commit()
         db.refresh(new_google_user)

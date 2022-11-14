@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from schemas import job_post_schema
+from schemas import job_post_schema, apply_schema
 
 from models import job_post, user, save_job, apply
 from core import database, oauth2
@@ -87,7 +87,7 @@ def showall(db: Session = Depends(database.get_db), current_user: user.User = De
 
     return hired_job_post
 
-@router.get("/seeker_applied_job/{job_post_id}")
+@router.get("/seeker_applied_job/{job_post_id}", response_model=List[apply_schema.ApplySeeker])
 def showSeekerAppliedJob(job_post_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     hired_apply = db.query(apply.Apply).filter(apply.Apply.job_post_id == job_post_id).all()
 
