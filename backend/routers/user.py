@@ -5,11 +5,13 @@ from typing import List
 
 from schemas.user_schema import User, ShowUser
 from models import user
+from schemas import authentication_schema
 
 from core import JWTtokens
 from core import database, hashing, oauth2
 
 from fastapi import APIRouter
+from utils import utils
 
 router = APIRouter(
     tags=['User']
@@ -18,23 +20,23 @@ router = APIRouter(
 
 # Create a new user
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
-def Signup(request: User, response: Response, db: Session = Depends(database.get_db)):
+async def Signup(data: authentication_schema.SignUp, response: Response, db: Session = Depends(database.get_db)):
     login_process = None
     # check if the user with that email previously exits or not
     user_exists = db.query(user.User).filter(
-        user.User.email == request.email).first()
+        user.User.email == data.email).first()
 
     # save the user to the database only if the user priously donot exists.
     if not user_exists:
-        new_user = user.User(user_type=2, email=request.email,
-                             password=hashing.Hash.bcrypt(request.password))
+        new_user = user.User(user_type=data.user_type, email=data.email,
+                             password=hashing.Hash.bcrypt(data.password))
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
         login_process = "success"
     else:
         raise HTTPException(status_code=status.HTTP_417_EXPECTATION_FAILED,
-                            detail=f"User with the email {request.email} already exists.")
+                            detail=f"Already exist")
 
     if (login_process == "success"):
         # after the user has been created get the token and save it in the cookies
@@ -42,7 +44,9 @@ def Signup(request: User, response: Response, db: Session = Depends(database.get
             data={"sub": new_user.email})
         response.set_cookie("hiredToken", access_token)
 
-    return new_user
+        await utils.send_verification_email(new_user)
+
+    return {"user": new_user, "msg": "Success"}
 
 
 # show user with certain user id; only job seeker can view this

@@ -1,12 +1,26 @@
 import React from 'react'
 import { Grid, IconButton } from "@mui/material";
 import CustomButton from '../../../components/Buttons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import callAPI from "../../../utils/callAPI";
+import { Link } from "react-router-dom";
+import {IoLogoGithub} from 'react-icons/io';
 
 
 
 function ApplyConfirmation({job_post_id, statechanger, ...props}) {
+    const [has_cv, setHasCV] = useState("")
+
+    const message = async () => {
+    let response_obj = await callAPI({ endpoint: "/seeker/does_this_seeker_has_cv" });
+    setHasCV(response_obj.data);
+    console.log(response_obj.data)
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
     const [applyanswers, setapplyanswers]=useState({reasontoaccept:""})
     function handlechange(event){
         setapplyanswers(prevdata=>{
@@ -21,8 +35,15 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
     async function submitApply(e){
         e.preventDefault()
         const cover_letter = e.target.cover_letter.files[0]
-        const cv = e.target.cv.files[0]
         const reasonToAccept = e.target.reasontoaccept.value
+        var cv = ""
+
+        if(has_cv != null) {
+            cv = ""
+        } else {
+            cv = e.target.cv.files[0]
+        }
+        console.log(cv)
 
         let dataForm = new FormData()
         dataForm.append("description", reasonToAccept)
@@ -32,18 +53,25 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
 
         // update visibility in the database
         let response_obj = await callAPI({
-            endpoint: "/apply/create/",
+            endpoint: "/apply/create",
             method: "POST",
             data: dataForm,
             });
 
     }
 
-
     function confirmedbutton(){
         console.log(applyanswers.reasontoaccept)
-
     }
+
+    function redirect() {
+        window.location = "http://localhost:8000/static/cv/" + {has_cv};
+    }
+
+    function changeCV() {
+        setHasCV(null)
+    }
+
   return (
     <form onSubmit={submitApply}>
         <div className='modal'>
@@ -54,11 +82,20 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
                    <input placeholder='Your answer' name="reasontoaccept" onChange={handlechange} value={applyanswers.reasontoaccept}/>
 
 
-                   <div className='confirmationquestion'>Attach your cover letter?</div>
+                   <div className='confirmationquestion'>Attach your cover letter? *</div>
                    <input type="file" name="cover_letter"/>
 
-                   <div className='confirmationquestion'>Attach your CV.</div>
-                   <input type="file" name="cv"/>
+                   <div className='confirmationquestion'>Attach your CV. *</div>
+                   {has_cv == null ?
+                    <input type="file" name="cv"/> :
+                    <Grid>
+                        <Link path="http://localhost:8000/:{has_cv}" target="_blank">
+                            <div>{has_cv}</div>
+                        </Link>
+                        <IoLogoGithub className='appliedicons' onClick={changeCV}/>
+                    </Grid>
+                     }
+                   
 
                    {/* <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/> */}
 

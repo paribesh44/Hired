@@ -1,11 +1,12 @@
 import shutil
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from models import apply, user
+from models import apply, user, seeker
 from core import database, hashing, oauth2
 from sqlalchemy.orm import Session
 from typing import List
 from forms import applyForm
+from schemas import apply_schema
 
 
 router = APIRouter(
@@ -16,39 +17,54 @@ router = APIRouter(
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 async def createApplyProfile(data: applyForm.ApplyForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    
     cv_file_location = None
     cover_letter_file_location = None
 
-    # upload cv in local memory and save the file_location in database
-    try:
-        cv_file_location = f"static/cv/{data.cv.filename}"
-        with open(cv_file_location, "wb") as buffer:
-            shutil.copyfileobj(data.cv.file, buffer)
-    except:
-        cv_file_location = None
+    # check if the current seeker has already uploaded cv or not.
+    hired_seeker = db.query(seeker.Seeker).filter(seeker.Seeker.id == current_user.seeker[0].id).first()
+    print(hired_seeker.cv)
+
+    print(data.cv)
+
+    if(data.cv != "" and hired_seeker.cv != None):
+        print("yaha gayo ki gayena")
+        cv_file_location = hired_seeker.cv
+    
+
+    if (data.cv == ""):
+        print("hdjahdkja")
+        # upload cv in local memory and save the file_location in database
+        try:
+            cv_file_location = f"static/cv/{data.cv.filename}"
+            with open(cv_file_location, "wb") as buffer:
+                shutil.copyfileobj(data.cv.file, buffer)
+        except:
+            cv_file_location = None
+
+    print(cv_file_location)
+
 
     # upload cover letter
     try:
         cover_letter_file_location = f"static/cover_letters/{data.coverletter.filename}"
         with open(cover_letter_file_location, "wb") as buffer:
             shutil.copyfileobj(data.coverletter.file, buffer)
-        print(cover_letter_file_location)
     except Exception as e :
-        print(e)
-        print("yaha aayo ki aayena")
-
         cover_letter_file_location = None
 
     print(cover_letter_file_location)
 
-    new_apply = apply.Apply(
-        description=data.description, cv=cv_file_location,  status="applied",
-        coverletter=cover_letter_file_location, seeker_id=current_user.seeker[0].id, job_post_id=data.job_post_id)
+    return "hello"
 
-    db.add(new_apply)
-    db.commit()
-    db.refresh(new_apply)
-    return new_apply
+    # new_apply = apply.Apply(
+    #     description=data.description, cv=cv_file_location,  status="applied",
+    #     coverletter=cover_letter_file_location, seeker_id=current_user.seeker[0].id, job_post_id=data.job_post_id)
+
+    # db.add(new_apply)
+    # db.commit()
+    # db.refresh(new_apply)
+    # return new_apply
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
@@ -95,10 +111,18 @@ def update(id: int, form: applyForm.ApplyForm = Depends(), db: Session = Depends
 
 
 # , response_model=List[schemas.Showapply]
-@router.get('/get_all')
+@router.get('/get_all_apply')
 def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     applys = db.query(apply.Apply).all()
     return applys
+
+
+@router.get("/get_apply_user", response_model=List[apply_schema.ApplyJobPost])
+def showApplyBySeeker(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    hired_apply = db.query(apply.Apply).filter(
+        apply.Apply.seeker_id == current_user.seeker[0].id).all()
+
+    return hired_apply
 
 
 # , response_model=schemas.apply
@@ -110,5 +134,16 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Sekeer with the id {id} is not available")
     # , "experience": hired_apply.experience[0].workPlace
-    return {"name": hired_apply.name, "cv": hired_apply.cv, "user": hired_apply.user, "user_assesment": hired_apply.userAssesment}
-    # return apply
+    # return {"name": hired_apply.name, "cv": hired_apply.cv, "user": hired_apply.user, "user_assesment": hired_apply.userAssesment}
+    return hired_apply
+
+@router.get("/get_apply_of_user/{job_post_id}/{seeker_id}")
+def showApply(job_post_id: int, seeker_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    hired_apply = db.query(apply.Apply).filter(
+        apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id == seeker_id).first()
+
+    if not hired_apply:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Sekeer with the id {id} is not available")
+    
+    return hired_apply
