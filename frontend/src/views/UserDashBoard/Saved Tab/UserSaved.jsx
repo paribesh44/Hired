@@ -46,7 +46,7 @@ function UserSaved() {
               description= {val.description} 
               jobName= {val.job} 
               location= {val.job_location} 
-              timeElapsed={"3 days ago"}
+              posted_date={val.posted_date}
               state={false}/>
             </Grid>
               );})}

@@ -93,7 +93,7 @@ def showSeekerAppliedJob(job_post_id: int, db: Session = Depends(database.get_db
 
     return hired_apply
 
-@router.get("/show_all_featured_jobs")
+@router.get("/show_all_featured_jobs", response_model=List[job_post_schema.JobPostShow])
 def showAllFeaturedJobs(db: Session = Depends(database.get_db)):
     hired_job_post = db.query(job_post.JobPost).limit(4).all()
 

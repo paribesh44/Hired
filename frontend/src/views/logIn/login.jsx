@@ -11,11 +11,12 @@ import { FcGoogle } from "react-icons/fc";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import callAPI from "../../utils/callAPI";
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 
 const Login = () => {
   const location = useLocation();
   const { user_type } = location.state;
+  console.log(user_type)
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -29,14 +30,14 @@ const Login = () => {
     setEmail(e.target.value);
     setInvalid(false);
     setIncorrectEmail(false);
-    fillEmailPassword(false);
+    setEmailPassword(false);
   };
 
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
     setInvalidPassword(false);
     setIncorrectPassword(false);
-    fillEmailPassword(false);
+    setEmailPassword(false);
   };
 
   const loginWithGoogle = async () => {
@@ -63,6 +64,10 @@ const Login = () => {
         if (response_obj.data.msg == "Success") {
           console.log("login vayo re");
           // redirect to another page
+          // <Routes>
+          //   <Route path="/UserHomeTab" />;
+          // </Routes>
+          <Navigate to="/UserHomeTab" replace={true} />
         }
         if (
           response_obj.data.detail == "Incorrect Password" &&
@@ -170,22 +175,23 @@ const Login = () => {
         )}
 
         <Grid item>
-          <Link
+          {/* <Link
             to="/CompanyHome"
             style={{ textDecoration: "none", color: "#495c83" }}
-          >
+          > */}
             <Button
               name="Log In"
               addStyles="logIn"
               onClicked={loginSeeker}
             ></Button>
-          </Link>
+          {/* </Link> */}
         </Grid>
         <Grid item className="register">
           <p>
             Not registered?{" "}
             <Link
               to="/Signup"
+              state={{ user_type: user_type }}
               style={{ textDecoration: "none", color: "#495c83" }}
             >
               <b>Create an Account</b>

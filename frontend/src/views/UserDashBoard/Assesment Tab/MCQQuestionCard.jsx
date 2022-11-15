@@ -95,11 +95,11 @@ function MCQQuestionCard(props) {
       chosen_answers: chosenn,
     };
 
-    // let response_obj = await callAPI({
-    //   endpoint: "/userAssesment/create",
-    //   method: "POST",
-    //   data: information,
-    // });
+    let response_obj = await callAPI({
+      endpoint: "/userAssesment/create",
+      method: "POST",
+      data: information,
+    });
 
     if (true) {
       console.log("dhasjkdahs");

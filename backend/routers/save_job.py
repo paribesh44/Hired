@@ -47,4 +47,4 @@ def all(job_post_id: int, db: Session = Depends(database.get_db), current_user: 
         save_job.SaveJob.job_post_id==job_post_id, 
         # save_job.SaveJob.save==True,
         save_job.SaveJob.seeker_id==current_user.seeker[0].id).first()
-    return {"msg": "success", "saveJob":hired_saveJob}
+    return hired_saveJob

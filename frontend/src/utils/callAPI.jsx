@@ -8,7 +8,6 @@ const callAPI = async ({
   withCredentials = true,
   ...rest
 }) => {
-  console.log("LHERE");
   let url = `http://localhost:8000${endpoint}`;
   let config = {
     withCredentials: withCredentials,
@@ -33,7 +32,6 @@ const callAPI = async ({
       promiseObj = axios.delete(url, config);
       break;
   }
-  console.log("Promise Obj", promiseObj);
 
   let response_obj = null;
   await promiseObj
