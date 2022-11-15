@@ -8,6 +8,7 @@ import Login from "./views/logIn/login";
 import Signup from "./views/signUp/signup";
 import EmployeeProfile from "./views/profile/employeeProfile";
 import CompanyProfile from "./views/profile/companyProfile";
+// import CompanyHome from "./views/CompanyDashBoard/CompanyHome";
 import CompanyHome from "./views/CompanyDashBoard/CompanyHome/CompanyHome";
 import CompanyApplied from "./views/CompanyDashBoard/Applied Tab/CompanyApplied";
 import CompanyAddPost from "./views/CompanyDashBoard/CompanyAddPost/CompanyAddPost";

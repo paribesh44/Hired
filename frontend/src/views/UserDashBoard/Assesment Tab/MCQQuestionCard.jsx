@@ -6,6 +6,7 @@ import CustomButton from "../../../components/Buttons";
 import { Link } from "react-router-dom";
 import callAPI from "../../../utils/callAPI";
 import useAPI from "../../../utils/useAPI";
+import { Navigate } from 'react-router-dom';
 
 function MCQQuestionCard(props) {
   const target_field_id = props.target_field_id;
@@ -94,13 +95,18 @@ function MCQQuestionCard(props) {
       chosen_answers: chosenn,
     };
 
-    let response_obj = await callAPI({
-      endpoint: "/userAssesment/create",
-      method: "POST",
-      data: information,
-    });
+    // let response_obj = await callAPI({
+    //   endpoint: "/userAssesment/create",
+    //   method: "POST",
+    //   data: information,
+    // });
 
-    if (response_obj.data.msg === "success") {
+    if (true) {
+      console.log("dhasjkdahs");
+      // <Link to="/ListDoneAssesment"></Link>
+      // window.location = "/ListDoneAssesment"
+      <Navigate to="/ListDoneAssesment"/>
+      // this.router.history.push('/ListDoneAssesment')
     }
   };
 
@@ -111,13 +117,11 @@ function MCQQuestionCard(props) {
           <div className="final-results">
             <div className="mcqcompleteheading">MCQ Complete</div>
             <div className="mcqcompletesub">{props.target_field_name}</div>
-            <Link to="/ListDoneAssesment">
               <CustomButton
                 addStyles={"accept-button"}
                 name="Finish"
                 onClicked={() => FinishClicked()}
               />
-            </Link>
           </div>
         ) : (
           <div className="mcq-main">

@@ -23,17 +23,14 @@ async def createApplyProfile(data: applyForm.ApplyForm = Depends(), db: Session 
 
     # check if the current seeker has already uploaded cv or not.
     hired_seeker = db.query(seeker.Seeker).filter(seeker.Seeker.id == current_user.seeker[0].id).first()
-    print(hired_seeker.cv)
 
-    print(data.cv)
-
-    if(data.cv != "" and hired_seeker.cv != None):
-        print("yaha gayo ki gayena")
+    # run this if this seeker has already uploaded cv while creating its profile. And if it wants to send as cv
+    if(data.cv == None and hired_seeker.cv != None):
         cv_file_location = hired_seeker.cv
     
 
-    if (data.cv == ""):
-        print("hdjahdkja")
+    # this does not run when user has chooose cv added while creating profile.
+    if (data.cv != None):
         # upload cv in local memory and save the file_location in database
         try:
             cv_file_location = f"static/cv/{data.cv.filename}"
@@ -55,7 +52,7 @@ async def createApplyProfile(data: applyForm.ApplyForm = Depends(), db: Session 
 
     print(cover_letter_file_location)
 
-    return "hello"
+    return {"msg": "success"}
 
     # new_apply = apply.Apply(
     #     description=data.description, cv=cv_file_location,  status="applied",

@@ -10,6 +10,7 @@ import {IoLogoGithub} from 'react-icons/io';
 
 function ApplyConfirmation({job_post_id, statechanger, ...props}) {
     const [has_cv, setHasCV] = useState("")
+    const [fillAllTheFields, setFillFields] = useState(false)
 
     const message = async () => {
     let response_obj = await callAPI({ endpoint: "/seeker/does_this_seeker_has_cv" });
@@ -30,6 +31,7 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
             }
             
         })
+        setFillFields(false)
     }
 
     async function submitApply(e){
@@ -44,6 +46,25 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
             cv = e.target.cv.files[0]
         }
         console.log(cv)
+        console.log(cover_letter===undefined)
+        console.log(reasonToAccept==="")
+        console.log(cv===undefined)
+
+        // check if the user has selected all the fields or not
+        if (has_cv != null) {
+            if (cover_letter===undefined && reasonToAccept==="" && cv===undefined) {
+                setFillFields(true)
+            }
+        } else {
+            if (cover_letter===undefined && reasonToAccept==="") {
+                setFillFields(true)
+            }
+        }
+        if (cv != null) {
+            if (cover_letter===undefined && reasonToAccept==="") {
+                setFillFields(true)
+            }
+        }
 
         let dataForm = new FormData()
         dataForm.append("description", reasonToAccept)
@@ -51,12 +72,19 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
         dataForm.append("coverletter", cover_letter)
         dataForm.append("job_post_id", job_post_id)
 
-        // update visibility in the database
-        let response_obj = await callAPI({
-            endpoint: "/apply/create",
-            method: "POST",
-            data: dataForm,
-            });
+        if (fillAllTheFields === false) {
+            console.log("hello")
+            // update visibility in the database
+            let response_obj = await callAPI({
+                endpoint: "/apply/create",
+                method: "POST",
+                data: dataForm,
+                });
+
+            if (response_obj.data.msg == "success" ) {
+                statechanger(false)
+            }
+        }
 
     }
 
@@ -72,7 +100,14 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
         setHasCV(null)
     }
 
+    const pathLink = `http://localhost:8000/${has_cv}`;
+
+    function changePath() {
+        window.location = `http://localhost:8000/${has_cv}`;
+    }
+
   return (
+    
     <form onSubmit={submitApply}>
         <div className='modal'>
             <div className='overlay'>
@@ -89,12 +124,18 @@ function ApplyConfirmation({job_post_id, statechanger, ...props}) {
                    {has_cv == null ?
                     <input type="file" name="cv"/> :
                     <Grid>
-                        <Link path="http://localhost:8000/:{has_cv}" target="_blank">
+                        <a target="_blank" href={pathLink}>
                             <div>{has_cv}</div>
-                        </Link>
+                        </a>
                         <IoLogoGithub className='appliedicons' onClick={changeCV}/>
                     </Grid>
                      }
+                    
+                    {fillAllTheFields &&
+                     <Grid>
+                        <h4 style={{color: "red", marginTop: 10}}>Choose all the fields.</h4>
+                     </Grid>
+                    }
                    
 
                    {/* <CustomButton addStyles={"confirmationbutton"} name="Choose a File"/> */}
