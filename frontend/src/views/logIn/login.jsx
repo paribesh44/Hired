@@ -97,7 +97,7 @@ const Login = () => {
           <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
             <Button
               name="Login with Google"
-              addStyles={"googleLogin"}
+              addStyles={"logIn"}
               Icon={FcGoogle}
               onClicked={loginWithGoogle}
             ></Button>

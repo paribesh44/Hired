@@ -33,7 +33,7 @@ const Routedpath = () => {
     <Routes>
       <Route path="UserHomeTab" element={<UserHomeTab />}></Route>
       <Route path="/" element={<EmployeeLanding />}></Route>
-      <Route path="CompanyHome" element={<CompanyHome />}></Route>
+      <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
       <Route path="/Login" element={<Login />}></Route>
       <Route path="/Signup" element={<Signup />}></Route>

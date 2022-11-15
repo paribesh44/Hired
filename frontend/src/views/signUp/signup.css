@@ -1,5 +1,5 @@
-.signUp {
-}
+/* .signUp {
+} */
 
 .left_c {
   margin: 5em 0 0 20em !important;
@@ -21,17 +21,15 @@
 }
 
 .googleLogin {
-  width: 300px;
-  height: 35px;
+  width: 18em;
+  height: 45px;
   outline: none;
   background: none;
-  border: 1px solid #495c83;
+  border: 2px solid #495c83;
   border-radius: 5px;
-  font-size: 1em;
-  font-weight: 550;
+  padding: 0 20px 0 20px;
+  font-size: 1.2em;
   color: #7a86b6;
-  margin-top: 2em;
-  margin-bottom: 3em !important;
 }
 .full_n {
   font-size: 1.25em;
@@ -67,10 +65,10 @@
   height: 50em;
 }
 
-#outlined-basic{
+#outlined-basic {
   width: 17em;
-  color: #7a86b6 ;
+  color: #7a86b6;
 }
-.fullnamebox{
+.fullnamebox {
   padding: 10px 0;
 }
