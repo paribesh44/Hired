@@ -7,13 +7,10 @@
   align-items: center;
   justify-content: center;
   padding: 0.5em;
-
-
 }
 
-.main_button>svg{
-  margin-right: 2em;
-  height: 2em;
+.main_button > svg {
+  margin-right: 1.2em;
+  height: 1.5em;
   width: 2em;
-
 }

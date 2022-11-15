@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import Navbar from "../../components/NavbarEmployee";
 import landing from "../../assets/landing.svg";
@@ -11,27 +11,43 @@ import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import { IoSearch } from "react-icons/io5";
 import FeaturedBox from "../../components/featuredBox";
+import callAPI from "../../utils/callAPI";
 
 const EmployeeLanding = () => {
-  const jobs = [
-    {
-      company: "Twitter Inc",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      jobName: "Software Developer",
-      timeElapsed: "5 sec ago",
-      location: "Pokhara, Nepal",
-    },
-    {
-      company: "Twitter Inc",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-      jobName: "Software Developer",
-      timeElapsed: "5 sec ago",
-      location: "Pokhara, Nepal",
-    },
-  ];
+  // const jobs = [
+  //   {
+  //     company: "Twitter Inc",
+  //     description:
+  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+  //     jobName: "Software Developer",
+  //     timeElapsed: "5 sec ago",
+  //     location: "Pokhara, Nepal",
+  //   },
+  //   {
+  //     company: "Twitter Inc",
+  //     description:
+  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+  //     jobName: "Software Developer",
+  //     timeElapsed: "5 sec ago",
+  //     location: "Pokhara, Nepal",
+  //   },
+  // ];
   const [value, setValue] = React.useState("");
+
+  const [featuredJobs, setFeaturedJobs] = useState(null);
+
+  async function message() {
+    console.log("hERE 2");
+    let response_obj = await callAPI({
+      endpoint: "/jobPost/show_all_featured_jobs",
+    });
+    setFeaturedJobs(response_obj.data);
+  }
+
+  useEffect(() => {
+    console.log("Start");
+    message();
+  }, []);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -39,6 +55,7 @@ const EmployeeLanding = () => {
   return (
     <Grid container direction="column" className="landing_root">
       <Navbar />
+      {console.log("Featured Jobs", featuredJobs)}
       <Grid
         item
         container
@@ -101,39 +118,41 @@ const EmployeeLanding = () => {
             />
           </FormControl>
         </Grid>
-        <Grid>
-          <Grid item>
-            <Grid
-              container
-              direction="column"
-              alignItems="flex-start"
-              justifyContent="flex-start"
-            >
-              <Grid item className="Featured_jobs">
-                <p>Featured Jobs</p>
-              </Grid>
+        {featuredJobs != null && (
+          <Grid>
+            <Grid item>
               <Grid
                 container
-                direction="row"
+                direction="column"
                 alignItems="flex-start"
                 justifyContent="flex-start"
               >
-                <Grid item className="Featured_jobsbox">
-                  {jobs.map((job) => (
-                    <FeaturedBox
-                      company={job.company}
-                      description={job.description}
-                      jobName={job.jobName}
-                      timeElapsed={job.timeElapsed}
-                      location={job.location}
-                      state={true}
-                    ></FeaturedBox>
-                  ))}
+                <Grid item className="Featured_jobs">
+                  <p>Featured Jobs</p>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="flex-start"
+                  justifyContent="flex-start"
+                >
+                  <Grid item className="Featured_jobsbox">
+                    {featuredJobs.map((job) => (
+                      <FeaturedBox
+                        company={job.company}
+                        description={job.description}
+                        jobName={job.jobName}
+                        timeElapsed={job.timeElapsed}
+                        location={job.location}
+                        state={true}
+                      ></FeaturedBox>
+                    ))}
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        )}
       </Grid>
     </Grid>
   );
