@@ -31,7 +31,7 @@ import AppliedEmployeesList from "./views/CompanyDashBoard/Applied Tab/FirstList
 const Routedpath = () => {
   return (
     <Routes>
-      <Route path="UserHomeTab" element={<UserHomeTab />}></Route>
+      <Route path="/UserHomeTab" element={<UserHomeTab />}></Route>
       <Route path="/" element={<EmployeeLanding />}></Route>
       <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
