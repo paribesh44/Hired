@@ -31,9 +31,9 @@ import AppliedEmployeesList from "./views/CompanyDashBoard/Applied Tab/FirstList
 const Routedpath = () => {
   return (
     <Routes>
-      {/* <Route path="/" element={<UserHomeTab />}></Route> */}
-      {/* <Route path="/" element={<EmployeeLanding />}></Route> */}
-      {/* <Route path="/" element={<CompanyHome />}></Route> */}
+      <Route path="UserHomeTab" element={<UserHomeTab />}></Route>
+      <Route path="/" element={<EmployeeLanding />}></Route>
+      <Route path="CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
       <Route path="/Login" element={<Login />}></Route>
       <Route path="/Signup" element={<Signup />}></Route>
@@ -46,12 +46,12 @@ const Routedpath = () => {
         path="/AppliedEmployeesList"
         element={<AppliedEmployeesList />}
       ></Route>
-
+      <Route path="/UserNavbarIn" element={<UserNavbarIn />}></Route>
       <Route path="/ApplyJob" element={<ApplyJob />}></Route>
       <Route path="/CompanyMyEmployees" element={<CompanyMyEmployes />}></Route>
       <Route path="/CompanyAnalytics" element={<CompanyAnalytics />}></Route>
 
-      {/* <Route path="/UserHomeTab" element={<UserHomeTab />}></Route> */}
+      <Route path="/UserHomeTab" element={<UserHomeTab />}></Route>
 
       <Route path="/UserHistory" element={<UserHistory />}></Route>
 
