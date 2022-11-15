@@ -9,7 +9,7 @@ import Signup from "./views/signUp/signup";
 import EmployeeProfile from "./views/profile/employeeProfile";
 import CompanyProfile from "./views/profile/companyProfile";
 // import CompanyHome from "./views/CompanyDashBoard/CompanyHome";
-// import CompanyHome from "./views/CompanyDashBoard/CompanyHome/CompanyHome";
+import CompanyHome from "./views/CompanyDashBoard/CompanyHome/CompanyHome";
 import CompanyApplied from "./views/CompanyDashBoard/Applied Tab/CompanyApplied";
 import CompanyAddPost from "./views/CompanyDashBoard/CompanyAddPost/CompanyAddPost";
 import CompanyAnalytics from "./views/CompanyDashBoard/CompanyAnalytics/CompanyAnalytics";
@@ -31,7 +31,7 @@ import AppliedEmployeesList from "./views/CompanyDashBoard/Applied Tab/FirstList
 const Routedpath = () => {
   return (
     <Routes>
-      <Route path="/" element={<UserHomeTab />}></Route>
+      {/* <Route path="/" element={<UserHomeTab />}></Route> */}
       {/* <Route path="/" element={<EmployeeLanding />}></Route> */}
       {/* <Route path="/" element={<CompanyHome />}></Route> */}
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
@@ -39,7 +39,7 @@ const Routedpath = () => {
       <Route path="/Signup" element={<Signup />}></Route>
       <Route path="/EmployeeProfile" element={<EmployeeProfile />}></Route>
       <Route path="/CompanyProfile" element={<CompanyProfile />}></Route>
-      {/* <Route path="/CompanyHome" element={<CompanyHome />}></Route> */}
+      <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/CompanyApplied" element={<CompanyApplied />}></Route>
       <Route path="/CompanyAddPost" element={<CompanyAddPost />}></Route>
       <Route

@@ -21,6 +21,12 @@ router = APIRouter(
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def createUserAssesmentProfile(data: user_assesment_schema.MCQResultSchema, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
 
+    # to check if the current user has already completed current assesment or not.
+    # If assesment is done then do not give entry to database.
+    hired_userAssesment = db.query(user_assesment.UserAssesment).filter(
+        user_assesment.UserAssesment.target_field_id== data.target_field_id, 
+        user_assesment.UserAssesment.seeker_id==current_user.seeker[0].id).first()
+
     # global variable
     correct_answer_array = []
     secured_score = 0
@@ -41,12 +47,19 @@ def createUserAssesmentProfile(data: user_assesment_schema.MCQResultSchema, db: 
                 # if both the corresponsing elements of the two list are same then score will be incremented by 1.
                 if correct_answer_array[i] == data.chosen_answers[j]:
                     secured_score += 1
+    
+    # put in database only if the that user has not done the current target field before.
+    if(hired_userAssesment == None):
+        # by default set the visibility to false. "score" will be calculated here only. "chosen_answers" and "target_field_id" will come from front-end.
+        new_UserAssesment = user_assesment.UserAssesment(score= secured_score, chosen_answers= data.chosen_answers, target_field_id= data.target_field_id, seeker_id=current_user.seeker[0].id)
+        db.add(new_UserAssesment)
+        db.commit()
+        db.refresh(new_UserAssesment)
+        msg = "success"
+    else:
+        new_UserAssesment=None
+        msg = "unsuccess"
 
-    # by default set the visibility to false. "score" will be calculated here only. "chosen_answers" and "target_field_id" will come from front-end.
-    new_UserAssesment = user_assesment.UserAssesment(score= secured_score, chosen_answers= data.chosen_answers, target_field_id= data.target_field_id, seeker_id=current_user.seeker[0].id)
-    db.add(new_UserAssesment)
-    db.commit()
-    db.refresh(new_UserAssesment)
     return {"msg": "success", "user_assesment": new_UserAssesment}
 
 

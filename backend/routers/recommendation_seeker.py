@@ -24,7 +24,7 @@ router = APIRouter(
 # Penalty system.
 
 # This will calculate the priority by calculating the percentage. Seeker with higesh percentage value will be highly priorize.
-@router.get('/recommend-seekers{jobpost_id}')
+@router.get('/recommend-seekers/{jobpost_id}')
 def RecommendSeekers(jobpost_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     # get the apply data with the id as "jobpost_id".
     hired_apply = db.query(apply.Apply).filter(apply.Apply.job_post_id == jobpost_id).all()
@@ -51,7 +51,8 @@ def RecommendSeekers(jobpost_id: int, db: Session = Depends(database.get_db), cu
         # add seeker_id and seeker_name into semi-root dict
         dictionary[no_of_seeker+1] = {
             "seeker_id": hired_seeker_who_applied_for_job[no_of_seeker].id, 
-            "seeker_name": hired_seeker_who_applied_for_job[no_of_seeker].name
+            "seeker_name": hired_seeker_who_applied_for_job[no_of_seeker].name,
+            "seeker": hired_seeker_who_applied_for_job[no_of_seeker]
             }
 
         # initilize percentage
