@@ -92,3 +92,9 @@ def showSeekerAppliedJob(job_post_id: int, db: Session = Depends(database.get_db
     hired_apply = db.query(apply.Apply).filter(apply.Apply.job_post_id == job_post_id).all()
 
     return hired_apply
+
+@router.get("/show_all_featured_jobs")
+def showAllFeaturedJobs(db: Session = Depends(database.get_db)):
+    hired_job_post = db.query(job_post.JobPost).limit(4).all()
+
+    return hired_job_post

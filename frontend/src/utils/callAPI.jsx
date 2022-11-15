@@ -8,13 +8,13 @@ const callAPI = async ({
   withCredentials = true,
   ...rest
 }) => {
+  console.log("LHERE");
   let url = `http://localhost:8000${endpoint}`;
   let config = {
     withCredentials: withCredentials,
     params: params,
     ...rest,
   };
-
   let promiseObj = null;
   switch (method) {
     case "GET":
@@ -33,6 +33,7 @@ const callAPI = async ({
       promiseObj = axios.delete(url, config);
       break;
   }
+  console.log("Promise Obj", promiseObj);
 
   let response_obj = null;
   await promiseObj
@@ -44,7 +45,7 @@ const callAPI = async ({
     });
   if (response_obj.status == 401) {
     localStorage.clear();
-    window.location = "/"
+    window.location = "/";
   }
 
   return response_obj;
