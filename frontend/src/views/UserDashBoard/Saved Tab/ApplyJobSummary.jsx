@@ -7,12 +7,22 @@ import {IoLogoGithub, IoIosPerson, IoIosPersonAdd } from 'react-icons/io';
 import {IoCall} from 'react-icons/io5';
 import {IoMailOpen} from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ApplyConfirmation from './ApplyConfirmation';
+import callAPI from "../../../utils/callAPI";
 
 
 
 function ApplyJobSummary(props) {
+  const [saveState, setSaveState] = useState("")
+  // 
+  const message = async () => {
+    setSaveState(props.save)
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
 
   const [applyconfirm, setapplyconfirm]=useState(false)
 
@@ -23,6 +33,31 @@ function ApplyJobSummary(props) {
   function capitalize(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
+  async function changeSave(e) {
+      let save_or_not = true;
+      // it is save so change to unsave
+      if (saveState == true) {
+        save_or_not = false;
+      } else {
+        save_or_not = true;
+      }
+
+      // update save and unsave in the database
+      let response_obj2 = await callAPI({
+        endpoint: `/saveJob/update_save_job/${props.job_post.id}`,
+        method: "PUT",
+        data: { save: save_or_not },
+      });
+
+      if (response_obj2.status == 200) {
+        if (saveState == true) {
+          setSaveState(false);
+        } else {
+          setSaveState(true);
+        }
+      }
+    }
 
   return (
     <div className='applysummary-main'>
@@ -38,7 +73,7 @@ function ApplyJobSummary(props) {
                 <Grid item style={{ fontSize:20, fontWeight:500, }}> {props.job_post.employer.companyName} </Grid>
                 <Grid item className='introinfotext'> {props.job_post.employer.location}, Nepal </Grid>
 
-                <Grid item className='introinfotext'> Posted 3 days ago </Grid>
+                <Grid item className='introinfotext'> Posted {props.posted_days_ago} days ago </Grid>
 
                 <Grid item> 
                 <Grid container direction="row"   className="accepttab" >
@@ -55,7 +90,7 @@ function ApplyJobSummary(props) {
 
                </Grid>
                <Grid item>
-               <CustomButton name="Not Interested" addStyles={"reject-button"}/>
+               <CustomButton name={saveState ? "Not Interested" : "Save"} addStyles={"reject-button"} onClicked={changeSave}/>
 
                </Grid>
              </Grid>

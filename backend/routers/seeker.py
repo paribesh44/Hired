@@ -94,6 +94,24 @@ def update(id: int, form: jobSeekerForm.JobSeekerForm = Depends(), db: Session =
     return {"msg": "success"}
 
 
+@router.put("/update_seeker_status")
+def update_visibility(data: seeker_schema.ChangeSeeker, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    # # print(data.visibility)
+    # return "success"
+    update_seeker_status = db.query(seeker.Seeker).filter(seeker.Seeker.id==current_user.seeker[0].id).first()
+   
+    if not update_seeker_status:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User Assesment with id not found")
+
+    update_seeker_status.status = data.status
+    print(data.status)
+    db.commit()
+    db.refresh(update_seeker_status)
+
+    return {"msg":"success"}
+
+
 # , response_model=List[schemas.ShowSeeker]
 @router.get('/get_all')
 def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
@@ -112,6 +130,11 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
     # , "experience": hired_seeker.experience[0].workPlace
     # return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user, "user_assesment": hired_seeker.userAssesment}
     return hired_seeker
+
+@router.get('/get_current_seeker')
+def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    seekers = db.query(seeker.Seeker).filter(seeker.Seeker.id==current_user.seeker[0].id).all()
+    return seekers
 
 
 @router.get("/does_this_seeker_has_cv")

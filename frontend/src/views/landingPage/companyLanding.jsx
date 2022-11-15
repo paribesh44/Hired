@@ -85,6 +85,7 @@ const CompanyLanding = () => {
               <Grid item>
                 <Link
                   to="/Signup"
+                  state={{ user_type: 2 }}
                   style={{ textDecoration: "none", color: "#495c83" }}
                 >
                   <Button name="Sign Up Now" addStyles="signUpNow"></Button>

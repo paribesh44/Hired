@@ -20,7 +20,7 @@ seekers: List[Json] = [
         "drivingLicenseNum": None,
         "last_job_applied": None,
         "user_id": 1,
-        "status": "Ready to Interview"
+        "status": "Ready to interview"
     },
     {
         "name": "Job seeker2",
@@ -39,6 +39,6 @@ seekers: List[Json] = [
         "drivingLicenseNum": None,
         "last_job_applied": None,
         "user_id": 2,
-        "status": "Ready to Interview"
+        "status": "Ready to interview"
     }
 ]

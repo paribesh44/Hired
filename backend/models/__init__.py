@@ -10,3 +10,4 @@ from .target_field import TargetField
 from .user_assesment import UserAssesment
 from .apply import Apply
 from .save_job import SaveJob
+from .remainder import Remainder

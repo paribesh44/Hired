@@ -49,18 +49,18 @@ def createUserAssesmentProfile(data: user_assesment_schema.MCQResultSchema, db: 
                     secured_score += 1
     
     # put in database only if the that user has not done the current target field before.
-    if(hired_userAssesment == None):
+    # if(hired_userAssesment == None):
         # by default set the visibility to false. "score" will be calculated here only. "chosen_answers" and "target_field_id" will come from front-end.
-        new_UserAssesment = user_assesment.UserAssesment(score= secured_score, chosen_answers= data.chosen_answers, target_field_id= data.target_field_id, seeker_id=current_user.seeker[0].id)
-        db.add(new_UserAssesment)
-        db.commit()
-        db.refresh(new_UserAssesment)
-        msg = "success"
-    else:
-        new_UserAssesment=None
-        msg = "unsuccess"
+    new_UserAssesment = user_assesment.UserAssesment(score= secured_score, chosen_answers= data.chosen_answers, target_field_id= data.target_field_id, seeker_id=current_user.seeker[0].id)
+    db.add(new_UserAssesment)
+    db.commit()
+    db.refresh(new_UserAssesment)
+    msg = "success"
+    # else:
+    #     new_UserAssesment=None
+    #     msg = "unsuccess"
 
-    return {"msg": "success", "user_assesment": new_UserAssesment}
+    return {"msg": msg, "user_assesment": new_UserAssesment}
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)

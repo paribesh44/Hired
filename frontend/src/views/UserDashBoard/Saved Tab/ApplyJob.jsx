@@ -14,6 +14,8 @@ import { useLocation } from 'react-router-dom';
 function ApplyJob() {
   const location = useLocation()
     const{job_post}=location.state
+    const{save}=location.state
+    const{posted_days_ago}=location.state
     console.log(job_post)
   return (
     <div className='applyjob-main'>
@@ -25,8 +27,8 @@ function ApplyJob() {
 
             <Grid item>
                 <div className='jobdescription-main'>
-                    <ApplyJobSummary job_post={job_post}/>
-                    <ApplyJobDetailed job_post={job_post}/>
+                    <ApplyJobSummary job_post={job_post} save={save} posted_days_ago={posted_days_ago}/>
+                    <ApplyJobDetailed job_post={job_post} save={save}/>
 
                 </div>
                 

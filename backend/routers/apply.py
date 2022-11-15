@@ -52,16 +52,14 @@ async def createApplyProfile(data: applyForm.ApplyForm = Depends(), db: Session 
 
     print(cover_letter_file_location)
 
-    return {"msg": "success"}
+    new_apply = apply.Apply(
+        description=data.description, cv=cv_file_location,  status="applied",
+        coverletter=cover_letter_file_location, seeker_id=current_user.seeker[0].id, job_post_id=data.job_post_id)
 
-    # new_apply = apply.Apply(
-    #     description=data.description, cv=cv_file_location,  status="applied",
-    #     coverletter=cover_letter_file_location, seeker_id=current_user.seeker[0].id, job_post_id=data.job_post_id)
-
-    # db.add(new_apply)
-    # db.commit()
-    # db.refresh(new_apply)
-    # return new_apply
+    db.add(new_apply)
+    db.commit()
+    db.refresh(new_apply)
+    return {"msg": "success", "apply": new_apply}
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)

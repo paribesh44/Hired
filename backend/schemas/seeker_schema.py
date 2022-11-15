@@ -35,3 +35,9 @@ class ShowSeeker(Seeker):
 
     class Config:
         orm_mode = True
+
+class ChangeSeeker(BaseModel):
+    status: str
+
+    class Config:
+        orm_mode = True

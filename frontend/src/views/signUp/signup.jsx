@@ -54,9 +54,6 @@ const Signup = () => {
       }
       // email and password are correct add this to the database
       if(email.includes("@") && email.includes(".") && password.length >= 8) {
-        
-        // JOBSEEKER: int = 1
-        // COMPANIES: int = 2
 
         var user_data = {
           email: email,
@@ -166,15 +163,14 @@ const Signup = () => {
         </Grid> : "" }
 
         <Grid item>
-          <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
             <Button name="Sign Up" addStyles="logIn" onClicked={signUpSeeker}></Button>
-          </Link>
         </Grid>
         <Grid item className="register">
           <p>
             Already have an account?{" "}
             <Link
               to="/Login"
+              state={{ user_type: user_type }}
               style={{ textDecoration: "none", color: "#495c83" }}
             >
               <b>Login</b>

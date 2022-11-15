@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 
@@ -12,8 +12,36 @@ import { IoIosNotifications } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 
 import CompanyNavbarIn from "./CompanyNavbarIn";
+import callAPI from "../utils/callAPI";
+import useAPI from "../utils/useAPI";
 
 export default function UserNavbarIn() {
+  const [changeStatusState, setChangeStatusState] = useState(null)
+
+  const message = async () => {
+    let response_obj = await callAPI({ endpoint: "/seeker/get_current_seeker" });
+    setChangeStatusState(response_obj.data[0].status);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+  
+
+  async function changeStatus(e) {
+    console.log(e.target.value)
+
+    let response_obj = await callAPI({
+            endpoint: `/seeker/update_seeker_status`,
+            method: "PUT",
+            data: {status: e.target.value},
+            });
+  
+    if (response_obj.data.msg == "success") {
+      setChangeStatusState(e.target.value)
+    }
+  }
+
   return (
     <div className="navbar-main">
       {/* <CompanyNavbarIn/> */}
@@ -45,16 +73,18 @@ export default function UserNavbarIn() {
             </Grid>
 
             <Grid item>
+              { changeStatusState != null &&
               <select
                 components={{ DropdownIndicator: () => null }}
                 className="status-button"
+                onClick={changeStatus}
+                defaultValue={changeStatusState}
               >
-                <option value="Ready"> Ready to interview</option>
-                <option value="Open"> Open to Offers</option>
-                <option value="Close"> Close to interview</option>
-
-                {/* <CustomButton name="Ready to interview" addStyles={"status-button"} /> */}
+                <option value="Ready to interview"> Ready to interview</option>
+                <option value="Open to offers"> Open to Offers</option>
+                <option value="Close to interview"> Close to interview</option>
               </select>
+              }
             </Grid>
 
             <Grid className="userdp">

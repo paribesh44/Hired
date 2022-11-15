@@ -17,7 +17,6 @@ function UserHomeTab() {
       endpoint: "/recommendation_jobs/recommend_jobs",
     });
     setRecommendedJobs(response_obj);
-    console.log("motherfucker");
     console.log(response_obj.data);
   };
 
@@ -44,7 +43,7 @@ function UserHomeTab() {
                     description={job.description}
                     location={job.job_location}
                     jobName={job.job}
-                    timeElapsed={"3 days ago"}
+                    posted_date={job.posted_date}
                     state={false}
                   />
                 </Grid>
