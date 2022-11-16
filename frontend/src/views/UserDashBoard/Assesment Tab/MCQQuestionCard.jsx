@@ -17,6 +17,7 @@ function MCQQuestionCard(props) {
   const [selectedans, setselecredans] = useState("");
   const [targetfield, settargetfield] = useState("");
   const [chosenn, setchosenn] = useState([]);
+   const [changeLocation, setChangeLocation] = React.useState(false);
 
   const [listofselected, setlistofselected] = useState({
     target_field_id: "",
@@ -103,16 +104,14 @@ function MCQQuestionCard(props) {
 
     if (true) {
       console.log("dhasjkdahs");
-      // <Link to="/ListDoneAssesment"></Link>
-      // window.location = "/ListDoneAssesment"
-      <Navigate to="/ListDoneAssesment"/>
-      // this.router.history.push('/ListDoneAssesment')
+      setChangeLocation(true)
     }
   };
 
   if (mcqquestions != null) {
     return (
       <div>
+        {changeLocation && <Navigate to="/ListDoneAssesment"/>}
         {showFinalResult ? (
           <div className="final-results">
             <div className="mcqcompleteheading">MCQ Complete</div>

@@ -11,7 +11,7 @@ import { FcGoogle } from "react-icons/fc";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import callAPI from "../../utils/callAPI";
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
 
 
 const Signup = () => {
@@ -25,6 +25,7 @@ const Signup = () => {
   const [invalidPassword, setInvalidPassword] = React.useState(false);
   const [fillEmailPassword, setEmailPassword] = React.useState(false);
   const [userAlreadyExist, setUserAlreadyExist] = React.useState(false);
+  const [changeLocation, setChangeLocation] = React.useState(false);
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -62,7 +63,7 @@ const Signup = () => {
         }
 
         let response_obj = await callAPI({
-            endpoint: "/signup",
+            endpoint: `/signup/${user_type}`,
             method: "POST",
             data: user_data,
             });
@@ -72,6 +73,8 @@ const Signup = () => {
         if (response_obj.data.msg == "Success") {
           console.log("signup vayo re")
           // redirect to another page
+          setChangeLocation(true)
+
         }
         if (response_obj.data.detail == "Already exist" && response_obj.status == 417) {
           setUserAlreadyExist(true)
@@ -89,7 +92,7 @@ const Signup = () => {
           <Image src={user_type == 1 ? Signin_c : SignUpGG }></Image>
         </Grid>
       </Grid>
-
+      {changeLocation && <Navigate to={user_type==1 ? "/UserHomeTab" : "/CompanyHome" }/>}
       <Grid item className="Right_c" xs>
         <Grid item className="logo_h">
           <Link to="/">

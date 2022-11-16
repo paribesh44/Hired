@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, status
-from forms import cv
+from forms import cvForm
 from fpdf import FPDF, HTMLMixin
 
 
@@ -10,7 +10,7 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createCV(form: cv.CVForm = Depends()):
+def createCV(form: cvForm.CVForm = Depends()):
     cv(form)
     return form
 
