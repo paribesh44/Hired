@@ -2,10 +2,13 @@ import { Grid } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function JobsList() {
+function JobsList(props) {
+  console.log("thi si props");
+  console.log(props.job);
+
   return (
     <Grid container className="joblistmain">
-      <Link to="">
+      <Link to="/EditJobPost" state={{ job: props.job }}>
         <Grid item className="joblistsubtext">
           Edit the Job Post
         </Grid>
@@ -16,7 +19,7 @@ function JobsList() {
           Post :
         </Grid>
         <Grid item className="joblisthead">
-          Graphics Designer
+          {props.jobname}
         </Grid>
       </Grid>
       <Grid container direction={"row"} alignItems="center">
@@ -24,13 +27,13 @@ function JobsList() {
           Posted Date:
         </Grid>
         <Grid item className="joblisthead">
-          09-09-09
+          {props.posted_date.split("T")[0]}
         </Grid>
         <Grid item className="joblistsub2">
           Deadline:
         </Grid>
         <Grid item className="joblisthead">
-          09-09-09
+          {props.deadline.split("T")[0]}
         </Grid>
       </Grid>
       <Grid container direction={"row"} alignItems="center">
@@ -38,7 +41,7 @@ function JobsList() {
           No. of vacancies:
         </Grid>
         <Grid item className="joblisthead">
-          20
+          {props.no_of_vacancy}
         </Grid>
         <Grid item className="joblistsub2">
           No. of applicants:

@@ -1,29 +1,64 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "../../../../components/Image";
 import { dummydata } from "./dummydata";
 import demo from "../../../../assets/demoprofileimage.jpg";
 import CustomButton from "../../../../components/Buttons";
 import { Link } from "react-router-dom";
 import SkillContainer from "../../../../components/SkillContainer";
+import callAPI from "../../../../utils/callAPI";
+import AppliedPopupMsg from "../AppliedPopupMsg";
+import RejectPopup from "../RejectPopup";
 
-function Appliedlist() {
-  return (
-    <Grid container direction="column" className="appliedlistmain">
-      <Grid item className="overviewheading">
-        Applied Employees
-      </Grid>
-      <Grid item>
-        List of all the Employess that have applied to your job posts.
-      </Grid>
-      <Grid>
-        {dummydata.map((val, key) => {
-          return (
+function Appliedlist(props) {
+  var jobid = 0;
+  const [appliedEmplist, setappliedEmplist] = useState(null);
+
+  const message = async () => {
+    let response_obj = await callAPI({
+      endpoint: `/jobPost/seeker_applied_job/${props.job_post_id}`,
+    });
+    setappliedEmplist(response_obj);
+    console.log("this is this");
+    console.log(response_obj.data);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
+  const [acceptModal, setacceptModal] = useState(false);
+  const [rejectModal, setrejectModal] = useState(false);
+
+  const togglerejectModal = () => {
+    setrejectModal(!rejectModal);
+  };
+
+  const toggleacceptModal = () => {
+    setacceptModal(!acceptModal);
+  };
+
+  if (appliedEmplist != null) {
+    console.log("this is user id");
+
+    console.log(appliedEmplist.data);
+    return (
+      <Grid container direction="column" className="appliedlistmain">
+        <Grid item className="overviewheading">
+          Applied Employees
+        </Grid>
+        <Grid item>
+          List of all the Employess that have applied to your job posts.
+        </Grid>
+        <Grid>
+          {appliedEmplist.data.map((val, key) => (
+            // <Grid>
+            //   {val.data.map((value, key) => {
             <Grid
               container
-              key={key}
               className="single_applicant"
               direction={"row"}
+              key={key}
             >
               <Grid item className="appliedimagewrapper">
                 <Image addStyles={"applied-image"} src={demo} />
@@ -36,7 +71,7 @@ function Appliedlist() {
                         Name:
                       </Grid>
                       <Grid item className="appliedlisttext">
-                        {val.name}
+                        {val.seeker.name}
                       </Grid>
                     </Grid>
 
@@ -45,7 +80,7 @@ function Appliedlist() {
                         Position:
                       </Grid>
                       <Grid item className="appliedlisttext">
-                        {val.position}
+                        {props.job_position}
                       </Grid>
                     </Grid>
 
@@ -54,7 +89,7 @@ function Appliedlist() {
                         Applied date:
                       </Grid>
                       <Grid item className="appliedlisttext">
-                        {val.applieddate}
+                        {val.applied_date}
                       </Grid>
                     </Grid>
 
@@ -73,7 +108,7 @@ function Appliedlist() {
                               Skills
                             </Grid>
                             <Grid item className="skillleftpadding">
-                              <Grid container direction="row">
+                              {/* <Grid container direction="row">
                                 {val.skills.map((val, key) => {
                                   return (
                                     <Grid item className="appliedlisttext">
@@ -81,7 +116,7 @@ function Appliedlist() {
                                     </Grid>
                                   );
                                 })}
-                              </Grid>
+                              </Grid> */}
                             </Grid>
                           </Grid>
                         </Grid>
@@ -91,7 +126,7 @@ function Appliedlist() {
                               Experience
                             </Grid>
                             <Grid item>
-                              <Grid
+                              {/* <Grid
                                 container
                                 direction="row"
                                 className="experiencepadding"
@@ -103,7 +138,7 @@ function Appliedlist() {
                                     </Grid>
                                   );
                                 })}
-                              </Grid>
+                              </Grid> */}
                             </Grid>
                           </Grid>
                         </Grid>
@@ -114,7 +149,14 @@ function Appliedlist() {
               </Grid>
               <Grid item>
                 <Grid container direction="column">
-                  <Link to="/CompanyApplied">
+                  <Link
+                    to="/CompanyApplied"
+                    state={{
+                      job_post_id: props.job_post_id,
+                      user_id: val.id,
+                      job_position: props.job_position,
+                    }}
+                  >
                     <Grid item> View Employee Profile</Grid>
                   </Link>
                   <Grid item className="appliedbuttons">
@@ -123,25 +165,43 @@ function Appliedlist() {
                         <CustomButton
                           addStyles={"reject-button"}
                           name="Reject"
+                          onClicked={togglerejectModal}
                         />
+                        {rejectModal && (
+                          <RejectPopup
+                            statechanger={setrejectModal}
+                            name={val.seeker.name}
+                            post={props.job_position}
+                          />
+                        )}
                       </Grid>
 
                       <Grid item className="between-button">
                         <CustomButton
                           addStyles={"accept-button"}
                           name="Accept"
+                          onClicked={toggleacceptModal}
                         />
+                        {acceptModal && (
+                          <AppliedPopupMsg
+                            statechanger={toggleacceptModal}
+                            name={val.seeker.name}
+                            post={props.job_position}
+                          />
+                        )}
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          );
-        })}
+            //   })}
+            // </Grid>;
+          ))}
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
 
 export default Appliedlist;
