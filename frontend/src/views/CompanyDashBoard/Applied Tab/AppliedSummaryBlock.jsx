@@ -8,7 +8,7 @@ import demo from "../../../assets/demoprofileimage.jpg"
 import Image from '../../../components/Image';
 import "./companyapplied.css";
 import "./Modals.css"
-
+import callAPI from "../../../utils/callAPI";
 
 
 import {IoLogoGithub} from 'react-icons/io';
@@ -21,6 +21,12 @@ import RejectPopup from './RejectPopup';
 
 export default function AppliedSummaryBlock(props) {
 
+  console.log("hello")
+  console.log(props.job_post_id)
+  console.log(props.seeker_id)
+  console.log(props.status)
+  const [changeStatusState, setChangeStatusState] = useState(props.status)
+
   const [acceptModal, setacceptModal]=useState(false);
   const [rejectModal, setrejectModal]=useState(false);
 
@@ -32,7 +38,19 @@ export default function AppliedSummaryBlock(props) {
     setacceptModal(!acceptModal)
   }
 
+  async function changeStatus(e) {
+    console.log(e.target.value)
+
+    let response_obj = await callAPI({
+            endpoint: `/apply/update_status/${props.job_post_id}/${props.seeker_id}`,
+            method: "PUT",
+            data: {status: e.target.value},
+            });
   
+    if (response_obj.data.msg == "success") {
+      setChangeStatusState(e.target.value)
+    }
+  }
   
   return (
     
@@ -62,28 +80,41 @@ export default function AppliedSummaryBlock(props) {
               <Grid item className='appliedinfotext'> Applied Date: {props.applieddate}</Grid>
 
             {props.type &&
-             <Grid item> 
-             <Grid container direction="row"   className="accepttab" >
-               <Grid item className='accept-button-class'>
-
-               {/* <PopUp trigger={ButtonPopUp} setTrigger={setButtonPopUp}>
-
-                <AppliedPopupMsg name="Jane Doe" post="Senior Graphics Designer" setTrigger={setButtonPopUp}/>
-                </PopUp> */}
+          //    <Grid item> 
+          //    <Grid container direction="row"   className="accepttab" >
+          //      <Grid item className='accept-button-class'>
                  
-               <CustomButton name="Accept" addStyles={"accept-button"} onClicked={toggleacceptModal} />
-               {acceptModal && <AppliedPopupMsg statechanger={setacceptModal} name="aaaa" post="dddd"/>}
+          //      <CustomButton name="Accept" addStyles={"accept-button"} onClicked={toggleacceptModal} />
+          //      {acceptModal && <AppliedPopupMsg statechanger={setacceptModal} name="aaaa" post="dddd"/>}
 
-               </Grid>
+          //      </Grid>
                
-               <Grid item >
+          //      <Grid item >
               
 
-               <CustomButton name="Reject" addStyles={"reject-button"} onClicked={ togglerejectModal}/>
-               {rejectModal && <RejectPopup statechanger={setrejectModal} name="Jane Doe" post="Senior Graphics Designer"/>}
-               </Grid>
-             </Grid>
-           </Grid> 
+          //      <CustomButton name="Reject" addStyles={"reject-button"} onClicked={ togglerejectModal}/>
+          //      {rejectModal && <RejectPopup statechanger={setrejectModal} name="Jane Doe" post="Senior Graphics Designer"/>}
+          //      </Grid>
+          //    </Grid>
+          //  </Grid> 
+          <Grid item>
+            <Grid container direction="row" className="accepttab" >
+              {changeStatusState != null &&
+              <select
+                components={{ DropdownIndicator: () => null }}
+                className="status-button-companies"
+                onClick={changeStatus}
+                defaultValue={changeStatusState}
+              >
+                <option value="shortlisted"> Shortlisted</option>
+                <option value="interview"> Interview</option>
+                <option value="interviewed"> Interviewed</option>
+                <option value="selected"> Selected</option>
+              </select> 
+            }
+            </Grid>
+
+          </Grid>
             }
 
             {!props.type && <div className='appliedinfotext'> Hired Date:{props.hireddate} </div>}

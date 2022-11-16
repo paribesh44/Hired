@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 function CompanyApplied() {
   const location = useLocation();
   const { job_post_id } = location.state;
-  const { user_id } = location.state;
+  const { seeker_id } = location.state;
   const { job_position } = location.state;
   return (
     <div>
@@ -23,7 +23,7 @@ function CompanyApplied() {
         <Grid item>
           <DetailedCompanyApplied
             job_post_id={job_post_id}
-            user_id={user_id}
+            seeker_id={seeker_id}
             job_position={job_position}
           />
         </Grid>

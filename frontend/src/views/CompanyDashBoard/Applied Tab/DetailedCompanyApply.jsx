@@ -11,11 +11,11 @@ function DetailedCompanyApplied(props) {
 
   const message = async () => {
     let response_obj = await callAPI({
-      endpoint: `/seeker/get_seeker/${props.user_id}`,
+      endpoint: `/seeker/get_seeker/${props.seeker_id}`,
     });
     setdetailedapply(response_obj);
     console.log("single indiv data");
-    console.log(props.user_id);
+    console.log(props.seeker_id);
     console.log(response_obj.data);
   };
 
@@ -43,13 +43,16 @@ function DetailedCompanyApplied(props) {
                   linkedinlink={val.linkedIn}
                   githublink={val.githubProfile}
                   websitelink={val.website}
+                  seeker_id={val.seeker_id}
+                  job_post_id={val.job_post_id}
+                  status={val.status}
                 />
 
                 <AppliedTabComponent />
                 <AppliedProfiletab
                   about={val.write_about_you}
                   pskills={val.skills}
-                  user_id={props.user_id}
+                  user_id={props.seeker_id}
                   job_post_id={props.job_post_id}
                   prole={["aaa", "vvv"]}
                   education={val.education}

@@ -27,21 +27,7 @@ function Appliedlist(props) {
     message();
   }, []);
 
-  const [acceptModal, setacceptModal] = useState(false);
-  const [rejectModal, setrejectModal] = useState(false);
-
-  const togglerejectModal = () => {
-    setrejectModal(!rejectModal);
-  };
-
-  const toggleacceptModal = () => {
-    setacceptModal(!acceptModal);
-  };
-
   if (appliedEmplist != null) {
-    console.log("this is user id");
-
-    console.log(appliedEmplist.data);
     return (
       <Grid container direction="column" className="appliedlistmain">
         <Grid item className="overviewheading">
@@ -54,6 +40,15 @@ function Appliedlist(props) {
           {appliedEmplist.data.map((val, key) => (
             // <Grid>
             //   {val.data.map((value, key) => {
+            <Link
+              to="/CompanyApplied"
+              state={{
+                job_post_id: props.job_post_id,
+                seeker_id: val.seeker.id,
+                job_position: props.job_position
+              }}
+              style={{ textDecoration: "none", color: "#000000" }}
+            >
             <Grid
               container
               className="single_applicant"
@@ -80,7 +75,16 @@ function Appliedlist(props) {
                         Position:
                       </Grid>
                       <Grid item className="appliedlisttext">
-                        {props.job_position}
+                        {val.job_post.job}
+                      </Grid>
+                    </Grid>
+
+                    <Grid container direction="row">
+                      <Grid item className="appliedlisttopic">
+                        Job Post date:
+                      </Grid>
+                      <Grid item className="appliedlisttext">
+                        {val.job_post.posted_date}
                       </Grid>
                     </Grid>
 
@@ -108,15 +112,15 @@ function Appliedlist(props) {
                               Skills
                             </Grid>
                             <Grid item className="skillleftpadding">
-                              {/* <Grid container direction="row">
-                                {val.skills.map((val, key) => {
+                              <Grid container direction="row">
+                                {val.seeker.skills.map((val, key) => {
                                   return (
                                     <Grid item className="appliedlisttext">
                                       <SkillContainer name={val} />
                                     </Grid>
                                   );
                                 })}
-                              </Grid> */}
+                              </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
@@ -126,19 +130,19 @@ function Appliedlist(props) {
                               Experience
                             </Grid>
                             <Grid item>
-                              {/* <Grid
+                              <Grid
                                 container
                                 direction="row"
                                 className="experiencepadding"
                               >
-                                {val.experience.map((val, key) => {
+                                {val.seeker.experience.map((val, key) => {
                                   return (
                                     <Grid item className="appliedlisttext">
-                                      <SkillContainer name={val} />
+                                      <SkillContainer name={val.workPlace + "," + " " + val.yearsOfWork + " year experience"} />
                                     </Grid>
                                   );
                                 })}
-                              </Grid> */}
+                              </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
@@ -147,7 +151,7 @@ function Appliedlist(props) {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              {/* <Grid item>
                 <Grid container direction="column">
                   <Link
                     to="/CompanyApplied"
@@ -193,8 +197,9 @@ function Appliedlist(props) {
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Grid>
+            </Link>
             //   })}
             // </Grid>;
           ))}

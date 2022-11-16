@@ -18,6 +18,9 @@ class Apply(BaseModel):
 class ApplySeeker(Apply):
     seeker: ShowSeeker
 
+    from schemas.job_post_schema import JobPostShow
+    job_post: JobPostShow
+
     class Config:
         orm_mode = True
 
@@ -32,6 +35,12 @@ class ApplyJobPost(BaseModel):
 
     from schemas.job_post_schema import JobPostShow
     job_post: JobPostShow
+
+    class Config:
+        orm_mode = True
+
+class UpdateStatus(BaseModel):
+    status: str
 
     class Config:
         orm_mode = True

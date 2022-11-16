@@ -105,6 +105,23 @@ def update(id: int, form: applyForm.ApplyForm = Depends(), db: Session = Depends
     return {"msg": "success"}
 
 
+# change status of apply
+@router.put("/update_status/{job_post_id}/{seeker_id}")
+def update_status(data: apply_schema.UpdateStatus, job_post_id:int, seeker_id:int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    update_apply = db.query(apply.Apply).filter(
+        apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id==seeker_id).first()
+   
+    if not update_apply:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"No such apply")
+
+    update_apply.status = data.status
+    db.commit()
+    db.refresh(update_apply)
+
+    return {"msg": "success", "apply": update_apply}
+
+
 # , response_model=List[schemas.Showapply]
 @router.get('/get_all_apply')
 def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
@@ -139,6 +156,18 @@ def showApply(job_post_id: int, seeker_id: int, db: Session = Depends(database.g
 
     if not hired_apply:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Sekeer with the id {id} is not available")
+                            detail=f"Not found")
     
     return hired_apply
+
+@router.get("/get_apply_job_post/{job_post_id}")
+def showApplyCompany(job_post_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    hired_apply = db.query(apply.Apply).filter(apply.Apply.job_post_id == job_post_id).all()
+
+    if not hired_apply:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Not found")
+
+    no_of_applicant = len(hired_apply)
+
+    return {"apply": hired_apply, "no_of_applicant": no_of_applicant}
