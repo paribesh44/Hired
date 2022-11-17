@@ -54,7 +54,7 @@ const validationschema = Yup.object({
   education: Yup.string().required('Required'),
   skills: Yup.string().required('Required'),
   hours: Yup.string().required('Required'),
-
+//required stuffs
 
 
 
