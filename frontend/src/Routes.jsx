@@ -35,6 +35,13 @@ import MiscenanousForm from './components/reactform/Miscenanous';
 import FormComplete from './components/reactform/formComplete';
 
 
+import Formone from "./views/forms/formone";
+import Formtwo from "./views/forms/formtwo";
+import Formthree from "./views/forms/formthree";
+import Formfour from "./views/forms/formfour";
+import Formfive from "./views/forms/formfive";
+import Cformone from "./views/formC/Cformone";
+import Cformtwo from "./views/formC/Cformtwo";
 
 const Routedpath = () => {
   return (
@@ -89,6 +96,15 @@ const Routedpath = () => {
       <Route path="/cvMaker/experience" element={<ExperienceForm />}></Route>
       <Route path="/cvMaker/miscenanous" element={<MiscenanousForm />}></Route>
       <Route path="/cvMaker/formComplete" element={<FormComplete />}></Route>
+      <Route path="/forms" element={<Formone />}></Route>
+      <Route path="/formtwo" element={<Formtwo />}></Route>
+      <Route path="/formthree" element={<Formthree />}></Route>
+      <Route path="/formfour" element={<Formfour />}></Route>
+       <Route path="/formfive" element={<Formfive />}></Route>
+       <Route path="/formC" element={<Cformone />}></Route>
+       <Route path="/Cformtwo" element={<Cformtwo />}></Route>
+      
+      
     </Routes>
   );
 };

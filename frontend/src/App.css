@@ -13,20 +13,45 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
 .App-link {
   color: #61dafb;
 }
+
+
+label {
+  font-weight: bold;
+  display: flex;
+  padding-top: 15px;
+  margin-bottom: 10px;
+  
+}
+
+input,
+select {
+  display: block;
+  width: 350px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 2;
+  color: #555;
+  
+  
+  border: 1px solid #ccc;
+  border-radius: 4px;
+   margin-bottom: 15px; 
+}
+
+
+
+.error {
+  color: red;
+}
+
+.required {
+  color: red;
+}
+
 
 @keyframes App-logo-spin {
   from {

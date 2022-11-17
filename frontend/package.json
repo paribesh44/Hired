@@ -19,7 +19,12 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.6",
-    "web-vitals": "^3.0.2"
+    "web-vitals": "^3.0.2",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/x-date-pickers": "^5.0.4",
+    "dayjs": "^1.11.5",
+    "formik": "^2.2.9",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
