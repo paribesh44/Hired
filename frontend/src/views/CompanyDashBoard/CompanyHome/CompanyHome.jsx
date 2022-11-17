@@ -6,6 +6,7 @@ import Overview from "./Overview";
 import "./companyhome.css";
 import CompanyReminder from "./Reminder";
 import MypostedJob from "./MypostedJob";
+import Companylayout from "../../../components/Companylayout";
 function CompanyHome() {
   const [modal, setmodal] = useState(false);
 
@@ -13,8 +14,7 @@ function CompanyHome() {
     setmodal(!modal);
   };
   return (
-    <div>
-      <CompanyNavbarIn />
+    <Companylayout>
       <Grid container direction="row" className="companyhomemain">
         <Grid item>
           <Overview />
@@ -30,7 +30,7 @@ function CompanyHome() {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Companylayout>
   );
 }
 

@@ -1,11 +1,26 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import callAPI from "../../../utils/callAPI";
 
-function JobsList() {
+function JobsList(props) {
+  console.log("thi si props");
+  console.log(props.job);
+
+  const [no_of_applicant, setNoOfApplicant] = useState(null);
+
+  const message = async () => {
+    let response_obj = await callAPI({ endpoint: `/apply/get_apply_job_post/${props.job.id}` });
+    setNoOfApplicant(response_obj.data.no_of_applicant);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
   return (
     <Grid container className="joblistmain">
-      <Link to="">
+      <Link to="/EditJobPost" state={{ job: props.job }}>
         <Grid item className="joblistsubtext">
           Edit the Job Post
         </Grid>
@@ -16,7 +31,7 @@ function JobsList() {
           Post :
         </Grid>
         <Grid item className="joblisthead">
-          Graphics Designer
+          {props.jobname}
         </Grid>
       </Grid>
       <Grid container direction={"row"} alignItems="center">
@@ -24,13 +39,13 @@ function JobsList() {
           Posted Date:
         </Grid>
         <Grid item className="joblisthead">
-          09-09-09
+          {props.posted_date.split("T")[0]}
         </Grid>
         <Grid item className="joblistsub2">
           Deadline:
         </Grid>
         <Grid item className="joblisthead">
-          09-09-09
+          {props.deadline.split("T")[0]}
         </Grid>
       </Grid>
       <Grid container direction={"row"} alignItems="center">
@@ -38,14 +53,16 @@ function JobsList() {
           No. of vacancies:
         </Grid>
         <Grid item className="joblisthead">
-          20
+          {props.no_of_vacancy}
         </Grid>
         <Grid item className="joblistsub2">
           No. of applicants:
         </Grid>
+        { no_of_applicant != null &&
         <Grid item className="joblisthead">
-          9
+          {no_of_applicant}
         </Grid>
+      }
       </Grid>
     </Grid>
   );

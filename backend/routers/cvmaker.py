@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, status
-from forms import cv
+from forms import cvForm
 from fpdf import FPDF, HTMLMixin
+from schemas import cvmaker_schema
 
 
 router = APIRouter(
@@ -10,19 +11,21 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createCV(form: cv.CVForm = Depends()):
-    cv(form)
-    return form
+def createCV(data: cvmaker_schema.CVmaker):
+    print(data)
+    cv(data)
+    return {"msg": "success", "cv_data":data}
 
 
 def cv(cv_data):
     html = f"""
         <section>
-            <font size="18"><p align="center"><b>{cv_data.name}</b></p></font>
+            <font size="18"><p align="center"><b>{cv_data.name} ({cv_data.address})</b></p></font>
             <p align="center">Email: {cv_data.email}</p>
-            <p align="center">Contact: {cv_data.mobile}</p>
+            <p align="center">Contact: {cv_data.mobile} ({cv_data.website})</p>
             <p align="center">LinkedIn: {cv_data.linkedin}</p>
             <p align="center">Github: {cv_data.github}</p>
+            <p align="center">DOB: {cv_data.dob}</p>
         </section>
         <section>
             <font size="18"><p><b>Skills</b></p></font>
@@ -44,7 +47,7 @@ def cv(cv_data):
         <section>
             <font size="18"><p><b>Education</b></p></font>
             <p><b>&nbsp;&nbsp;&nbsp;{cv_data.university}</b> ({cv_data.qualification}, {cv_data.year})</p>
-            <p>&nbsp;&nbsp;&nbsp;{cv_data.education_description}</p>
+            <p>&nbsp;&nbsp;&nbsp;CGPA: {cv_data.cgpa}</p>
         </section>
         <br>
         <section>
@@ -52,7 +55,7 @@ def cv(cv_data):
             <ul>
                 <li><b>Languages:</b> {cv_data.languages}</li>
                 <li><b>Hobbies:</b> {cv_data.hobbies}</li>
-                <li>{cv_data.achievement}</li>
+                <li>{cv_data.activity}</li>
             </ul>
         </section>
     """

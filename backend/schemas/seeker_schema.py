@@ -9,6 +9,7 @@ from typing import Optional
 
 
 class Seeker(BaseModel):
+    id: int
     name: Optional[str]
     age: Optional[int]
     address: Optional[str]

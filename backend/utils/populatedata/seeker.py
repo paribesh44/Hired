@@ -39,6 +39,6 @@ seekers: List[Json] = [
         "drivingLicenseNum": None,
         "last_job_applied": None,
         "user_id": 2,
-        "status": "Ready to interview"
+        "status": "Open to offer"
     }
 ]

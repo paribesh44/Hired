@@ -11,7 +11,7 @@ class Apply(Base):
     # why should we hire you?
     description = Column(String, nullable=False)
     cv = Column(String, nullable=True)
-    # applied, shortlisted, interviewed, selected, etc.
+    # applied, shortlisted, interview, interviewed, selected, etc.
     status = Column(String, nullable=False)
     coverletter = Column(String, nullable=True)
     applied_date = Column(DateTime, default=datetime.datetime.utcnow)

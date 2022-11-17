@@ -31,7 +31,7 @@ class CVForm:
         university: str = Form("Kathmandu Univeristy"),
         year: str = Form("2023"),
         qualification: str = Form("Bachlors"),
-        education_description: str = Form("It was cool."),
+        education_description: str = Form("It was cool."),  # replace this by cgpa
 
         languages: str = Form("English, Nepali, Chinese"),
         hobbies: str = Form("cricket, codding, research"),

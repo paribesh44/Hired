@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import loginC from "../../assets/login_c.svg";
 import loginCds from "../../assets/login_cccc.svg";
 import Image from "../../components/Image";
@@ -25,6 +25,7 @@ const Login = () => {
   const [incorrectEmail, setIncorrectEmail] = React.useState(false);
   const [incorrectPassword, setIncorrectPassword] = React.useState(false);
   const [fillEmailPassword, setEmailPassword] = React.useState(false);
+  const [changeLocation, setChangeLocation] = React.useState(false);
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -54,7 +55,7 @@ const Login = () => {
         };
 
         let response_obj = await callAPI({
-          endpoint: "/user-login",
+          endpoint: `/user-login/${user_type}`,
           method: "POST",
           data: user_data,
         });
@@ -62,12 +63,8 @@ const Login = () => {
         console.log(response_obj);
 
         if (response_obj.data.msg == "Success") {
-          console.log("login vayo re");
-          // redirect to another page
-          // <Routes>
-          //   <Route path="/UserHomeTab" />;
-          // </Routes>
-          <Navigate to="/UserHomeTab" replace={true} />
+          setChangeLocation(true)
+          
         }
         if (
           response_obj.data.detail == "Incorrect Password" &&
@@ -91,6 +88,8 @@ const Login = () => {
     <Grid container className="logIn_c">
       <Grid item className="left_column" xs>
         <Grid item className="logo">
+          {/* login according to the user_type */}
+          {changeLocation && <Navigate to={user_type==1 ? "/UserHomeTab" : "/CompanyHome" }/>}
           <Link to="/">
             <Image src={Hired} />
           </Link>

@@ -3,7 +3,7 @@ import React from "react";
 
 function CompanyReminder() {
   return (
-    <Grid container classname="reviwebox_top" direction="column">
+    <Grid container className="reviwebox_top" direction="column">
       <Grid item className="overviewheading">
         Reminders
       </Grid>

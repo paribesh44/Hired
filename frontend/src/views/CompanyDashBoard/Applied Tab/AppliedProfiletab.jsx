@@ -1,122 +1,166 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { Grid, IconButton } from "@mui/material";
-import SkillContainer from '../../../components/SkillContainer';
+import SkillContainer from "../../../components/SkillContainer";
 import "./companyapplied.css";
+import callAPI from "../../../utils/callAPI";
 
+function AppliedProfiletab(props) {
+  console.log("props in detailed");
+  console.log(props.job_post_id);
 
-function AppliedProfiletab() {
-  return (
-    <div className='applied-profile-tab'>
-        <Grid 
-            container
-            direction="column"
-            justifyContent="space-evenly"
-            className="applied-profile-grid">
-                <Grid item className="profiletab-heading">
-                    About:
-                    <br/>
-                    <div className='profiletab-desc'>
-                    Lorem ipsum  met consectetur adipisicing elit. Quisquam, accusantium! Blanditiis aliquam vero, tempore fugiat fuga enim pariatur commodi consequatur est facere incidunt corrupti dolore quae voluptas cum dolorum! Accusamus.
+  const [getcvdata, setgetcvdata] = useState(null);
 
-                        </div>
+  const message = async () => {
+    let response_obj = await callAPI({
+      endpoint: `/apply/get_apply_of_user/${props.job_post_id}/${props.user_id}`,
+    });
+    setgetcvdata(response_obj);
+    console.log("this is this");
+    console.log(response_obj.data);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
+  const cvlocation = `http://localhost:8000/${props.cv}`;
+  const coverlocation = `http://localhost:8000/${props.coverletter}`;
+
+  if (getcvdata != null) {
+    return (
+      <div className="applied-profile-tab">
+        <Grid
+          container
+          direction="column"
+          justifyContent="space-evenly"
+          className="applied-profile-grid"
+        >
+          <Grid item className="profiletab-heading">
+            About:
+            <br />
+            <div className="profiletab-desc">{props.about}</div>
+          </Grid>
+
+          <Grid item>
+            <div className="profiletab-heading">Preferred Roles:</div>
+            <Grid container direction="row" className="profiletab-desc">
+              {props.prole.map((val, key) => (
+                <Grid item>
+                  <SkillContainer name={val} />
                 </Grid>
+              ))}
+            </Grid>
+          </Grid>
 
-                <Grid
-                 item >
-                    <div className="profiletab-heading">Preferred Roles:</div>
-                    <Grid container  direction="row" className="profiletab-desc">
-                        <Grid item >
-                            <SkillContainer name="Role One"/>  
-                             </Grid> 
-                        <Grid item> <SkillContainer name="Role Two"></SkillContainer></Grid> 
+          <Grid item>
+            <div className="profiletab-heading">Preferred Job Skills:</div>
+            <Grid container direction="row" className="profiletab-desc">
+              {props.pskills.map((val, key) => (
+                <Grid item>
+                  <SkillContainer name={val} addStyles={"skillspacing"} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+
+          <Grid item>
+            <div className="profiletab-heading">Education:</div>
+            <Grid
+              container
+              justifyContent="space-between"
+              direction="row"
+              className="profiletab-desc"
+            >
+              {props.education.map((val, key) => (
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                  >
+                    <Grid item>
+                      {val.qualification} in {val.major} from{" "}
+                      {val.graduating_institution}
                     </Grid>
-                </Grid>
-
-                <Grid
-                 item >
-                    <div className="profiletab-heading">Preferred Job Skills:</div>
-                    <Grid container  direction="row" className="profiletab-desc">
-                        <Grid item >
-                            <SkillContainer name="Skill One" addStyles={"skillspacing"}/>  
-                             </Grid> 
-                        <Grid item> <SkillContainer name="Skill Two"></SkillContainer></Grid> 
+                    <Grid item className="spacingindetailed">
+                      CGPA:{val.cgpa}
                     </Grid>
-                </Grid>
-
-                <Grid
-                 item >
-                    <div className="profiletab-heading">Education:</div>
-                    <Grid container justifyContent="space-between" direction="row" className="profiletab-desc">
-                        <Grid item >
-                            Undergraduate from Kathmandu University
-                             </Grid> 
-                        <Grid item> CGPA:3.4</Grid> 
-                        <Grid item> Graduating year:2000/02/05</Grid> 
+                    <Grid item className="spacingindetailed">
+                      Graduating year:{val.graduating_year}
                     </Grid>
-
+                  </Grid>
                 </Grid>
+              ))}
+            </Grid>
+          </Grid>
 
-                <Grid
-                 item >
-                    <div className="profiletab-heading">Experience:</div>
-                    <Grid container justifyContent="space-between" direction="row" className="profiletab-desc">
-                        <Grid item >
-                            Senior Software Developer at Google
-                             </Grid> 
-                        <Grid item> End Date:2020/03/05</Grid> 
+          <Grid item>
+            <div className="profiletab-heading">Experience:</div>
+            {props.experience.map((val, key) => (
+              <Grid
+                container
+                justifyContent="space-between"
+                direction="row"
+                className="profiletab-desc"
+              >
+                <Grid item>
+                  {val.jobTitle} at {val.workPlace}
+                </Grid>
+                <Grid item>
+                  <Grid container direction="row">
+                    <Grid item>Expertise:</Grid>
+                    <Grid item>
+                      {val.field.map((value, key) => (
+                        <Grid container direction="row">
+                          <Grid item>{value}</Grid>
+                        </Grid>
+                      ))}
                     </Grid>
-
+                  </Grid>
                 </Grid>
 
-                <Grid
-                item>
-                    <div className="profiletab-heading">Expected Salary:</div>
-                    <div className="profiletab-desc">Min: Rs 50000 </div>
-                    <div className="profiletab-desc">Max: Rs 50000 </div>
-                </Grid>
+                <Grid item> Start Date: {val.jobStartDate.split("T")[0]}</Grid>
 
-                <Grid
-                item>
-                    <div className="profiletab-heading">Address:</div>
-                    <div className="profiletab-desc">Min: Rs 50000 </div>
-                </Grid>
+                <Grid item> End Date: {val.jobEndDate.split("T")[0]}</Grid>
+              </Grid>
+            ))}
+          </Grid>
 
-               
+          <Grid item>
+            <div className="profiletab-heading">Expected Salary:</div>
+            <div className="profiletab-desc">
+              Min:Rs. {props.expected_min_salary}{" "}
+            </div>
+            <div className="profiletab-desc">
+              Max: Rs {props.expected_max_salary}{" "}
+            </div>
+          </Grid>
 
-                <Grid
-                item>
-                    <div className="profiletab-heading">Why does the applicant want to apply for this job?</div>
-                    <div className='profiletab-desc'>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, accusantium! Blanditiis aliquam vero, tempore fugiat fuga enim pariatur commodi consequatur est facere incidunt corrupti dolore quae voluptas cum dolorum! Accusamus.
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, accusantium! Blanditiis aliquam vero, tempore fugiat fuga enim pariatur commodi consequatur est facere incidunt corrupti dolore quae voluptas cum dolorum! Accusamus.
+          <Grid item>
+            <div className="profiletab-heading">Address:</div>
+            <div className="profiletab-desc">{props.address}</div>
+          </Grid>
 
-                        </div>
-                </Grid>
+          <Grid item>
+            <div className="profiletab-heading">
+              Why does the applicant want to apply for this job?
+            </div>
+            <div className="profiletab-desc">{getcvdata.data.description}</div>
+          </Grid>
 
-                <Grid
-                item>
-                    <div className="profiletab-heading">Company Specific Question?</div>
-                    <div className='profiletab-desc'>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, accusantium! Blanditiis aliquam vero, tempore fugiat fuga enim pariatur commodi consequatur est facere incidunt corrupti dolore quae voluptas cum dolorum! Accusamus.
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, accusantium! Blanditiis aliquam vero, tempore fugiat fuga enim pariatur commodi consequatur est facere incidunt corrupti dolore quae voluptas cum dolorum! Accusamus.
+          <Grid item>
+            <div className="profiletab-heading">Cover Letter:</div>
+            <a href={coverlocation} target="_blank">{props.coverletter}</a>
+          </Grid>
 
-                        </div>
-                </Grid>
-
-                <Grid
-                item>
-                    <div className="profiletab-heading">Cover Letter:</div>
-                    
-                </Grid>
-
-
-                
-
+          <Grid item>
+            <div className="profiletab-heading">CV:</div>
+            <a href={cvlocation} target="_blank">{props.cv}</a>
+          </Grid>
         </Grid>
-
-      
-    </div>
-  )
+      </div>
+    );
+  }
 }
 
-export default AppliedProfiletab
+export default AppliedProfiletab;
