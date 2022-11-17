@@ -108,6 +108,7 @@ export default function AppliedSummaryBlock(props) {
                 <option value="interview"> Interview</option>
                 <option value="interviewed"> Interviewed</option>
                 <option value="selected"> Selected</option>
+                <option value="rejected"> Rejected</option>
               </select> 
             }
             </Grid>

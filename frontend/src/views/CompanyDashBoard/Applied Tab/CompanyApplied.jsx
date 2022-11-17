@@ -13,6 +13,8 @@ function CompanyApplied() {
   const { seeker_id } = location.state;
   const { job_position } = location.state;
   const { appliedDetailedInformation } = location.state;
+  const { recommendationSeeker } = location.state;
+
   console.log("gbdhjasbdjhasbd")
   console.log(appliedDetailedInformation)
   return (
@@ -21,7 +23,7 @@ function CompanyApplied() {
       {/* <DummyFile/> */}
       <Grid container direction="row" justifyContent="space-between">
         <Grid item>
-          <AppliedSidePane />
+          <AppliedSidePane percentage_match= {recommendationSeeker.percentage} appliedDetailedInformation={appliedDetailedInformation}/>
         </Grid>
         <Grid item>
           <DetailedCompanyApplied
