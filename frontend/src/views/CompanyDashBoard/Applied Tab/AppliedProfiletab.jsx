@@ -23,6 +23,9 @@ function AppliedProfiletab(props) {
     message();
   }, []);
 
+  const cvlocation = `http://localhost:8000/${props.cv}`;
+  const coverlocation = `http://localhost:8000/${props.coverletter}`;
+
   if (getcvdata != null) {
     return (
       <div className="applied-profile-tab">
@@ -147,6 +150,12 @@ function AppliedProfiletab(props) {
 
           <Grid item>
             <div className="profiletab-heading">Cover Letter:</div>
+            <a href={coverlocation} target="_blank">{props.coverletter}</a>
+          </Grid>
+
+          <Grid item>
+            <div className="profiletab-heading">CV:</div>
+            <a href={cvlocation} target="_blank">{props.cv}</a>
           </Grid>
         </Grid>
       </div>

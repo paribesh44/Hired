@@ -20,10 +20,7 @@ import AppliedPopupMsg from './AppliedPopupMsg';
 import RejectPopup from './RejectPopup';
 
 export default function AppliedSummaryBlock(props) {
-
-  console.log("hello")
-  console.log(props.job_post_id)
-  console.log(props.seeker_id)
+  console.log("bhjasdfbdfajsk")
   console.log(props.status)
   const [changeStatusState, setChangeStatusState] = useState(props.status)
 
@@ -48,6 +45,7 @@ export default function AppliedSummaryBlock(props) {
             });
   
     if (response_obj.data.msg == "success") {
+      console.log(response_obj.data)
       setChangeStatusState(e.target.value)
     }
   }

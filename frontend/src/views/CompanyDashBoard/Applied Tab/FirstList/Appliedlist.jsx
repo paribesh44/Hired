@@ -13,14 +13,20 @@ import RejectPopup from "../RejectPopup";
 function Appliedlist(props) {
   var jobid = 0;
   const [appliedEmplist, setappliedEmplist] = useState(null);
+  const [recommendationSeeker, setRecommendationSeeker] = useState(null);
 
   const message = async () => {
     let response_obj = await callAPI({
       endpoint: `/jobPost/seeker_applied_job/${props.job_post_id}`,
     });
+    let response_obj2 = await callAPI({
+      endpoint: `/recommend-seekers/${props.job_post_id}`,
+    });
     setappliedEmplist(response_obj);
+    setRecommendationSeeker(response_obj2.data);
     console.log("this is this");
     console.log(response_obj.data);
+    console.log(response_obj2.data);
   };
 
   useEffect(() => {
@@ -45,7 +51,9 @@ function Appliedlist(props) {
               state={{
                 job_post_id: props.job_post_id,
                 seeker_id: val.seeker.id,
-                job_position: props.job_position
+                job_position: props.job_position,
+                appliedDetailedInformation: val,
+                recommendationSeeker: recommendationSeeker
               }}
               style={{ textDecoration: "none", color: "#000000" }}
             >

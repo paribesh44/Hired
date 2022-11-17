@@ -24,7 +24,7 @@ router = APIRouter(
 # Penalty system.
 
 # This will calculate the priority by calculating the percentage. Seeker with higesh percentage value will be highly priorize.
-@router.get('/recommend-seekers/{jobpost_id}')
+@router.get('/{jobpost_id}')
 def RecommendSeekers(jobpost_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     # get the apply data with the id as "jobpost_id".
     hired_apply = db.query(apply.Apply).filter(apply.Apply.job_post_id == jobpost_id).all()
@@ -46,10 +46,10 @@ def RecommendSeekers(jobpost_id: int, db: Session = Depends(database.get_db), cu
     for no_of_seeker in range(len(hired_seeker_who_applied_for_job)):
         # this will be our another dictinary which contains seeker_id, name and percentage. Its call this semi-root dict.
         # "no_seeker" is the number of iteration. And 1 is added because iteration starts from 0 so to make semi-root dict key start from 1 we added "+1" term.
-        dictionary[no_of_seeker+1] = {}
+        dictionary[hired_seeker_who_applied_for_job[no_of_seeker].id] = {}
 
         # add seeker_id and seeker_name into semi-root dict
-        dictionary[no_of_seeker+1] = {
+        dictionary[hired_seeker_who_applied_for_job[no_of_seeker].id] = {
             "seeker_id": hired_seeker_who_applied_for_job[no_of_seeker].id, 
             "seeker_name": hired_seeker_who_applied_for_job[no_of_seeker].name,
             "seeker": hired_seeker_who_applied_for_job[no_of_seeker]
@@ -177,7 +177,7 @@ def RecommendSeekers(jobpost_id: int, db: Session = Depends(database.get_db), cu
         if number_of_matched_elements == 0:
             percentage *= 0
         
-        dictionary[no_of_seeker+1]["percentage"] = percentage
+        dictionary[hired_seeker_who_applied_for_job[no_of_seeker].id]["percentage"] = percentage
 
     # return hired_job_post
     # return hired_seeker_who_applied_for_job

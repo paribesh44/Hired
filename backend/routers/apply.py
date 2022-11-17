@@ -108,6 +108,7 @@ def update(id: int, form: applyForm.ApplyForm = Depends(), db: Session = Depends
 # change status of apply
 @router.put("/update_status/{job_post_id}/{seeker_id}")
 def update_status(data: apply_schema.UpdateStatus, job_post_id:int, seeker_id:int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    print(data)
     update_apply = db.query(apply.Apply).filter(
         apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id==seeker_id).first()
    
@@ -149,7 +150,7 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
     # return {"name": hired_apply.name, "cv": hired_apply.cv, "user": hired_apply.user, "user_assesment": hired_apply.userAssesment}
     return hired_apply
 
-@router.get("/get_apply_of_user/{job_post_id}/{seeker_id}")
+@router.get("/get_apply_of_user/{job_post_id}/{seeker_id}", response_model=apply_schema.Apply)
 def showApply(job_post_id: int, seeker_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     hired_apply = db.query(apply.Apply).filter(
         apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id == seeker_id).first()

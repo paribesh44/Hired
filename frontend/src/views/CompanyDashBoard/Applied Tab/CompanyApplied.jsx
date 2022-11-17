@@ -12,6 +12,9 @@ function CompanyApplied() {
   const { job_post_id } = location.state;
   const { seeker_id } = location.state;
   const { job_position } = location.state;
+  const { appliedDetailedInformation } = location.state;
+  console.log("gbdhjasbdjhasbd")
+  console.log(appliedDetailedInformation)
   return (
     <div>
       <CompanyNavbarIn />
@@ -25,6 +28,7 @@ function CompanyApplied() {
             job_post_id={job_post_id}
             seeker_id={seeker_id}
             job_position={job_position}
+            appliedDetailedInformation={appliedDetailedInformation}
           />
         </Grid>
       </Grid>

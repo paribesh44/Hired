@@ -16,7 +16,6 @@ function DetailedCompanyApplied(props) {
     setdetailedapply(response_obj);
     console.log("single indiv data");
     console.log(props.seeker_id);
-    console.log(response_obj.data);
   };
 
   useEffect(() => {
@@ -34,7 +33,7 @@ function DetailedCompanyApplied(props) {
                 <AppliedSummaryBlock
                   name={val.name}
                   post={props.job_position}
-                  applieddate="2020-03-05"
+                  applieddate={props.appliedDetailedInformation.applied_date}
                   availability="currently available"
                   experience={val.yearsOfExperience}
                   age={val.age}
@@ -43,9 +42,9 @@ function DetailedCompanyApplied(props) {
                   linkedinlink={val.linkedIn}
                   githublink={val.githubProfile}
                   websitelink={val.website}
-                  seeker_id={val.seeker_id}
-                  job_post_id={val.job_post_id}
-                  status={val.status}
+                  seeker_id={props.seeker_id}
+                  job_post_id={props.job_post_id}
+                  status={props.appliedDetailedInformation.status}
                 />
 
                 <AppliedTabComponent />
@@ -60,6 +59,8 @@ function DetailedCompanyApplied(props) {
                   expected_max_salary={val.expected_max_salary}
                   expected_min_salary={val.expected_min_salary}
                   address={val.address}
+                  coverletter={props.appliedDetailedInformation.coverletter}
+                  cv = {props.appliedDetailedInformation.cv}
                 />
               </div>
             </div>
