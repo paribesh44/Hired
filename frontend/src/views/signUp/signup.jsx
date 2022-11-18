@@ -92,7 +92,7 @@ const Signup = () => {
           <Image src={user_type == 1 ? Signin_c : SignUpGG }></Image>
         </Grid>
       </Grid>
-      {changeLocation && <Navigate to={user_type==1 ? "/UserHomeTab" : "/CompanyHome" }/>}
+      {changeLocation && <Navigate to={user_type==1 ? "/forms" : "/CompanyHome" }/>}
       <Grid item className="Right_c" xs>
         <Grid item className="logo_h">
           <Link to="/">

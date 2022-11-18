@@ -14,14 +14,26 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createPreferenceProfile(request: preference_schema.Preference, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+def createPreferenceProfile(data: preference_schema.PostPreference, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    interested_jobs_string = data.interested_jobs
+    interested_jobs_string_remove_blank = interested_jobs_string.replace(" ", "")
+    interested_jobs = interested_jobs_string_remove_blank.strip().split(',')
+
+    preferred_job_skills_string = data.preferred_job_skills
+    preferred_job_skills_string_remove_blank = preferred_job_skills_string.replace(" ", "")
+    preferred_job_skills = preferred_job_skills_string_remove_blank.strip().split(',')
+
+    preferred_location_string = data.preferred_location
+    preferred_location_string_remove_blank = preferred_location_string.replace(" ", "")
+    preferred_location = preferred_location_string_remove_blank.strip().split(',')
+
     new_preference = preference.Preference(
-        expected_min_salary=request.expected_min_salary, expected_max_salary=request.expected_max_salary, preferred_location=request.preferred_location, interested_jobs=request.interested_jobs,
-        preferred_job_skills=request.preferred_job_skills,  remote_onsite=request.remote_onsite,  available_hours=request.available_hours, seeker_id=current_user.seeker[0].id)
+        expected_min_salary=data.expected_min_salary, expected_max_salary=data.expected_max_salary, preferred_location=preferred_location, interested_jobs=interested_jobs,
+        preferred_job_skills=preferred_job_skills, job_type= data.job_type, remote_onsite=data.remote_onsite, seeker_id=current_user.seeker[0].id)
     db.add(new_preference)
     db.commit()
     db.refresh(new_preference)
-    return new_preference
+    return {"msg": "success"}
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)

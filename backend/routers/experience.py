@@ -5,6 +5,7 @@ from schemas import experience_schema
 from models import experience, user
 from core import database, oauth2
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 
 router = APIRouter(
@@ -14,14 +15,18 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createExperienceProfile(request: experience_schema.Experience, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+def createExperienceProfile(data: experience_schema.PostExperience, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    fields_string = data.field
+    fields_string_remove_blank = fields_string.replace(" ", "")
+    fields = fields_string_remove_blank.strip().split(',')
+
     new_experience = experience.Experience(
-        workPlace=request.workPlace, yearsOfWork=request.yearsOfWork, jobTitle=request.jobTitle,
-        jobStartDate=request.jobStartDate,  jobEndDate=request.jobEndDate,  field=request.field, seeker_id=current_user.seeker[0].id)
+        workPlace=data.workPlace, yearsOfWork=int(data.yearsOfWork), jobTitle=data.jobTitle,
+        jobStartDate=data.jobStartDate.date(),  jobEndDate=data.jobEndDate.date(),  field=fields, seeker_id=current_user.seeker[0].id)
     db.add(new_experience)
     db.commit()
     db.refresh(new_experience)
-    return new_experience
+    return {"msg": "success"}
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from pydantic import BaseModel
 from typing import List
 
@@ -8,9 +8,20 @@ class Experience(BaseModel):
     workPlace: str
     yearsOfWork: int
     jobTitle: str
+    jobStartDate: date
+    jobEndDate: date
+    field: List[str] = []
+
+    class Config:
+        orm_mode = True
+
+class PostExperience(BaseModel):
+    workPlace: str
+    yearsOfWork: str
+    jobTitle: str
     jobStartDate: datetime
     jobEndDate: datetime
-    field: List[str] = []
+    field: str
 
     class Config:
         orm_mode = True

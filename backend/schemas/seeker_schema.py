@@ -6,7 +6,26 @@ from schemas.education_schema import Education
 from schemas.experience_schema import Experience
 from schemas.preference_schema import Preference
 from typing import Optional
+from fastapi import UploadFile, File
 
+class PostSeeker(BaseModel):
+    name: str
+    age: str
+    address: str
+    contact_number: str
+    write_about_you: str
+    years_of_experience: str
+    student: bool
+    skills: str
+    linkedIn: Optional[str]
+    website: Optional[str]
+    cv: Optional[UploadFile]
+    status: str
+    github_profile: Optional[str]
+    profile_photo: Optional[UploadFile]
+
+    class Config:
+        orm_mode = True
 
 class Seeker(BaseModel):
     id: int
@@ -22,8 +41,6 @@ class Seeker(BaseModel):
     website: Optional[str]
     githubProfile: Optional[str]
     profilePhoto: Optional[str]
-    drivingLicenseNum: Optional[str]
-    last_job_applied: Optional[datetime]
 
     class Config:
         orm_mode = True

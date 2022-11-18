@@ -26,6 +26,9 @@ const Login = () => {
   const [incorrectPassword, setIncorrectPassword] = React.useState(false);
   const [fillEmailPassword, setEmailPassword] = React.useState(false);
   const [changeLocation, setChangeLocation] = React.useState(false);
+  const [hasProfile, setHasProfile] = React.useState(null);
+
+  const [userOnePath, setUserOnePath] = React.useState("");
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -64,7 +67,6 @@ const Login = () => {
 
         if (response_obj.data.msg == "Success") {
           setChangeLocation(true)
-          
         }
         if (
           response_obj.data.detail == "Incorrect Password" &&
@@ -89,7 +91,7 @@ const Login = () => {
       <Grid item className="left_column" xs>
         <Grid item className="logo">
           {/* login according to the user_type */}
-          {changeLocation && <Navigate to={user_type==1 ? "/UserHomeTab" : "/CompanyHome" }/>}
+          {changeLocation && <Navigate to={user_type==1 ? "/hasProfileSeeker" : "/CompanyHome" }/>}
           <Link to="/">
             <Image src={Hired} />
           </Link>

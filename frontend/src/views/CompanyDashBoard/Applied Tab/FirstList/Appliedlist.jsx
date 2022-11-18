@@ -53,7 +53,7 @@ function Appliedlist(props) {
                 seeker_id: val.seeker.id,
                 job_position: props.job_position,
                 appliedDetailedInformation: val,
-                recommendationSeeker: recommendationSeeker
+                recommendationSeeker: recommendationSeeker[val.seeker.id]
               }}
               style={{ textDecoration: "none", color: "#000000" }}
             >
@@ -107,7 +107,7 @@ function Appliedlist(props) {
 
                     <Grid container direction="row">
                       <Grid item className="appliedlisttopic">
-                        Criterias met:
+                        Criterias met: {recommendationSeeker[val.seeker.id].percentage}%
                       </Grid>
                       <Grid container direction="column">
                         <Grid item>

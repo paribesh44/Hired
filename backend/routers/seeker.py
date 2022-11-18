@@ -18,6 +18,10 @@ router = APIRouter(
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 async def createSeekerProfile(form: jobSeekerForm.JobSeekerForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    skills_string = form.skills
+    skills_string_remove_blank = skills_string.replace(" ", "")
+    skills = skills_string_remove_blank.strip().split(',')
+
     pdf_file_location = None
     profile_picture_file_location = None
 
@@ -39,14 +43,14 @@ async def createSeekerProfile(form: jobSeekerForm.JobSeekerForm = Depends(), db:
 
     new_seeker = seeker.Seeker(
         name=form.name, age=form.age, address=form.address, contactNumber=form.contact_number, write_about_you=form.write_about_you,
-        yearsOfExperience=form.years_of_experience,  skills=form.skills,  linkedIn=form.linkedIn,
+        yearsOfExperience=form.years_of_experience, student=form.student,  skills=skills,  linkedIn=form.linkedIn,
         website=form.website,  cv=pdf_file_location,  githubProfile=form.github_profile,
-        profilePhoto=profile_picture_file_location,  drivingLicenseNum=form.driving_license_num, last_job_applied=form.last_job_applied, status=form.status, user_id=current_user.id)
+        profilePhoto=profile_picture_file_location, status=form.status, user_id=current_user.id)
 
     db.add(new_seeker)
     db.commit()
     db.refresh(new_seeker)
-    return new_seeker
+    return {"msg": "success", "seeker": new_seeker}
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
@@ -163,3 +167,18 @@ def hasCV(db: Session = Depends(database.get_db), current_user: user.User = Depe
         preference.Preference.seeker_id == current_user.seeker[0].id).first()
 
     return {"seeker": hired_seeker, "education": hired_education, "experience": hired_experience, "preference": hired_preference}
+# check if the current login user has make profile or not(done in backend), if not then redirect to profile page(done in frontend)
+
+
+@router.get("/current_user_has_profile")
+async def check(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_current_user)):
+    print(current_user.id)
+    hired_seeker = db.query(seeker.Seeker).filter(
+        seeker.Seeker.user_id == current_user.id).first()
+
+    if(hired_seeker == None):
+        msg = "no profile"
+    else:
+        msg = "has profile"
+
+    return {"msg": msg}

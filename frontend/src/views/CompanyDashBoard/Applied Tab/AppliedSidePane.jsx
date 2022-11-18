@@ -4,7 +4,9 @@ import { IoStar } from "react-icons/io5";
 
 import { IoStarOutline } from "react-icons/io5";
 
-function AppliedSidePane() {
+function AppliedSidePane(props) {
+  console.log("sabai kam")
+  console.log(props.appliedDetailedInformation)
   const nostar=50/10
   return (
     <div className='appliedsidepane-main'>
@@ -21,25 +23,20 @@ function AppliedSidePane() {
           <IoStarOutline/>
           <IoStarOutline/>
 
-        
-    
-          
-         
-            
         </div>
         <div className="appliedstarheading">
             Percentage Match:
         </div>
         <div className='appliedstartext'>
-        50%
+        {props.percentage_match}%
         </div>
         <div className="appliedstarheading">
             Criterias Met:
         </div>
         <div>
-          <SkillContainer name="4 years experience"/>
+          <SkillContainer name={props.appliedDetailedInformation.seeker.yearsOfExperience + " years experience"}/>
           <br/>
-          <SkillContainer name="Undergraduate in CS"/>
+          <SkillContainer name={props.appliedDetailedInformation.seeker.education[0].qualification + " in CS"}/>
         </div>
 
         <div className="appliedstarheading">
@@ -47,11 +44,14 @@ function AppliedSidePane() {
             
         </div>
         <div>
-          <SkillContainer name="PhotoShop"/>
-          <br/>
-          <SkillContainer name="Illustrator"/>
-          <br/>
-          <SkillContainer name="Blender"/>
+          {props.appliedDetailedInformation.seeker.skills.map((val, key) => {
+              return (
+                <div>
+                  <SkillContainer name={val}/>
+                  <br/>
+                </div>
+              );
+            })}
         </div>
     </div>
   )

@@ -17,8 +17,6 @@ seekers: List[Json] = [
         "cv": "static/cv/Ch11.pdf",
         "githubProfile": None,
         "profilePhoto": None,
-        "drivingLicenseNum": None,
-        "last_job_applied": None,
         "user_id": 1,
         "status": "Ready to interview"
     },
@@ -36,8 +34,6 @@ seekers: List[Json] = [
         "cv": "static/cv/cv_IshanPanta.pdf",
         "githubProfile": None,
         "profilePhoto": None,
-        "drivingLicenseNum": None,
-        "last_job_applied": None,
         "user_id": 2,
         "status": "Open to offer"
     }

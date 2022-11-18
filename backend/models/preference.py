@@ -14,9 +14,10 @@ class Preference(Base):
     preferred_location = Column(ARRAY(String), nullable=False)
     interested_jobs = Column(ARRAY(String), nullable=False)
     preferred_job_skills = Column(ARRAY(String), nullable=False)
+    # full-time, part-time, intership
+    job_type = Column(String, nullable=True)
     # values is either "remote" or "onsite"
     remote_onsite = Column(String, nullable=False)
-    available_hours = Column(String, nullable=True)
 
     seeker_id = Column(Integer,
                        ForeignKey("seekers.id", ondelete="CASCADE"),
