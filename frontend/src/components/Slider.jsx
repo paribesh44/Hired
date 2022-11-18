@@ -11,11 +11,12 @@ const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export default function InputSlider() {
+export default function InputSlider(props) {
   const [value, setValue] = React.useState(30);
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
+    props.onChange(newValue);
   };
 
   const handleInputChange = (event) => {
@@ -51,7 +52,7 @@ export default function InputSlider() {
             onChange={handleInputChange}
             onBlur={handleBlur}
             inputProps={{
-              step: 10,
+              step: 1,
               min: 0,
               max: 100,
               type: 'number',

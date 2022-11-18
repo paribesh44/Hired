@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
+from sqlalchemy import Column, Integer, String, ForeignKey, Date, Float
 from core.database import Base
 from sqlalchemy.orm import relationship
 
@@ -9,7 +9,7 @@ class Education(Base):
     id = Column(Integer, primary_key=True, index=True)
     qualification = Column(String, nullable=True)
     graduating_institution = Column(String, nullable=True)
-    graduating_year = Column(DateTime, nullable=True)
+    graduating_year = Column(Date, nullable=True)
     major = Column(String, nullable=True)
     cgpa = Column(Float, nullable=True)
 

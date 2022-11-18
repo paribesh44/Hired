@@ -14,14 +14,14 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createEducationProfile(schema: education_schema.Education, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+def createEducationProfile(data: education_schema.PostEducation, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     new_education = education.Education(
-        qualification=schema.qualification, graduating_institution=schema.graduating_institution, graduating_year=schema.graduating_year,
-        major=schema.major,  cgpa=schema.cgpa, seeker_id=current_user.seeker[0].id)
+        qualification=data.qualification, graduating_institution=data.graduating_institution, graduating_year=data.graduating_year.date(),
+        major=data.major,  cgpa=data.cgpa, seeker_id=current_user.seeker[0].id)
     db.add(new_education)
     db.commit()
     db.refresh(new_education)
-    return new_education
+    return {"msg": "success", "education": new_education}
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)

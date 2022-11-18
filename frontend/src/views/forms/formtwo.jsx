@@ -10,37 +10,88 @@ import TextField from '@mui/material/TextField';
 import CenteredTabs from '../../components/TabsForm';
 import DropDown from '../../components/DropDown';
 import { yearPickerClasses } from '@mui/x-date-pickers';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { format } from "date-fns";
+import callAPI from "../../utils/callAPI";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 const initialValues = {
-    degree: '',
-    insitution: '',
+    institution: '',
     geaduatingYear: '',
-    major: '',
-    cgpa: '',
-    currentStudy: '',
-
-}
-
-
-
-const onSubmit = values => {
-    console.log('Form data', values)
+    cgpa: ''
 }
 
 const validationschema = Yup.object({
-
-    
+//   degree: Yup.string().required('Required'),
+  institution: Yup.string().required('Required'),
+//   major: Yup.string().required('Required'),  
+  cgpa: Yup.string().required('Required'),  
 })
 
+const degreesOptions = [
+    'Bachlors',
+    'Masters',
+    'Phd'
+]
+
+const majorOpitions = [
+    'Computer Engineering',
+    'Computer Science',
+    'Graphic Design',
+    'Computataional Mathematics'
+]
+
 function Formtwo() {
-    const [value, setValue] = React.useState(null);
-    const onChange = (newValue) => {
-        setValue(newValue);
+  const [value, setValue] = React.useState(null);
+  const [changeLocation, setChangeLocation] = React.useState(false)
+  const [addEducation, setAddEducation] = React.useState(false);
+
+  const [whichButton, setButton] = React.useState("");
+  const [degreeDropDown, setDegree] = React.useState('');
+  const [majorDropDown, setMajor] = React.useState('');
+  const [fillAllFields, setFillAllFields] = React.useState(false);
+
+
+  const onChange = (newValue) => {
+      setValue(newValue);
+  }
+
+  const onSubmit = async (values, actions) => {
+    console.log('Form data', values)
+
+    let education = {
+      qualification: degreeDropDown,
+      graduating_institution: values.institution,
+      graduating_year: value,
+      major: majorDropDown,
+      cgpa: values.cgpa
     }
 
- 
-         
+    if (degreeDropDown != "" && majorDropDown != "") {
+        let response_obj = await callAPI({
+        endpoint: "/education/create",
+        method: "POST",
+        data: education,
+        });
+
+        if(response_obj.data.msg=="success") {
+        console.log("success")
+
+        if(whichButton == "continue") {
+            setChangeLocation(true)
+        }else if(whichButton == "add") {
+            setAddEducation(true)
+            setDegree("")
+            setMajor("")
+            actions.resetForm({initialValues});
+            setValue(false)
+            setButton("")
+        }
+        }
+    }
+    
+  }
 
     return (
         <Formik
@@ -49,7 +100,8 @@ function Formtwo() {
             onSubmit={onSubmit}>
 
             <Form>
-
+            {changeLocation && <Navigate to= '/Formthree'/>}
+            <br />
             <Grid
             container
             justifyContent="center"
@@ -67,30 +119,21 @@ function Formtwo() {
                         <Grid
                             container
                             justifyContent="center">
-                            <DropDown options={[
-        {
-          value: 10,
-          description:'Grade 10'
-        },
-        {
-          value: 20,
-          description:'A levels'
-        },
-        {
-          value: 30,
-          description:'Undergraduate'
-        },
-        {
-          value: 40,
-          description:'Graduate'
-        },
-        
-          ]
-}
-                            />
+                            <Select
+                             sx={{ m: 1, minWidth: 380}}
+                            value={degreeDropDown}
+                            onChange={(e)=>{setDegree(e.target.value)}}
+                            displayEmpty
+                            inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                <MenuItem value="">
+                                    <em>Select</em>
+                                </MenuItem>
+                                {degreesOptions&&degreesOptions.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))}
+                            </Select>
                         </Grid>
                     </div>
-                </Grid>
+                </Grid> 
 
                 <Grid
                     container
@@ -102,124 +145,18 @@ function Formtwo() {
                         <Grid
                             container
                             justifyContent="center">
-                            <DropDown options={[
-        {
-          value: 1,
-          description:'Agriculture'
-        },
-        {
-          value: 2,
-          description:'Forestry'
-        },
-        {
-          value: 3,
-          description:'Environmental Engineering'
-        },
-        {
-          value: 4,
-          description:'Environmental Science'
-        },
-        {
-            value: 1,
-            description:'Agriculture'
-          },
-          {
-            value: 2,
-            description:'Forestry'
-          },
-          {
-            value: 3,
-            description:'Environmental Engineering'
-          },
-          {
-            value: 4,
-            description:'Environmental Science'
-          },
-        
-          {
-            value: 5,
-            description:'Civil Engineering'
-          },
-          {
-            value: 6,
-            description:'Computer Engineering'
-          },
-          {
-            value: 7,
-            description:'Computer Science'
-          },
-          {
-            value: 8,
-            description:'Graphic Design'
-          },
-          
-          {
-            value: 9,
-            description:'Interior Design'
-          },
-          {
-            value: 10,
-            description:'Theatre Arts/ Drama'
-          },
-          {
-            value: 11,
-            description:'Accounting'
-          },
-          {
-            value: 12,
-            description:'Buisness'
-          },
-          {
-            value: 8,
-            description:'Graphic Design'
-          },
-          
-          {
-            value: 9,
-            description:'Interior Design'
-          },
-          {
-            value: 10,
-            description:'Theatre Arts/ Drama'
-          },
-          {
-            value: 11,
-            description:'Accounting'
-          },
-          {
-            value: 12,
-            description:'Buisness'
-          },{
-            value: 13,
-            description:'Journalism'
-          },
-          
-          {
-            value: 14,
-            description:'Law'
-          },
-          {
-            value: 15,
-            description:'Computataional Mathematics'
-          },
-          {
-            value: 16,
-            description:'Mathematics'
-          },
-          {
-            value: 17,
-            description:'Mechanical Engineering'
-          },
-          {
-            value: 18,
-            description:'Pharmacy'
-          },
-          {
-            value: 19,
-            description:'Medicine'
-          },
-          ]}
-                            />
+                            <Select
+                            sx={{ m: 1, minWidth: 380}}
+                            value={majorDropDown}
+                            onChange={(e)=>{setMajor(e.target.value)}}
+                            displayEmpty
+                            inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                <MenuItem value="">
+                                    <em>Select</em>
+                                </MenuItem>
+                                {majorOpitions&&majorOpitions.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))}
+                            </Select>
                         </Grid>
                     </div>
                 </Grid>
@@ -269,8 +206,7 @@ function Formtwo() {
                     justifyContent="center"
                 >
                     <div>
-                        <label htmlFor='graduatingYear'>Graduating Year</label
-                        ></div>
+                        <label htmlFor='graduatingYear'>Graduating Year</label></div>
                     <Grid
                         container
                         justifyContent="center" />
@@ -279,6 +215,7 @@ function Formtwo() {
                         <DatePicker
                             label="MM/DD/YYYY"
                             value={value}
+                            name="geaduatingYear"
                             onChange={(newValue) => {
                                 setValue(newValue);
                             }}
@@ -286,32 +223,16 @@ function Formtwo() {
                         />
                     </LocalizationProvider>
                 </Grid>
-
-
-
-                <Grid
-                    container
-                    justifyContent="center">
-                    <div>
-                        <label htmlFor='currentStudy'>
-                            Are you currently stuyding here?
-                        </label>
-                        <Grid
-                            container
-                            justifyContent="center">
-                            <RadioButtonsGroup options={[
-                                'Yes',
-                                'No',
-                            ]} />
-                        </Grid>
-                    </div>
-                </Grid>
+                 <br/>
 
                 <Grid container
                     justifyContent="center">
-                    <Link to='/Formthree'>
-                        <Button variant='contained' >Save and Continue</Button>
-                    </Link>
+                     
+                    {/* <Link to='/Formthree'> */}
+                    <Button onClick={() => setButton("continue")} type='submit' variant='contained' style={{marginRight: "30px"}} >Save and Continue</Button>
+
+                    <Button onClick={() => setButton("add")} type='submit' variant='contained'>Add another education</Button>
+                    {/* </Link> */}
                 </Grid>
 
             </Form>

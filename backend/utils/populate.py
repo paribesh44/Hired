@@ -35,7 +35,7 @@ def populate_seeker():
         new_seeker = seeker.Seeker(name=seeker_populate["name"], age=seeker_populate["age"], address=seeker_populate["address"], contactNumber=seeker_populate["contactNumber"], write_about_you=seeker_populate["write_about_you"],
         yearsOfExperience=seeker_populate["yearsOfExperience"], student=seeker_populate["student"],  skills=seeker_populate["skills"],  linkedIn=seeker_populate["linkedIn"],
         website=seeker_populate["website"],  cv=seeker_populate["cv"],  githubProfile=seeker_populate["githubProfile"],
-        profilePhoto=seeker_populate["profilePhoto"],  drivingLicenseNum=seeker_populate["drivingLicenseNum"], status=seeker_populate["status"], last_job_applied=seeker_populate["last_job_applied"], user_id=seeker_populate["user_id"])
+        profilePhoto=seeker_populate["profilePhoto"], status=seeker_populate["status"], user_id=seeker_populate["user_id"])
 
         db.add(new_seeker)
         db.commit()
@@ -57,7 +57,7 @@ def populate_preference():
         new_preference = preference.Preference(
         expected_min_salary=preference_populate["expected_min_salary"], expected_max_salary=preference_populate["expected_max_salary"], preferred_location=preference_populate["preferred_location"], 
         interested_jobs=preference_populate["interested_jobs"], preferred_job_skills=preference_populate["preferred_job_skills"],  remote_onsite=preference_populate["remote_onsite"],  
-        available_hours=preference_populate["available_hours"], seeker_id=preference_populate["seeker_id"])
+         job_type= preference_populate["job_type"], seeker_id=preference_populate["seeker_id"])
         db.add(new_preference)
         db.commit()
         db.refresh(new_preference)

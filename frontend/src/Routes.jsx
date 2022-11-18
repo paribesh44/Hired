@@ -5,6 +5,7 @@ import ConfirmProfile from "./views/BuildProfile/ConfirmProfile";
 import CompanyLanding from "./views/landingPage/companyLanding";
 import EmployeeLanding from "./views/landingPage/employeeLanding";
 import Login from "./views/logIn/login";
+import SeekerhasProfile from "./views/logIn/hasProfileSeeker";
 import Signup from "./views/signUp/signup";
 import EmployeeProfile from "./views/profile/employeeProfile";
 import CompanyProfile from "./views/profile/companyProfile";
@@ -51,6 +52,7 @@ const Routedpath = () => {
       <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
       <Route path="/Login" element={<Login />}></Route>
+      <Route path="/hasProfileSeeker" element={<SeekerhasProfile />}></Route>
       <Route path="/Signup" element={<Signup />}></Route>
       <Route path="/EmployeeProfile" element={<EmployeeProfile />}></Route>
       <Route path="/CompanyProfile" element={<CompanyProfile />}></Route>
@@ -96,6 +98,7 @@ const Routedpath = () => {
       <Route path="/cvMaker/experience" element={<ExperienceForm />}></Route>
       <Route path="/cvMaker/miscenanous" element={<MiscenanousForm />}></Route>
       <Route path="/cvMaker/formComplete" element={<FormComplete />}></Route>
+      
       <Route path="/forms" element={<Formone />}></Route>
       <Route path="/formtwo" element={<Formtwo />}></Route>
       <Route path="/formthree" element={<Formthree />}></Route>

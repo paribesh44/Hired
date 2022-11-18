@@ -10,30 +10,70 @@ import TextField from '@mui/material/TextField';
 import CenteredTabs from '../../components/TabsForm';
 import DropDown from '../../components/DropDown';
 import { yearPickerClasses } from '@mui/x-date-pickers';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { format } from "date-fns";
+import callAPI from "../../utils/callAPI"; 
 
 
 
 const initialValues = {
     years: '',
-    jobs: '',
-    currentWork: '',
-    workStartDate: '',
+    companyName: '',
+    fields: '',
+    jobRole: '',
+    startDate: '',
+    endDate: ''
 }
 
-
-const onSubmit = values => {
-    console.log('Form data', values)
-}
 
 const validationschema = Yup.object({})
 
 function Formthree() {
     const [value, setValue] = React.useState(null);
-    const onChange = (newValue) => {
-        setValue(newValue);
+    const [endDate, setEndDate] = React.useState(null);
+    const [changeLocation, setChangeLocation] = React.useState(false);
+    const [addExperience, setAddExperience] = React.useState(false);
+
+    const [whichButton, setButton] = React.useState("");
+
+
+    const onSubmit = async (values, actions) => {
+        console.log('Form data', values)
+
+        let experience = {
+            workPlace: values.companyName,
+            yearsOfWork: values.years,
+            jobTitle: values.jobRole,
+            field: values.fields,
+            jobStartDate: value,
+            jobEndDate: endDate
+        }
+
+        console.log(whichButton)
+
+        if (whichButton != "") {
+            let response_obj = await callAPI({
+                endpoint: "/experience/create",
+                method: "POST",
+                data: experience,
+            });
+
+            if(response_obj.data.msg=="success") {
+                console.log("success")
+
+                if(whichButton == "continue") {
+                    setChangeLocation(true)
+                }else if(whichButton == "add") {
+                    setAddExperience(true)
+                    actions.resetForm({initialValues});
+                    setValue(false)
+                    setEndDate(false)
+                    setButton("")
+                }
+            }
+        }
     }
 
 
@@ -42,104 +82,23 @@ function Formthree() {
             initialValues={initialValues}
             validationSchema={validationschema}
             onSubmit={onSubmit}>
+
             <Form>
+            {changeLocation && <Navigate to= '/Formfour'/>}
+            {/* {addExperience && <Navigate to= '/Formthree'/>} */}
+            <br />
             <Grid
             container
             justifyContent="center"
           >
             <h1 >Enter your experience</h1>
-          </Grid> 
-                <Grid
-                    container
-                    justifyContent="center">
-                    <div>
-                        <label htmlFor='degree'>
-                            How many years of experience do you have?
-                        </label>
-                        <Grid
-                            container
-                            justifyContent="center">
-                            <DropDown  options={[
-        {
-          value: 1,
-          description:'0 years'
-        },
-        {
-          value: 2,
-          description:'1 years'
-        },
-        {
-          value: 3,
-          description:'2 years'
-        },
-        {
-          value: 4,
-          description:'3 years'
-        },
-        {
-            value: 5,
-            description:'4 years'
-          },
-          {
-            value: 6,
-            description:'5+ years'
-          },
-          
-        
-          ]
-}
-                            />
-                        </Grid>
-                    </div>
-                </Grid>
+          </Grid>
 
-                <Grid
+          <Grid
                     container
                     justifyContent="center"
                 >
                     <div>
-                        <label htmlFor='Institution'>
-                           Where roles have you worked before?
-                        </label>
-
-                        <Field
-                            type='text'
-                            id='roles'
-                            name='roles'
-                            placeholder='e.g. Graphic Designer'
-                        />
-
-                        <ErrorMessage name='roles' />
-                    </div>
-                </Grid>
-
-                <Grid
-                    container
-                    justifyContent="center"
-                >
-                    <div>
-                        <label htmlFor='work'>
-                            Where do you curently work?
-                        </label>
-
-                        <Grid container justifyContent="center">
-                            <h4>Job Role</h4>
-                        </Grid>
-
-                        <Grid
-                            item
-                            container
-                            direction="row"
-                            alignItems="center" />
-                       
-                        <Field
-                            type='text'
-                            id='jobRole'
-                            name='jobRole'
-                            placeholder='e.g. Designer'
-                        />
-
-                        <ErrorMessage name='jobRole' />
 
                         <Grid container justifyContent="center">
                             <h4>Company name</h4>
@@ -160,11 +119,54 @@ function Formthree() {
 
                         <ErrorMessage name='Company Name' />
 
-                        <FormGroup>
-      <FormControlLabel control={<Checkbox />} label="Currently unemployed" />   
-    </FormGroup>
+                        <Grid container justifyContent="center">
+                            <h4>Job Role</h4>
+                        </Grid>
+
+                        <Grid
+                            item
+                            container
+                            direction="row"
+                            alignItems="center" />
+                       
+                        <Field
+                            type='text'
+                            id='jobRole'
+                            name='jobRole'
+                            placeholder='e.g. Designer'
+                        />
+
+                        <ErrorMessage name='jobRole' />
 
 
+                    </div>
+                </Grid>
+
+                <Grid
+                    container
+                    justifyContent="center">
+                    <div>
+                        {/* <label htmlFor='degree' justifyContent="center">
+                            How long did you work there for?
+                        </label> */}
+                        <Grid container justifyContent="center">
+                            <h4>How long did you work there for?</h4>
+                        </Grid>
+
+                        <Grid
+                            item
+                            container
+                            direction="row"
+                            alignItems="center" />
+                       
+                        <Field
+                            type='text'
+                            id='years'
+                            name='years'
+                            placeholder='e.g. 2'
+                        />
+
+                        <ErrorMessage name='years' />
                     </div>
                 </Grid>
 
@@ -173,8 +175,27 @@ function Formthree() {
                     justifyContent="center"
                 >
                     <div>
-                        <label htmlFor='workingDate'>When did you start working? </label
-                        ></div>
+                        <Grid container justifyContent="center">
+                            <h4>What fields did you worked on?</h4>
+                        </Grid>
+
+                        <Field
+                            type='text'
+                            id='fields'
+                            name='fields'
+                            placeholder='e.g. css, html, java, ml'
+                        />
+
+                        <ErrorMessage name='fields' />
+                    </div>
+                </Grid>
+
+                <Grid
+                    container
+                    justifyContent="center"
+                >
+                    <div>
+                        <label htmlFor='workingDate'>When did you start working there? </label></div>
                     <Grid
                         container
                         justifyContent="center" />
@@ -183,8 +204,32 @@ function Formthree() {
                         <DatePicker
                             label="MM/DD/YYYY"
                             value={value}
+                            name= "startDate"
                             onChange={(newValue) => {
                                 setValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
+                </Grid>
+
+                <Grid
+                    container
+                    justifyContent="center"
+                >
+                    <div>
+                        <label htmlFor='workingDate'>Your last day in the company? </label></div>
+                    <Grid
+                        container
+                        justifyContent="center" />
+
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                            label="MM/DD/YYYY"
+                            value={endDate}
+                            name= "endDate"
+                            onChange={(newValue) => {
+                                setEndDate(newValue);
                             }}
                             renderInput={(params) => <TextField {...params} />}
                         />
@@ -195,9 +240,11 @@ function Formthree() {
                 
                 <Grid container
                     justifyContent="center">
-                    <Link to='/Formfour'>
-                        <Button variant='contained' >Save and Continue</Button>
-                    </Link>
+                    {/* <Link to='/Formfour'> */}
+                    <Button onClick={() => setButton("continue")} type='submit' variant='contained' style={{marginRight: "30px"}} >Save and Continue</Button> 
+                    
+                    <Button onClick={() => setButton("add")} type='submit' variant='contained'>Add another experience</Button>
+                    {/* </Link> */}
                 </Grid>
 
             </Form>

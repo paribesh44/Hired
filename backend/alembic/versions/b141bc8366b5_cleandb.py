@@ -1,8 +1,8 @@
 """cleandb
 
-Revision ID: d2c81c30daa9
+Revision ID: b141bc8366b5
 Revises: 
-Create Date: 2022-11-17 11:49:27.857445
+Create Date: 2022-11-18 15:24:36.202776
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd2c81c30daa9'
+revision = 'b141bc8366b5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -80,8 +80,6 @@ def upgrade() -> None:
     sa.Column('cv', sa.String(), nullable=True),
     sa.Column('githubProfile', sa.String(), nullable=True),
     sa.Column('profilePhoto', sa.String(), nullable=True),
-    sa.Column('drivingLicenseNum', sa.String(), nullable=True),
-    sa.Column('last_job_applied', sa.DateTime(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
@@ -92,7 +90,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('qualification', sa.String(), nullable=True),
     sa.Column('graduating_institution', sa.String(), nullable=True),
-    sa.Column('graduating_year', sa.DateTime(), nullable=True),
+    sa.Column('graduating_year', sa.Date(), nullable=True),
     sa.Column('major', sa.String(), nullable=True),
     sa.Column('cgpa', sa.Float(), nullable=True),
     sa.Column('seeker_id', sa.Integer(), nullable=True),
@@ -105,8 +103,8 @@ def upgrade() -> None:
     sa.Column('workPlace', sa.String(length=50), nullable=True),
     sa.Column('yearsOfWork', sa.Integer(), nullable=True),
     sa.Column('jobTitle', sa.String(length=50), nullable=True),
-    sa.Column('jobStartDate', sa.DateTime(), nullable=True),
-    sa.Column('jobEndDate', sa.DateTime(), nullable=True),
+    sa.Column('jobStartDate', sa.Date(), nullable=True),
+    sa.Column('jobEndDate', sa.Date(), nullable=True),
     sa.Column('field', sa.ARRAY(sa.String()), nullable=True),
     sa.Column('seeker_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['seeker_id'], ['seekers.id'], ondelete='CASCADE'),
@@ -146,8 +144,8 @@ def upgrade() -> None:
     sa.Column('preferred_location', sa.ARRAY(sa.String()), nullable=False),
     sa.Column('interested_jobs', sa.ARRAY(sa.String()), nullable=False),
     sa.Column('preferred_job_skills', sa.ARRAY(sa.String()), nullable=False),
+    sa.Column('job_type', sa.String(), nullable=True),
     sa.Column('remote_onsite', sa.String(), nullable=False),
-    sa.Column('available_hours', sa.String(), nullable=True),
     sa.Column('seeker_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['seeker_id'], ['seekers.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')

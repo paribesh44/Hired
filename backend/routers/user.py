@@ -19,8 +19,8 @@ router = APIRouter(
 
 
 # Create a new user
-@router.post("/signup", status_code=status.HTTP_201_CREATED)
-async def Signup(data: authentication_schema.SignUp, response: Response, db: Session = Depends(database.get_db)):
+@router.post("/signup/{user_type}", status_code=status.HTTP_201_CREATED)
+async def Signup(user_type: int, data: authentication_schema.SignUp, response: Response, db: Session = Depends(database.get_db)):
     login_process = None
     # check if the user with that email previously exits or not
     user_exists = db.query(user.User).filter(
@@ -66,6 +66,7 @@ def show(id: int, db: Session = Depends(database.get_db)):
 @router.get("/companies", status_code=status.HTTP_200_OK)
 async def show(current_user: user.User = Depends(oauth2.get_user_companies)):
     return {"msg": "Welcome Companies"}
+
 
 
 @router.post("/cv")

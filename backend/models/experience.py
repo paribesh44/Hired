@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, ARRAY, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, Date, Boolean, ARRAY, Text
 from core.database import Base
 from sqlalchemy.orm import relationship
 
@@ -12,8 +12,8 @@ class Experience(Base):
     yearsOfWork = Column(Integer, nullable=True)
     # may be make job title list
     jobTitle = Column(String(50), nullable=True)
-    jobStartDate = Column(DateTime, nullable=True)
-    jobEndDate = Column(DateTime, nullable=True)
+    jobStartDate = Column(Date, nullable=True)
+    jobEndDate = Column(Date, nullable=True)
     field = Column(ARRAY(String), nullable=True)
 
     seeker_id = Column(Integer,

@@ -9,7 +9,7 @@ preferences: List[Json] = [
         "interested_jobs": ["frontend", "mobile development"],
         "preferred_job_skills": ["css", "django"],
         "remote_onsite": "onsite",
-        "available_hours": "10 am to 5 pm",
+        "job_type": "Full-time",
         "seeker_id" : 1
     },
     {
@@ -19,6 +19,7 @@ preferences: List[Json] = [
         "interested_jobs": ["ml engineer"],
         "preferred_job_skills": ["ml", "dl"],
         "remote_onsite": "onsite",
+        "job_type": "intership",
         "available_hours": "10 am to 5 pm",
         "seeker_id" : 2
     }
