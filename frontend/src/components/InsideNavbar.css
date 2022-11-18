@@ -24,7 +24,45 @@
   .nav_searchBox {
     width: 90%;
 }
+  .notif_box_icon{
+    padding-top: 5px;
+    padding-right: 35px;
+    position: relative;
+  }
+
+  .notif_box_label{
+    padding:10px 20px;
+    top:50px;
+    right:20px;
+    position:absolute;
+    border: 1px solid rgba(0,0,0,.2);
+    width:500px;
+    background-color:#fff;
+    opacity: 90%;
+    /* height:80px; */
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 1px rgba(0,0,0,.2);
+  }
+
+  .notif_box_label_each{
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    margin-bottom: 10px !important;
+  }
+
+  .notif_box_label_each:last-child{
+    border-bottom:none;
+    margin-bottom: 10px !important;
+  }
   
+  .notif_box_label_each:hover{
+    transform: scale(1.06);
+    transition: transform 100ms ease-in;
+  }
+  .notif_box_label_each{
+   cursor: pointer;
+   padding: 3px;
+  
+  }
  
 
 .navbar-image{
@@ -63,7 +101,7 @@
 }
 
 .profile_box_label{
-  padding:10px;
+  padding:10px 20px;
   top:50px;
   right:20px;
   position:absolute;
@@ -74,19 +112,28 @@
   border-radius: 5px;
 
 }
-.profile_box_label_each:first-child{
+.profile_box_label_each{
   border-bottom: 1px solid rgba(0,0,0,.2);
+  cursor: pointer;
+  padding: 3px;
+}
+
+.profile_box_label_end{
+  cursor: pointer;
+  padding: 3px;
+
 }
 
 .profile_box_label_each:hover{
   transform: scale(1.06);
   transition: transform 100ms ease-in;
 }
-.profile_box_label_each{
- cursor: pointer;
- padding: 3px;
 
+.profile_box_label_end:hover{
+  transform: scale(1.06);
+  transition: transform 100ms ease-in;
 }
+
 
 .profile_box_label_texts{
   font-weight: 500;
@@ -107,7 +154,7 @@
 
 
 
-/* FOR USER */
+/* FOR - */
 
 .navbarunordered{
   list-style-type: none;
@@ -134,6 +181,7 @@
   /* color: black; */
   /* border:1px solid black; */
   z-index: 1000;
+  cursor: pointer;
   /* color:#495C83; */
   /* opacity: 50%; */
 }
@@ -141,7 +189,8 @@
 .userdp{
   padding-left:40px;
   padding-right: 30px;
-  position:relative
+  position:relative;
+  cursor: pointer;
 }
 
 .status-button{

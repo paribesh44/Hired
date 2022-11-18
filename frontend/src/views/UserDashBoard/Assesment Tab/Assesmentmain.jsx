@@ -46,7 +46,7 @@ function Assesmentmain() {
             and submit marks to companies.
           </Grid>
           <Grid item className="assesmentmain-button">
-            <Link to="/ListDoneAssesment">
+            <Link to="/ListDoneAssesment" style={{ textDecoration: "none" }}>
               <CustomButton
                 name="View My Assesments"
                 addStyles={"reject-button"}

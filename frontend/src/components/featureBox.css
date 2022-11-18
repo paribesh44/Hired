@@ -27,9 +27,9 @@
  margin-top: 1px !important;
 }
 .jobname{    
-  font-weight: 700;
+  font-weight: 600;
   padding: 5px;
-  font-size: 0.8em;
+  font-size: 1 em;
 }
 .joblocation{  
   padding: 5px;
@@ -65,4 +65,9 @@
 .buttonBox{
   margin-right: 20px !important;
    
+}
+
+.featuredbox_companyname{
+  font-weight: 500;
+  font-size: 19px;
 }

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from schemas import seeker_schema
 
-from models import seeker, user
+from models import seeker, user, education, experience, preference
 from core import database, hashing, oauth2
 from sqlalchemy.orm import Session
 from typing import List
@@ -98,8 +98,9 @@ def update(id: int, form: jobSeekerForm.JobSeekerForm = Depends(), db: Session =
 def update_visibility(data: seeker_schema.ChangeSeeker, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     # # print(data.visibility)
     # return "success"
-    update_seeker_status = db.query(seeker.Seeker).filter(seeker.Seeker.id==current_user.seeker[0].id).first()
-   
+    update_seeker_status = db.query(seeker.Seeker).filter(
+        seeker.Seeker.id == current_user.seeker[0].id).first()
+
     if not update_seeker_status:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"User Assesment with id not found")
@@ -109,7 +110,7 @@ def update_visibility(data: seeker_schema.ChangeSeeker, db: Session = Depends(da
     db.commit()
     db.refresh(update_seeker_status)
 
-    return {"msg":"success"}
+    return {"msg": "success"}
 
 
 # , response_model=List[schemas.ShowSeeker]
@@ -131,16 +132,34 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
     # return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user, "user_assesment": hired_seeker.userAssesment}
     return hired_seeker
 
+
 @router.get('/get_current_seeker')
 def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
-    seekers = db.query(seeker.Seeker).filter(seeker.Seeker.id==current_user.seeker[0].id).all()
+    seekers = db.query(seeker.Seeker).filter(
+        seeker.Seeker.id == current_user.seeker[0].id).all()
     return seekers
 
 
 @router.get("/does_this_seeker_has_cv")
 def hasCV(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     has_cv = None
-    hired_seeker = db.query(seeker.Seeker).filter(seeker.Seeker.id == current_user.seeker[0].id).first()
+    hired_seeker = db.query(seeker.Seeker).filter(
+        seeker.Seeker.id == current_user.seeker[0].id).first()
     has_cv = hired_seeker.cv
 
     return has_cv
+
+
+@router.get("/get_seeker_information")
+def hasCV(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    hired_seeker = db.query(seeker.Seeker).filter(
+        seeker.Seeker.id == current_user.seeker[0].id).first()
+
+    hired_education = db.query(education.Education).filter(
+        education.Education.seeker_id == current_user.seeker[0].id).all()
+    hired_experience = db.query(experience.Experience).filter(
+        experience.Experience.seeker_id == current_user.seeker[0].id).all()
+    hired_preference = db.query(preference.Preference).filter(
+        preference.Preference.seeker_id == current_user.seeker[0].id).first()
+
+    return {"seeker": hired_seeker, "education": hired_education, "experience": hired_experience, "preference": hired_preference}

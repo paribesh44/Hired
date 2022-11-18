@@ -1,15 +1,15 @@
 .assesmentmain-main{
-    padding:62px 30px 30px 0px;
+    padding:62px 30px 30px 90px;
     /* width: 100px; */
     /* height:100%; */
     /* border:1px solid black; */
 }
 
-.userassesment{
-    /* border:1px solid black; */
+/* .userassesment{
+     border:1px solid black; 
 
 
-}
+} */
 
 .assesmentmain-heading{
     font-size: 23px;
@@ -23,7 +23,8 @@
     font-size: 18px;
 }
 .assesmentmain-button{
-    border:1px solid black;
+    /* border:1px solid black; */
+    padding: 10px 0px;
 }
 
 .assesment-recommendbox{
@@ -230,7 +231,7 @@
 .assesmentstart-heading {
     font-size: 23px;
     font-weight: 500;
-    padding: 60px 0px 10px 0px;
+    padding: 0px 0px 10px 0px;
 }
 
 .startasseshead {

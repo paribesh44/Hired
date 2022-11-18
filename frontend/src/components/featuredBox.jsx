@@ -89,7 +89,7 @@ function Featured_box({
             </Grid>
             <Grid item>
               <Grid container direction="column">
-                <Grid item>
+                <Grid item className="featuredbox_companyname">
                   <a className="companyname">{company}</a>
                 </Grid>
                 <Grid item className="description">

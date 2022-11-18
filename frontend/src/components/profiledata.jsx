@@ -9,7 +9,7 @@ export const Profiledata = [
     title: "Edit Profile",
     icon: <FiEdit3 size={20} />,
     // selected: true,
-    link: ["/UserHomeTab"],
+    link: ["/employeeProfile"],
   },
   {
     title: "LogOut",

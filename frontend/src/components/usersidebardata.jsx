@@ -10,7 +10,7 @@ export const usersidebardata = [
     icon: <MdHome size={38} />,
     selected: true,
 
-    link: ["/UserHomeTab"],
+    link: ["/UserHomeTab", "/ApplyJob"],
   },
   {
     title: "History",
