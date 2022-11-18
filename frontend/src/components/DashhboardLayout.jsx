@@ -10,18 +10,23 @@ const DashboardLayout = ({
   topbar = <UserNavbarIn />,
 }) => {
   return (
-    <Grid container direction="row" className="dashboardLayout_mainRoot">
+    <Grid container direction="column" className="dashboardLayout_mainRoot">
       <Grid sm={12} item className="dashboardLayout_sideBar">
         {topbar}
       </Grid>
 
-      <Grid item className="dashboardLayout_sideBar">
-        {leftbar}
+      <Grid item>
+        <Grid container direction="row" alignItems="stretch">
+          <Grid item sm={1} className="dashboardLayout_sideBar">
+            {leftbar}
+          </Grid>
+
+          <Grid item sm={10} className="dashboardLayout_mainArea">
+            {children}
+          </Grid>
+        </Grid>
       </Grid>
 
-      <Grid sm={8} item className="dashboardLayout_mainArea">
-        {children}
-      </Grid>
       {/* <Grid sm={3} item className="dashboardLayout_profileBar">
           <ProfileBar mode={mode} />
         </Grid> */}

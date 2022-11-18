@@ -14,14 +14,16 @@ function UserSideBar(props) {
             <div
               key={key}
               className={`${
-                window.location.pathname == val.link ? "wholeicon" : "noneicon"
+                val.link.includes(window.location.pathname)
+                  ? "wholeicon"
+                  : "noneicon"
               }`}
             >
-              <Link to={val.link} className="linkclass">
-                <li key={val.link} className="homelistitems">
+              <Link to={val.link[0]} className="linkclass">
+                <li key={val.link[0]} className="homelistitems">
                   <div
                     className={`${
-                      window.location.pathname == val.link
+                      val.link.includes(window.location.pathname)
                         ? "selectedicon"
                         : "notselectedicon"
                     }`}

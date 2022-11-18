@@ -1,12 +1,12 @@
 .assesmentmain-main{
     padding:62px 30px 30px 0px;
-    width: 100%;
+    /* width: 100px; */
     /* height:100%; */
     /* border:1px solid black; */
 }
 
 .userassesment{
-    border:1px solid black;
+    /* border:1px solid black; */
 
 
 }
@@ -18,11 +18,16 @@
 }
 
 .assesmentmain-subheading{
+    /* border:1px solid black; */
+
     font-size: 18px;
+}
+.assesmentmain-button{
+    border:1px solid black;
 }
 
 .assesment-recommendbox{
-    width:1180px;
+    /* width:1180px; */
     height:100%;
     padding:40px 120px 40px 120px;
     background-color: #EBEFF5;
@@ -47,7 +52,7 @@
     .cardassesment-main{
         padding: 15px ;    
         width:270px;
-        height:170px;
+        height:200px;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 2px 1px rgba(0,0,0,.2);
@@ -58,7 +63,7 @@
     .already-not-done {
         padding: 15px;
         width: 270px;
-        height: 170px;
+        height: 200px;
         background-color: rgb(222, 217, 217);
         border-radius: 8px;
         box-shadow: 0 2px 2px 1px rgba(0, 0, 0, .2);
@@ -73,7 +78,7 @@
     }
 
     .card-buttom{
-        top:160px;
+        bottom:10px;
         position: absolute;
 
     }

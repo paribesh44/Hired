@@ -33,10 +33,11 @@ function Featured_box({
   }, []);
 
   const current = new Date();
-  const today_date = `${current.getFullYear()}${current.getMonth()+1}${current.getDate()}`;
-  const postedDate = posted_date.split("-").join("")
-  const posted_days_ago = today_date - postedDate
-
+  const today_date = `${current.getFullYear()}${
+    current.getMonth() + 1
+  }${current.getDate()}`;
+  const postedDate = posted_date.split("-").join("");
+  const posted_days_ago = today_date - postedDate;
 
   if (save_job != null) {
     async function handleClick(e) {
@@ -61,7 +62,7 @@ function Featured_box({
       if (response_obj2.data.msg == "success") {
         if (save_job == true) {
           <Link to="/UserSaved" />;
-        // redirect to UserHomeTab
+          // redirect to UserHomeTab
         } else {
           <Link to="/UserSaved" />;
         }
@@ -129,11 +130,17 @@ function Featured_box({
                 alignItems="center"
               >
                 <Grid>
-                  <a className="posttime">Posted: {posted_days_ago} {" days ago"}</a>
+                  <a className="posttime">
+                    Posted: {posted_days_ago} {" days ago"}
+                  </a>
                 </Grid>
                 <Link
                   to="/ApplyJob"
-                  state={{ job_post: job_post, save: save_job, posted_days_ago: posted_days_ago }}
+                  state={{
+                    job_post: job_post,
+                    save: save_job,
+                    posted_days_ago: posted_days_ago,
+                  }}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <Grid item className="buttonBox">

@@ -31,42 +31,53 @@ function Assesmentmain() {
   if (result != null) {
     // const [data] = useAPI({endpoint:"/targetfield/get_all", fire: false});
     return (
-      <div className="assesmentmain-main">
-        <div className="assesmentmain-heading">Assesments</div>
-        <div className="assesmentmain-subheading">
-          List of relatable assesments that might help you in interview prep and
-          submit marks to companies.
-        </div>
-        <Link to="/ListDoneAssesment">
-          <CustomButton
-            name="View My Assesments"
-            addStyles={"reject-button"}
-          ></CustomButton>
-        </Link>
+      <Grid item>
+        <Grid
+          container
+          className="assesmentmain-main"
+          direction="column"
+          justifyContent="space-evenly"
+        >
+          <Grid item className="assesmentmain-heading">
+            Assesments
+          </Grid>
+          <Grid item className="assesmentmain-subheading">
+            List of relatable assesments that might help you in interview prep
+            and submit marks to companies.
+          </Grid>
+          <Grid item className="assesmentmain-button">
+            <Link to="/ListDoneAssesment">
+              <CustomButton
+                name="View My Assesments"
+                addStyles={"reject-button"}
+              ></CustomButton>
+            </Link>
+          </Grid>
 
-        <div className="assesment-recommendbox">
-          <RecommendAssesment recommended_target_field={recommendedTF} />
-        </div>
+          <Grid item className="assesment-recommendbox">
+            <RecommendAssesment recommended_target_field={recommendedTF} />
+          </Grid>
 
-        <Grid className="assesment-available">
-          <Grid container direction="row">
-            {result.data.map((val, key) => {
-              return (
-                <Grid item className="eachbox" key={key}>
-                  <CardAssesment
-                    id={val.id}
-                    name={val.name}
-                    type="MCQ"
-                    time="20 min"
-                    languages={val.languages}
-                    difficulty={val.difficulty}
-                  />
-                </Grid>
-              );
-            })}
+          <Grid item className="assesment-available">
+            <Grid container direction="row">
+              {result.data.map((val, key) => {
+                return (
+                  <Grid item className="eachbox" key={key}>
+                    <CardAssesment
+                      id={val.id}
+                      name={val.name}
+                      type="MCQ"
+                      time="20 min"
+                      languages={val.languages}
+                      difficulty={val.difficulty}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
           </Grid>
         </Grid>
-      </div>
+      </Grid>
     );
   }
 }
