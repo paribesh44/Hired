@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Hired from "../assets/Hired.png";
 import companydummylogo from "../assets/companydummylogo.jpg";
 import Image from "./Image";
 import IconButton from "@mui/material/IconButton";
 import { IoIosNotifications } from "react-icons/io";
 import "./InsideNavbar.css";
+import { CompanyNavbarData } from "./CompanyNavbarData";
+import callAPI from "../utils/callAPI";
+import { FiEdit3 } from "react-icons/fi";
+import { BiLogOutCircle } from "react-icons/bi";
 
 function CompanyNavbarIn() {
-  function ExpandLogo() {}
+  const [notifclick, setnotifclick] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const [changeLocation, setChangeLocation] = useState(false);
+
+  function handleNotifClicked() {
+    setnotifclick(!notifclick);
+  }
+  function handleImageClick() {
+    console.log("imageclicked");
+    setClicked(!clicked);
+  }
+  const logoutseeker = async () => {
+    console.log("logoutclicked");
+    let response_obj = await callAPI({
+      endpoint: `/user-logout`,
+    });
+    console.log(response_obj.data);
+
+    if (response_obj.data.msg == "success") {
+      setChangeLocation(true);
+      console.log("success");
+    }
+  };
   return (
     <div className="navbar-main">
       <Grid
@@ -20,7 +46,7 @@ function CompanyNavbarIn() {
         className="navbar-top"
       >
         <Grid item className="navbar-image">
-          <Link to="/">
+          <Link to="/CompanyHome">
             <Image src={Hired} />
           </Link>
         </Grid>
@@ -33,89 +59,149 @@ function CompanyNavbarIn() {
             justifyContent="space-evenly"
             className="options"
           >
-            <Grid item>
-              <Link
-                to="/CompanyHome"
-                style={{ textDecoration: "none", color: "#495c83" }}
+            {CompanyNavbarData.map((val, key) => (
+              <Grid
+                item
+                key={key}
+                className={`${
+                  val.link.includes(window.location.pathname)
+                    ? "navbar_wholeicon"
+                    : "navbar_noneicon"
+                }`}
               >
-                <p className="navbar-texts"> Home</p>
-                <div
-                  className={`${
-                    window.location.pathname == "/CompanyHome"
-                      ? "hori-line"
-                      : ""
-                  }`}
-                ></div>
-              </Link>
+                <Link
+                  to={val.link[0]}
+                  style={{ textDecoration: "none", color: "#495c83" }}
+                >
+                  <p
+                    className={`${
+                      val.link.includes(window.location.pathname)
+                        ? "chosen_navbar-texts"
+                        : "navbar-texts"
+                    }`}
+                  >
+                    {" "}
+                    {val.title}
+                  </p>
+                  <div
+                    className={`${
+                      val.link.includes(window.location.pathname)
+                        ? "hori-line"
+                        : ""
+                    }`}
+                  ></div>
+                </Link>
+              </Grid>
+            ))}
+            <Grid item className="notif-icon">
+              <Grid
+                container
+                direction={"column"}
+                alignItems={"center"}
+                justifyContent="center"
+              >
+                <Grid item onClick={() => handleNotifClicked()}>
+                  <IoIosNotifications
+                    className="company_iconsnavbar"
+                    size={29}
+                  />
+                </Grid>
+                {notifclick && (
+                  <Grid item className="notif_box_label_company">
+                    <Grid item>
+                      <Grid item className="notif_box_label_each">
+                        Notification Number One
+                      </Grid>
+                      <Grid item className="notif_box_label_each">
+                        Notification Number two very long notification and long
+                        and long
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                )}
+              </Grid>
+              {/* <IconButton aria-label="search" edge="end">
+                <IoIosNotifications className="" />
+              </IconButton> */}
             </Grid>
 
-            <Grid item>
-              <Link
-                to="/AppliedEmployeesList"
-                style={{ textDecoration: "none", color: "#495c83" }}
+            <Grid item className="company-logo">
+              <Grid
+                container
+                direction="column"
+                alignItems={"center"}
+                justifyContent="center"
               >
-                <p className="navbar-texts"> Applied</p>
-                <div
-                  className={`${
-                    window.location.pathname == "/CompanyApplied"
-                      ? "hori-line"
-                      : ""
-                  }`}
-                ></div>
-              </Link>
-            </Grid>
+                <Grid item onClick={() => handleImageClick()}>
+                  <Image
+                    className="border-left pl-2 ml-auto"
+                    src={companydummylogo}
+                  />
+                </Grid>
+                {clicked && (
+                  <Grid item className="profile_box_label_company">
+                    <Grid item>
+                      <Link
+                        to="/companyProfile"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Grid
+                          container
+                          direction="row-reverse"
+                          // alignItems="start"
+                          justifyContent="space-between"
+                          className="profile_box_label_each"
+                        >
+                          <Grid item className="profile_box_label_texts">
+                            <FiEdit3 size={20} />{" "}
+                          </Grid>
+                          <Grid item className="profile_box_label_texts">
+                            Edit Profile
+                          </Grid>
+                        </Grid>
+                      </Link>
 
-            <Grid item>
-              <Link
-                to="/CompanyAddPost"
-                style={{ textDecoration: "none", color: "#495c83" }}
-              >
-                <p className="navbar-texts"> Add a post</p>
-                <div
-                  className={`${
-                    window.location.pathname == "/CompanyAddPost"
-                      ? "hori-line"
-                      : ""
-                  }`}
-                ></div>
-              </Link>
-            </Grid>
-
-            <Grid item>
-              <Link
-                to="/CompanyMyEmployees"
-                style={{ textDecoration: "none", color: "#495c83" }}
-              >
-                <p className="navbar-texts"> My Employees</p>
-                <div
-                  className={`${
-                    window.location.pathname == "/CompanyMyEmployees"
-                      ? "hori-line"
-                      : ""
-                  }`}
-                ></div>
-              </Link>
-            </Grid>
-
-            <Grid item>
-              <Link
-                to="/CompanyAnalytics"
-                style={{ textDecoration: "none", color: "#495c83" }}
-              >
-                <p className="navbar-texts"> Analytics </p>
-              </Link>
-            </Grid>
-
-            <IconButton aria-label="search" edge="end">
-              <IoIosNotifications className="notif-icon" />
-            </IconButton>
-
-            <Grid className="company-logo">
-              <Image
-                onClick={ExpandLogo}
-                className="border-left pl-2 ml-auto"
-                src={companydummylogo}
-              />
+                      <Grid
+                        container
+                        direction="row-reverse"
+                        // alignItems="start"
+                        justifyContent="space-between"
+                        className="profile_box_label_end"
+                        // onClick={() => handleLogout()}
+                      >
+                        <Grid item className="profile_box_label_texts">
+                          <BiLogOutCircle size={20} />
+                        </Grid>
+                        {changeLocation && <Navigate to="/CompanyLanding" />}
+                        <Grid
+                          item
+                          onClick={() => logoutseeker()}
+                          className="profile_box_label_texts"
+                        >
+                          LogOut
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {/* {Profiledata.map((options) => (
+                      <Grid item className="profile_box_label_each">
+                        <Grid
+                          container
+                          direction="row-reverse"
+                          // alignItems="start"
+                          justifyContent="space-between"
+                        >
+                          <Grid item className="profile_box_label_texts">
+                            {options.icon}
+                          </Grid>
+                          <Grid item className="profile_box_label_texts">
+                            {options.title}
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    ))} */}
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

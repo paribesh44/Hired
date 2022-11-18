@@ -43,6 +43,19 @@
     border-radius: 5px;
     box-shadow: 0 2px 2px 1px rgba(0,0,0,.2);
   }
+  .notif_box_label_company{
+    padding:10px 20px;
+    top:80px;
+    right:220px;
+    position:absolute;
+    border: 1px solid rgba(0,0,0,.2);
+    width:500px;
+    background-color:#fff;
+    opacity: 90%;
+    /* height:80px; */
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 1px rgba(0,0,0,.2);
+  }
 
   .notif_box_label_each{
     border-bottom: 1px solid rgba(0,0,0,.2);
@@ -75,15 +88,22 @@
 }
 
 .navbar-texts{
-  padding:0px 60px 0px 5px;
+  padding:0px 40px 0px 5px;
   color: #495c83;
   font-size: 18px;
   font-weight: 400;
 }
 
+.chosen_navbar-texts{
+  padding:0px 40px 0px 5px;
+  color: #495c83;
+  font-size: 19px;
+  font-weight: 400;
+}
+
 .notif-icon{
-  padding-right: 35px;
-  padding-left: 650px;
+  margin-right: 37px !important;
+  margin-left: 870px !important;
 
 }
 .company-logo{
@@ -104,6 +124,17 @@
   padding:10px 20px;
   top:50px;
   right:20px;
+  position:absolute;
+  border: 1px solid rgba(0,0,0,.2);
+  width:150px;
+  background-color: #fff;
+  /* height:80px; */
+  border-radius: 5px;
+}
+.profile_box_label_company{
+  padding:10px 20px;
+  top:85px;
+  right:50px;
   position:absolute;
   border: 1px solid rgba(0,0,0,.2);
   width:150px;
@@ -185,6 +216,10 @@
   /* color:#495C83; */
   /* opacity: 50%; */
 }
+.company_iconsnavbar{
+  z-index: 1000;
+  cursor: pointer;
+}
 
 .userdp{
   padding-left:40px;
@@ -223,7 +258,14 @@ optgroup{
 }
 
 .hori-line{
-  margin-top: 10px;
-    border-left: 100px solid #495c83;
-  height: 2px;
+  margin-top: 7px;
+  border-color:  #495c83;
+  border-style: solid;
+  /* border: 0px 0px 0px 0px; */
+}
+
+.navbar_wholeicon{
+  /* border: 1px solid black; */
+  margin-right: 30px !important;
+  font: 20px;
 }

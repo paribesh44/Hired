@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Grid } from "@mui/material";
-
 import Image from "./Image";
 import Hired from "../assets/Hired.png";
 import CustomButton from "./Buttons";
@@ -11,7 +10,6 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { IoSearchOutline } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 import { BiLogOutCircle } from "react-icons/bi";
-
 import CompanyNavbarIn from "./CompanyNavbarIn";
 import callAPI from "../utils/callAPI";
 import useAPI from "../utils/useAPI";
@@ -21,6 +19,7 @@ export default function UserNavbarIn() {
   const [changeStatusState, setChangeStatusState] = useState(null);
   const [clicked, setClicked] = useState(false);
   const [notifclick, setnotifclick] = useState(false);
+  const [changeLocation, setChangeLocation] = useState(false);
 
   function handleImageClick() {
     console.log("imageclicked");
@@ -57,6 +56,18 @@ export default function UserNavbarIn() {
     }
   }
 
+  const logoutseeker = async () => {
+    console.log("logoutclicked");
+    let response_obj = await callAPI({
+      endpoint: `/user-logout`,
+    });
+    console.log(response_obj.data);
+
+    if (response_obj.data.msg == "success") {
+      setChangeLocation(true);
+      console.log("success");
+    }
+  };
   return (
     <div className="navbar-main">
       {/* <CompanyNavbarIn/> */}
@@ -165,7 +176,12 @@ export default function UserNavbarIn() {
                         <Grid item className="profile_box_label_texts">
                           <BiLogOutCircle size={20} />
                         </Grid>
-                        <Grid item className="profile_box_label_texts">
+                        {changeLocation && <Navigate to="/" />}
+                        <Grid
+                          item
+                          onClick={() => logoutseeker()}
+                          className="profile_box_label_texts"
+                        >
                           LogOut
                         </Grid>
                       </Grid>

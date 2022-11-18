@@ -1,16 +1,15 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import Companylayout from "../../../components/Companylayout";
-import CompanyNavbarIn from "../../../components/CompanyNavbarIn";
 
-function CompanyAddPost() {
+function CompanyReminderPage() {
   return (
     <Grid container>
       <Companylayout>
-        <Grid className="title">Post a job</Grid>
+        <Grid className="title">Your Reminders</Grid>
       </Companylayout>
     </Grid>
   );
 }
 
-export default CompanyAddPost;
+export default CompanyReminderPage;

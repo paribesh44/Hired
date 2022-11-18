@@ -27,14 +27,15 @@ import ViewAssesment from "./views/UserDashBoard/Assesment Tab/ViewAssesment";
 import ListDoneAssesment from "./views/UserDashBoard/Assesment Tab/ListDoneAssesment";
 import ApplyConfirmation from "./views/UserDashBoard/Saved Tab/ApplyConfirmation";
 import AppliedEmployeesList from "./views/CompanyDashBoard/Applied Tab/FirstList/AppliedEmployeesList";
-import CVForm from './components/reactform/form';
-import EducationForm from './components/reactform/education';
-import ExperienceForm from './components/reactform/experience';
-import ProjectForm from './components/reactform/project';
-import MiscenanousForm from './components/reactform/Miscenanous';
-import FormComplete from './components/reactform/formComplete';
-
-
+import CVForm from "./components/reactform/form";
+import EducationForm from "./components/reactform/education";
+import ExperienceForm from "./components/reactform/experience";
+import ProjectForm from "./components/reactform/project";
+import MiscenanousForm from "./components/reactform/Miscenanous";
+import FormComplete from "./components/reactform/formComplete";
+import CompanyReminder from "./views/CompanyDashBoard/CompanyHome/Reminder";
+import CompanyAddReminder from "./views/CompanyDashBoard/Reminder/CompanyAddReminder";
+import CompanyReminderPage from "./views/CompanyDashBoard/Reminder/CompanyReminderPage";
 
 const Routedpath = () => {
   return (
@@ -82,13 +83,22 @@ const Routedpath = () => {
       <Route path="/ListDoneAssesment" element={<ListDoneAssesment />}></Route>
 
       <Route path="/aaa" element={<Aaa />}></Route>
-      
+
       <Route path="/cvMaker" element={<CVForm />}></Route>
       <Route path="/cvMaker/education" element={<EducationForm />}></Route>
       <Route path="/cvMaker/project" element={<ProjectForm />}></Route>
       <Route path="/cvMaker/experience" element={<ExperienceForm />}></Route>
       <Route path="/cvMaker/miscenanous" element={<MiscenanousForm />}></Route>
       <Route path="/cvMaker/formComplete" element={<FormComplete />}></Route>
+      <Route
+        path="/CompanyAddReminder"
+        element={<CompanyAddReminder />}
+      ></Route>
+
+      <Route
+        path="/CompanyReminderPage"
+        element={<CompanyReminderPage />}
+      ></Route>
     </Routes>
   );
 };
