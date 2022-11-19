@@ -12,83 +12,136 @@ import DropDown from '../../components/DropDown';
 import { yearPickerClasses } from '@mui/x-date-pickers';
 import { Link } from 'react-router-dom';
 
+import callAPI from "../../utils/callAPI";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+import InputSlider from '../../components/Slider';
+
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import Companylayout from "../../components/Companylayout";
+
+
+
 const initialValues = {
-  lookingfor: '',
   position: '',
   location: '',
-  startdate: '',
   description: '',
   responsibilities: '',
   benefits: '',
-  vancancy: '',
-  workhours: '',
-  deadline: '',
-  contact: '',
-  vancancy: '',
-  minexperince: '',
-  education: '',
+  vacancy: '',
   skills: '',
-  jobtype: '',
-  status: '',
-
+  experience: "",
+  hours: "",
+  experince: "",
+  vancancy: ""
 }
-
-
-
-const onSubmit = values => {
-  console.log('Form data', values)
-}
-
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 const validationschema = Yup.object({
-  lookingfor: Yup.string().required('Required'),
   location: Yup.string().required('Required'),
-  description: Yup.string().matches(/(\b[A-Za-z0-9\s'_-]+\b){50,}/, 'Word count exceeds 50').required('Required'),
-  contact: Yup.string().matches(phoneRegExp, 'Contact number is not valid').min(10, "The number is too short")
-    .max(10, "The number is too long").required('Required'),
+  description: Yup.string().required('Required'),
   responsibilities: Yup.string().required('Required'),
   benefits: Yup.string().required('Required'),
-  vancancy: Yup.string().required('Required'),
-  exeprience: Yup.string().required('Required'),
-  education: Yup.string().required('Required'),
+  vacancy: Yup.string().required('Required'),
   skills: Yup.string().required('Required'),
+  experience: Yup.string().required('Required'),
   hours: Yup.string().required('Required'),
-//required stuffs
-
-
-
+// //required stuffs
 })
 
 function Cformtwo() {
-  const [value, setValue] = React.useState(null);
-  const onChange = (newValue) => {
-    setValue(newValue);
-  }
 
-  const options=[
-{
-  value: 1,
-  description:'Intern'
-},
-{
-  value: 2,
-  description:'Full time employee'
-},
-{
-  value: 3,
-  description:'Par-time employee'
-},
+  const [deadlineDatePicker, setDeadlineDatePicker] = React.useState(null);
+  const [jobStartDatePicker, setJobStartDatePicker] = React.useState(null);
 
+  const [jobTypeDropDown, setJobTypeDropDown] = React.useState('');
+  const [jobLevelDropDown, setJobLevelDropDown] = React.useState('');
+  const [educationRequiredDropDown, setEducationRequiredDropDown] = React.useState('');
 
+  const [remoteOnsiteRadio, setRemoteOnsiteRadio] = React.useState(null);
+
+  const [minimumSalary, setMinimumSalary] = React.useState(30)
+  const [maximumSalary, setMaximumSalary] = React.useState(30)
+
+  const getMinimumSalary = (data) => {
+        setMinimumSalary(data)
+    }
+
+    const getMaximumSalary = (data) => {
+        setMaximumSalary(data)
+    }
+
+  const job_type_options = [
+    "Permanent", "Temporary", "Contract", "Internship"
   ]
 
+  const job_level_options =[
+    "Senior", "Midlevel", "Junior", "Internship" 
+  ]
+
+  const education_required = [
+    "Bachlors", "Masters", "Phd"
+  ]
+
+  const onSubmit = async (values, actions) => {
+    console.log('Form data', values)    
+
+    const job_post_information = {
+      job: values.position,
+      description: values.description,
+      job_location: values.location,
+      job_level: jobLevelDropDown,
+      job_type: jobTypeDropDown,
+      job_responsibilities: values.responsibilities,
+      skills: values.skills,
+      minimum_years_of_experience: values.experience,
+      education_required: educationRequiredDropDown,
+      no_of_vacancy: values.vacancy,
+      work_hours: values.hours,
+      min_salary: minimumSalary*1000,
+      max_salary: maximumSalary*1000,
+      job_benefits: values.benefits,
+      job_start_date: jobStartDatePicker,
+      deadline: deadlineDatePicker,
+      remote_onsite: remoteOnsiteRadio,
+    }
+
+
+    let response_obj = await callAPI({
+      endpoint: "/jobPost/create",
+      method: "POST",
+      data: job_post_information,
+    });
+
+    if(response_obj.data.msg=="success") {
+      console.log("success")
+      // setChangeLocation(true)
+      actions.resetForm({initialValues});
+      setDeadlineDatePicker(null);
+      setJobStartDatePicker(null);
+      setJobTypeDropDown("")
+      setJobLevelDropDown("")
+      setEducationRequiredDropDown("")
+      setRemoteOnsiteRadio("")
+      setMinimumSalary("")
+      setMaximumSalary("")
+    }
+
+  }
+
   return (
+    <Companylayout>
+    <br />
     <Formik initialValues={initialValues}
       validationSchema={validationschema}
       onSubmit={onSubmit}>
 
       <Form>
+        <br />
         <Grid
           container
           justifyContent="center"
@@ -106,22 +159,83 @@ function Cformtwo() {
           </h3>
         </Grid>
 
-
         <Grid
           container
           justifyContent="center">
           <div>
             <label htmlFor='lookingfor'>
-              What are you looking for?
+              What type of employee are you looking for?
             </label>
             <Grid
               container
               justifyContent="center">
-              <DropDown options={options}
-              />
-            </Grid>
-          </div>
-        </Grid>
+              <Select
+                sx={{ m: 1, minWidth: 380}}
+                value={jobTypeDropDown}
+                onChange={(e)=>{setJobTypeDropDown(e.target.value)}}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+                >
+                  <MenuItem value="">
+                      <em>Select</em>
+                  </MenuItem>
+                          {job_type_options&&job_type_options.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))}
+                      </Select>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid
+                  container
+                  justifyContent="center">
+                  <div>
+                    <label htmlFor='lookingfor'>
+                      Job level
+                    </label>
+                    <Grid
+                      container
+                      justifyContent="center">
+                      <Select
+                        sx={{ m: 1, minWidth: 380}}
+                        value={jobLevelDropDown}
+                        onChange={(e)=>{setJobLevelDropDown(e.target.value)}}
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'Without label' }}
+                        >
+                          <MenuItem value="">
+                              <em>Select</em>
+                          </MenuItem>
+                                  {job_level_options&&job_level_options.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))}
+                              </Select>
+                            </Grid>
+                          </div>
+                        </Grid>
+
+                        <Grid
+                          container
+                          justifyContent="center">
+                          <div>
+                            <label htmlFor='lookingfor'>
+                              Job level
+                            </label>
+                            <Grid
+                              container
+                              justifyContent="center">
+                              <Select
+                                sx={{ m: 1, minWidth: 380}}
+                                value={educationRequiredDropDown}
+                                onChange={(e)=>{setEducationRequiredDropDown(e.target.value)}}
+                                displayEmpty
+                                inputProps={{ 'aria-label': 'Without label' }}
+                                >
+                                  <MenuItem value="">
+                                      <em>Select</em>
+                                  </MenuItem>
+                                          {education_required&&education_required.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))}
+                                      </Select>
+                                    </Grid>
+                                  </div>
+                                </Grid>
 
         <Grid
           container
@@ -129,13 +243,13 @@ function Cformtwo() {
         >
           <div>
             <label htmlFor='position'>
-              Job Position                        </label>
+              Job Position </label>
 
             <Field
               type='text'
               id='position'
               name='position'
-              placeholder='e.g. Graphic Designer'
+              placeholder='e.g. Graphic Designer or ML engineer'
             />
 
             <ErrorMessage name='position' />
@@ -147,13 +261,13 @@ function Cformtwo() {
         >
           <div>
             <label htmlFor='location'>
-              Job Location                        </label>
+              Job Location </label>
 
             <Field
               type='text'
               id='location'
               name='location'
-              placeholder='Dhulikhel'
+              placeholder='e.g. Dhulikhel'
             />
 
             <ErrorMessage name='location' />
@@ -165,17 +279,40 @@ function Cformtwo() {
           justifyContent="center"
         >
           <div>
+            <label htmlFor='skills'>Skills</label>
+
+
+            <h7>Specify all the skills required for job</h7>
+            <br/>
+            <Field
+           
+              type='text'
+              id='skills'
+              name='skills'
+              placeholder='e.g. css, html, fastapi, ml'
+              multiline={true}
+
+            />
+            <ErrorMessage name='skills' />
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
             <label htmlFor='description'>Description</label>
 
 
-            <h7>Minimum 50 words</h7>
+            <h7>Describe about the job</h7>
 <br/>
             <Field
            
               type='text'
               id='description'
               name='description'
-              placeholder='Lorem ipsum dolor sit amet'
+              placeholder='e.g. its the best job ever.'
               multiline={true}
 
             />
@@ -189,14 +326,14 @@ function Cformtwo() {
         >
           <div>
             <label htmlFor='responsibilities'>
-              Gradutating Institution
+              Job responsibilities
             </label>
 
             <Field
               type='text'
               id='responsibilities'
               name='responsibilities'
-              placeholder='Kathmandu University'
+              placeholder='e.g. Should develop good models, Create APIs'
             />
 
             <ErrorMessage name='responsibilities' />
@@ -216,7 +353,7 @@ function Cformtwo() {
               type='text'
               id='benefits'
               name='benefits'
-              placeholder='Lorem ipsum dolor sit amet'
+              placeholder='e.g Insurance, Handsome bonus'
             />
 
             <ErrorMessage name='benefits' />
@@ -236,7 +373,7 @@ function Cformtwo() {
               type='text'
               id='vacancy'
               name='vacancy'
-              placeholder='10'
+              placeholder='e.g. 10'
             />
 
             <ErrorMessage name='vacancy' />
@@ -249,35 +386,21 @@ function Cformtwo() {
         >
           <div>
             <label htmlFor='hours'>
-              Work Hours per week
+              Work Hours
             </label>
 
             <Field
               type='text'
               id='hours'
               name='hours'
-              placeholder='40'
+              placeholder='e.g. 9 pm to 5 am'
             />
 
             <ErrorMessage name='hours' />
           </div>
         </Grid>
 
-        <Grid
-          container
-          justifyContent="center"
-        >
-          <div>
-            <label htmlFor='contact'>Contact Number</label>
-            <Field
-              type='text'
-              id='contact'
-              name='contact'
-              placeholder='98XXXXXXXX'
-            />
-            <ErrorMessage name='contact' />
-          </div>
-        </Grid>
+
 
         <Grid
           container
@@ -301,46 +424,6 @@ function Cformtwo() {
 
         <Grid
           container
-          justifyContent="center"
-        >
-          <div>
-            <label htmlFor='education'>
-              Education Required
-            </label>
-
-            <Field
-              type='text'
-              id='education'
-              name='education'
-              placeholder='2'
-            />
-
-            <ErrorMessage name='education' />
-          </div>
-        </Grid>
-
-        <Grid
-          container
-          justifyContent="center"
-        >
-          <div>
-            <label htmlFor='skills'>
-              Skills Required
-            </label>
-
-            <Field
-              type='text'
-              id='skills'
-              name='skills'
-              placeholder='should have knowledge on this/that'
-            />
-
-            <ErrorMessage name='skills' />
-          </div>
-        </Grid>
-
-        <Grid
-          container
           justifyContent="center">
           <div>
             <label htmlFor='type'>
@@ -349,41 +432,61 @@ function Cformtwo() {
             <Grid
               container
               justifyContent="center">
-              <RadioButtonsGroup options={[
-                'Remote',
-                'On-Site',
-                'Closed to Offers'
-              ]} />
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                name="radio-buttons-group"
+                row
+                onClick={(e)=> {
+                  setRemoteOnsiteRadio(e.target.value)
+                }}
+              >
+                <FormControlLabel value="Remote" control={<Radio />} label="Remote" />
+                <FormControlLabel value="Onsite" control={<Radio />} label="Onsite" />
+              </RadioGroup>
             </Grid>
           </div>
         </Grid>
-
 
         <Grid
-          container
-          justifyContent="center">
-          <div>
-            <label htmlFor='status'>
-              Status of post
-            </label>
-            <Grid
-              container
-              justifyContent="center">
-              <RadioButtonsGroup options={[
-                'Currently active',
-                'Inactive',
+                    container
+                    justifyContent="center">
+                    <div>
+                        <label htmlFor='salary'>
+                            Expected Salary
+                        </label>
+                        <Grid
+                            container
+                            justifyContent="center">
+                                <h7>Use slider to select minimum salary (in thousands)</h7>
+                                </Grid>
+                                <br />
+                                <Grid
+                            container
+                            justifyContent="center">
+                               <InputSlider onChange={getMinimumSalary} sliderValue={30} type="minimum" /></Grid>
 
-              ]} />
-            </Grid>
-          </div>
-        </Grid>
+                        <Grid
+                            container
+                            justifyContent="center">
+                                <h7>Use slider to select maximum salary (in thousands)</h7>
+                                </Grid>
+                                <br />
+                                <Grid
+                            container
+                            justifyContent="center">
+                               <InputSlider onChange={getMaximumSalary} sliderValue={30} type="maximum" /></Grid>
+
+                               </div>
+                               
+                                </Grid>
+
+
         <Grid
           container
           justifyContent="center"
         >
           <div>
-            <label htmlFor='startdate'>Job start date</label
-            ></div>
+            <label htmlFor='startdate'>Job start date</label></div>
           <Grid
             container
             justifyContent="center" />
@@ -391,9 +494,9 @@ function Cformtwo() {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="MM/DD/YYYY"
-              value={value}
+              value={jobStartDatePicker}
               onChange={(newValue) => {
-                setValue(newValue);
+                setJobStartDatePicker(newValue);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -405,8 +508,7 @@ function Cformtwo() {
           justifyContent="center"
         >
           <div>
-            <label htmlFor='deadline'>Deadline for submission of CV</label
-            ></div>
+            <label htmlFor='deadline'>Deadline</label></div>
           <Grid
             container
             justifyContent="center" />
@@ -414,9 +516,9 @@ function Cformtwo() {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="MM/DD/YYYY"
-              value={value}
+              value={deadlineDatePicker}
               onChange={(newValue) => {
-                setValue(newValue);
+                setDeadlineDatePicker(newValue);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -428,7 +530,7 @@ function Cformtwo() {
         <Grid container
           justifyContent="center">
           {/* <Link to= '/Formtwo'> */}
-          <Button variant='contained' >Post</Button>
+          <Button type='submit' variant='contained' >Post</Button>
           {/* </Link> */}
         </Grid>
 
@@ -436,6 +538,7 @@ function Cformtwo() {
       </Form>
 
     </Formik>
+    </Companylayout>
   )
 }
 

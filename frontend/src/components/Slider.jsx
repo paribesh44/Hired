@@ -12,7 +12,7 @@ const Input = styled(MuiInput)`
 `;
 
 export default function InputSlider(props) {
-  const [value, setValue] = React.useState(30);
+  const [value, setValue] = React.useState(props.sliderValue);
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
@@ -27,7 +27,7 @@ export default function InputSlider(props) {
     if (value < 0) {
       setValue(0);
     } else if (value > 100) {
-      setValue(100);
+      setValue(value);
     }
   };
 
@@ -54,7 +54,7 @@ export default function InputSlider(props) {
             inputProps={{
               step: 1,
               min: 0,
-              max: 100,
+              max: 100000000,
               type: 'number',
               'aria-labelledby': 'input-slider',
             }}

@@ -8,6 +8,7 @@ class Remainder(BaseModel):
     meet_link: Optional[str]
     meeting_date: Optional[date]
     meeting_time: Optional[str]
+    publish_remainder: bool
 
     class Config:
         orm_mode = True

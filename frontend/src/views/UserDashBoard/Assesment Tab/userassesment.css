@@ -1,8 +1,13 @@
 .assesmentmain-main{
     padding:62px 30px 30px 90px;
-    /* width: 100px; */
-    /* height:100%; */
-    /* border:1px solid black; */
+}
+
+.assesmentmain-micro{
+    padding: 62px 0px 0px 90px;
+}
+
+.assesmentmain-mini {
+    padding-left: 90px;
 }
 
 /* .userassesment{

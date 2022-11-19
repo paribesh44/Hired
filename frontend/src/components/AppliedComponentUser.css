@@ -33,12 +33,13 @@
     padding-bottom: 4px;
 }
 
+
 .rejectedstatus{
     color: red;
     font-weight: 500;
 }
 
-.reviewedstatus{
+.shortlistedstatus{
     color:blue;
     font-weight: 500;
 }

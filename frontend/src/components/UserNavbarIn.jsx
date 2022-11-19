@@ -20,6 +20,7 @@ export default function UserNavbarIn() {
   const [clicked, setClicked] = useState(false);
   const [notifclick, setnotifclick] = useState(false);
   const [changeLocation, setChangeLocation] = useState(false);
+  const [notificationObjects, setNotificationObjects] = useState("");
 
   function handleImageClick() {
     console.log("imageclicked");
@@ -27,7 +28,12 @@ export default function UserNavbarIn() {
   }
   function handleLogout() {}
 
-  function handleNotifClicked() {
+  async function handleNotifClicked() {
+    let response_obj2 = await callAPI({
+    endpoint: "/notification/get",
+    });
+    setNotificationObjects(response_obj2);
+    console.log("NOtifcaiotn", response_obj2.data)
     setnotifclick(!notifclick);
   }
 
@@ -102,13 +108,27 @@ export default function UserNavbarIn() {
                 {notifclick && (
                   <Grid item className="notif_box_label">
                     <Grid item>
-                      <Grid item className="notif_box_label_each">
-                        Notification Number One
-                      </Grid>
-                      <Grid item className="notif_box_label_each">
-                        Notification Number two very long notification and long
-                        and long
-                      </Grid>
+                      {notificationObjects.data.map((val, key) => {
+                          return (
+                            <Link to="/notificationJobPost" state={{job_post_id: val.job_post_id}} style={{ textDecoration: "none", color: "#495c83" }}>
+                              <Grid item className="notif_box_label_each">
+                                {val.status=="shortlisted" ? 
+                                <div>
+                                  <h4>You have been shorlisted in Job <span style={{fontSize: "20px", color: "purple"}}>#{val.job_post_id}</span></h4>
+                                </div> : ""}
+                                {val.status=="interview" ? 
+                                <div>
+                                  <h4>You have been selected for interview in Job <span style={{fontSize: "20px", color: "purple"}}>#{val.job_post_id}</span></h4>
+                                </div> : ""}
+                                {val.status=="selected" ? 
+                                <div>
+                                  <h4>You have been selected for Job <span style={{fontSize: "20px", color: "purple"}}>{val.job_post_id}</span></h4>
+                                </div> : ""}
+                              </Grid>
+                            </Link>
+                          );
+                        })}
+                      
                     </Grid>
                   </Grid>
                 )}

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import callAPI from "../../../utils/callAPI";
 
 function JobsList(props) {
-  console.log("thi si props");
-  console.log(props.job);
+  // console.log("thi si props");
+  // console.log(props.job);
 
   const [no_of_applicant, setNoOfApplicant] = useState(null);
 

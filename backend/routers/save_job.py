@@ -15,14 +15,23 @@ router = APIRouter(
 )
 
 
-@router.post("/create", status_code=status.HTTP_201_CREATED)
-async def createApplyProfile(schema: save_job_schema.SaveJob, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+@router.post("/create/{job_post_id}", status_code=status.HTTP_201_CREATED)
+async def createApplyProfile(job_post_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
 
-    new_save_job = save_job.SaveJob(save= schema.save,seeker_id=current_user.seeker[0].id, job_post_id=1)
+    # check if this current user has saved this post or not.
+    hired_save_job = db.query(save_job.SaveJob).filter(
+        save_job.SaveJob.seeker_id ==current_user.seeker[0].id, save_job.SaveJob.job_post_id==job_post_id ).first()
 
-    db.add(new_save_job)
-    db.commit()
-    db.refresh(new_save_job)
+    # if dont exist then create one
+    if hired_save_job == None:
+        new_save_job = save_job.SaveJob(save= False,seeker_id=current_user.seeker[0].id, job_post_id=job_post_id)
+
+        db.add(new_save_job)
+        db.commit()
+        db.refresh(new_save_job)
+    else:
+        new_save_job = hired_save_job
+
     return new_save_job
 
 @router.put("/update_save_job/{job_post_id}")
@@ -47,4 +56,5 @@ def all(job_post_id: int, db: Session = Depends(database.get_db), current_user: 
         save_job.SaveJob.job_post_id==job_post_id, 
         # save_job.SaveJob.save==True,
         save_job.SaveJob.seeker_id==current_user.seeker[0].id).first()
+    # hired_saveJob = []
     return hired_saveJob

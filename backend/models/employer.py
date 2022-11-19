@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, ARRAY, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Date, Boolean, ARRAY, Text
 from core.database import Base
 from sqlalchemy.orm import relationship
 
@@ -11,13 +11,13 @@ class Employer(Base):
     location = Column(String, nullable=False)
     contactNumber = Column(String, nullable=False)
     description = Column(Text, nullable=False)
-    requiredRoles = Column(ARRAY(String), nullable=False)
     website = Column(String)
     targetMarket = Column(ARRAY(String))
     vision = Column(Text, nullable=False)
     contactEmail = Column(String)
     contactPerson = Column(String)
     logo = Column(String, nullable=True)
+    established_date = Column(Date, nullable=True)
 
     user_id = Column(Integer,
                      ForeignKey("users.id", ondelete="CASCADE"),

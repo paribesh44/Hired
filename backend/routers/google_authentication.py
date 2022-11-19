@@ -78,7 +78,7 @@ async def login(request: Request):
 
 @router.get('/auth')
 async def auth(request: Request, db: Session = Depends(database.get_db)):
-    response = RedirectResponse(url="http://localhost:3000")
+    response = RedirectResponse(url="http://localhost:3000/hasProfileSeeker")
     try:
         # Perform Google OAuth
         token = await oauth.google.authorize_access_token(request)

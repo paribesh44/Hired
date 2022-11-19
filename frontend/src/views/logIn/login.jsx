@@ -91,7 +91,7 @@ const Login = () => {
       <Grid item className="left_column" xs>
         <Grid item className="logo">
           {/* login according to the user_type */}
-          {changeLocation && <Navigate to={user_type==1 ? "/hasProfileSeeker" : "/CompanyHome" }/>}
+          {changeLocation && <Navigate to={user_type==1 ? "/hasProfileSeeker" : "/hasProfileEmployer" }/>}
           <Link to="/">
             <Image src={Hired} />
           </Link>
