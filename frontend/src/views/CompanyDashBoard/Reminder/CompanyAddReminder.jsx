@@ -1,39 +1,74 @@
-import { Grid } from "@mui/material";
-import React from "react";
+import { Grid, TextField } from "@mui/material";
+import React, { useState } from "react";
 import Companylayout from "../../../components/Companylayout";
+import DropDown from "../../../components/DropDown";
 
 function CompanyAddReminder() {
+  const [startDate, setStartDate] = useState(new Date());
   return (
-    <Grid>
+    <Grid container>
       <Companylayout></Companylayout>
-      <Grid container direction="column">
-        <Grid item>Set Reminder Name:</Grid>
-        <Grid item>
-          <input type="text"></input>
+      <Grid container direction="column" className="reminder_page">
+        <Grid item className="title_reminder">
+          Add New Reminder
         </Grid>
         <Grid item>
-          <Grid container direction="row">
-            <Grid item>
-              <Grid container direction="column">
-                <Grid item>Set Day:</Grid>
-                <Grid>Calender pop up hune thau</Grid>
-              </Grid>
+          <Grid container direction={"column"} className="add_a_new_reminder">
+            <Grid item className="reminder_topic">
+              Set Reminder Name:
             </Grid>
             <Grid item>
-              <Grid container direction="column">
-                <Grid item>Set Time:</Grid>
-                <Grid>Time set garne thau</Grid>
+              <input type="text"></input>
+            </Grid>
+            <Grid item>
+              <Grid container direction="row">
+                <Grid item className="date_picker_item">
+                  <Grid container direction="column">
+                    <Grid item className="reminder_topic">
+                      Set Day:
+                    </Grid>
+                    <Grid item>Date picking thing</Grid>
+                  </Grid>
+                </Grid>
+                <Grid item className="date_picker_item">
+                  <Grid container direction="column">
+                    <Grid item className="reminder_topic">
+                      Set Time:
+                    </Grid>
+                    <Grid>Time set garne thau</Grid>
+                  </Grid>
+                </Grid>
               </Grid>
+            </Grid>
+            <Grid item className="reminder_topic">
+              Meeting link:
+            </Grid>
+            <Grid item>
+              <input type="text" style={{ height: "40px" }} />
+            </Grid>
+
+            <Grid item className="reminder_topic">
+              Name of Job Post:
+            </Grid>
+            <Grid item className="reminder_dropdown">
+              <DropDown />
+            </Grid>
+            <Grid item className="reminder_topic">
+              Name of the applicant
+            </Grid>
+            <Grid>
+              <DropDown />
+            </Grid>
+
+            <Grid item className="reminder_topic">
+              Responsible Person:
+            </Grid>
+            <Grid item>
+              {" "}
+              <input type="text" style={{ height: "40px" }}></input>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>Meeting link:</Grid>
-        <Grid item>Meet link rakhne thau</Grid>
-
-        <Grid item>Name of Job Post:</Grid>
-        <Grid>XYZ job</Grid>
-        <Grid item>Name of the applicant</Grid>
-        <Grid>ABC NAme</Grid>
       </Grid>
     </Grid>
   );
