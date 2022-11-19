@@ -18,13 +18,36 @@ import IconButton from "@mui/material/IconButton";
 function UserHomeTab() {
   const [value, setValue] = useState("");
   const [searchJob, setsearchJob] = useState(true);
+  const [allJobs, setallJobs] = useState(null);
+  const [searchedJobNotFound, setSearchedJobNotFound] = useState(false);
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  const handlesearchclick = () => {
-    setsearchJob(!searchJob);
+  const handlesearchclick = async () => {
+    if (value != "") {
+      setsearchJob(!searchJob);
+
+      let response_obj3 = await callAPI({
+        endpoint: `/jobPost/search_jobs/${value}`,
+      });
+      if(response_obj3.data.length==0) {
+        setSearchedJobNotFound(true)
+      } else {
+        setSearchedJobNotFound(false)
+        setallJobs(response_obj3);
+        setsearchJob(true);
+      }
+    } else {
+      setSearchedJobNotFound(false)
+      setsearchJob(true);
+      let response_obj4 = await callAPI({
+        endpoint: "/jobPost/show_all_jobs",
+      });
+      setallJobs(response_obj4);
+    }
+    
   };
   const [recommendedJobs, setRecommendedJobs] = useState(null);
 
@@ -40,14 +63,12 @@ function UserHomeTab() {
     message();
   }, []);
 
-  const [allJobs, setallJobs] = useState(null);
-
   const message2 = async () => {
-    let response_obj = await callAPI({
+    let response_obj2 = await callAPI({
       endpoint: "/jobPost/show_all_jobs",
     });
-    setallJobs(response_obj);
-    console.log(response_obj.data);
+      setallJobs(response_obj2);
+      console.log(response_obj2.data);
   };
 
   useEffect(() => {
@@ -55,13 +76,16 @@ function UserHomeTab() {
   }, []);
 
   if (recommendedJobs != null && allJobs != null) {
-    console.log(recommendedJobs.data);
+    console.log("dasghjdbas", recommendedJobs.data);
     return (
       <DashboardLayout>
         <Grid container direction="column" className="assesmentmain-main">
+          {recommendedJobs.data.length!=0 &&
           <Grid item className="userhomemtitle">
             Recommended Jobs
           </Grid>
+          }
+          
           <Grid item>
             {recommendedJobs.data.map((job, val) => {
               return (
@@ -95,7 +119,7 @@ function UserHomeTab() {
                         padding: "0 5px 0 5px",
                       }}
                     >
-                      Search jobs
+                      Search jobs by job type (e.g. ML engineer, web developer)
                     </InputLabel>
                     <OutlinedInput
                       id="searchBox"
@@ -118,6 +142,17 @@ function UserHomeTab() {
                   </FormControl>
                 </Grid>
               </Grid>
+              {searchedJobNotFound && (
+                <Grid item>
+                  <Grid container direction="center">
+                    <div>
+                      <h3 style={{color: "grey", marginTop: "20px", marginLeft: "70px"}}>Searched {value} Job not found.</h3>
+                    </div>
+
+                  </Grid>
+
+                </Grid>
+              )}
               {searchJob && (
                 <Grid item>
                   {allJobs.data.map((job, val) => {

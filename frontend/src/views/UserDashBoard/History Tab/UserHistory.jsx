@@ -36,11 +36,12 @@ function UserHistory() {
             {applyHistories.data.map((job, key)=>(
               <AppliedComponentUser 
                   key={job.id}
+                  job_post_id= {job.job_post.id}
                   company={job.job_post.employer.companyName}
                   applieedate={job.applied_date}
                   location={job.job_post.job_location}
                   status={job.status}
-                  jobname={job.job}
+                  jobname={job.job_post.job}
                   estdsalary={job.job_post.max_salary}
                   
                   />

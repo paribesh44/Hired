@@ -6,16 +6,19 @@ import CompanyLanding from "./views/landingPage/companyLanding";
 import EmployeeLanding from "./views/landingPage/employeeLanding";
 import Login from "./views/logIn/login";
 import SeekerhasProfile from "./views/logIn/hasProfileSeeker";
+import EmployerhasProfile from "./views/logIn/hasProfileEmployer";
 import Signup from "./views/signUp/signup";
 import EmployeeProfile from "./views/profile/employeeProfile";
 import CompanyProfile from "./views/profile/companyProfile";
 // import CompanyHome from "./views/CompanyDashBoard/CompanyHome";
 import CompanyHome from "./views/CompanyDashBoard/CompanyHome/CompanyHome";
+import EditJobPost from "./views/CompanyDashBoard/CompanyHome/EditJobPost";
 import CompanyApplied from "./views/CompanyDashBoard/Applied Tab/CompanyApplied";
 import CompanyAddPost from "./views/CompanyDashBoard/CompanyAddPost/CompanyAddPost";
 import CompanyAnalytics from "./views/CompanyDashBoard/CompanyAnalytics/CompanyAnalytics";
 import DetailedCompanyApplied from "./views/CompanyDashBoard/Applied Tab/DetailedCompanyApply";
 import UserNavbarIn from "./components/UserNavbarIn";
+import NotificationJobPost from "./components/NotificationClickPage";
 import UserHomeTab from "./views/UserDashBoard/HomeTab/UserHomeTab";
 import UserSaved from "./views/UserDashBoard/Saved Tab/UserSaved";
 import UserHistory from "./views/UserDashBoard/History Tab/UserHistory";
@@ -56,12 +59,16 @@ const Routedpath = () => {
       <Route path="/companyLanding" element={<CompanyLanding />}></Route>
       <Route path="/Login" element={<Login />}></Route>
       <Route path="/hasProfileSeeker" element={<SeekerhasProfile />}></Route>
+      <Route path="/hasProfileEmployer" element={<EmployerhasProfile />}></Route>
       <Route path="/Signup" element={<Signup />}></Route>
       <Route path="/EmployeeProfile" element={<EmployeeProfile />}></Route>
       <Route path="/CompanyProfile" element={<CompanyProfile />}></Route>
       <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/CompanyApplied" element={<CompanyApplied />}></Route>
       <Route path="/CompanyAddPost" element={<CompanyAddPost />}></Route>
+
+      <Route path="/EditJobPost" element={<EditJobPost />}></Route>
+
       <Route
         path="/AppliedEmployeesList"
         element={<AppliedEmployeesList />}
@@ -70,6 +77,8 @@ const Routedpath = () => {
       <Route path="/ApplyJob" element={<ApplyJob />}></Route>
       <Route path="/CompanyMyEmployees" element={<CompanyMyEmployes />}></Route>
       <Route path="/CompanyAnalytics" element={<CompanyAnalytics />}></Route>
+
+      <Route path="/notificationJobPost" element={<NotificationJobPost />}></Route>
 
       <Route path="/UserHomeTab" element={<UserHomeTab />}></Route>
 

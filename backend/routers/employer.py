@@ -17,7 +17,11 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createEmployerProfile(form: employerForm.EmployerForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+def createEmployerProfile(form: employerForm.PostEmployerForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    target_market_string = form.target_market
+    target_market_string_remove_blank = target_market_string.replace(" ", "")
+    target_market = target_market_string_remove_blank.strip().split(',')
+
     logo_location = None
 
     # upload logo
@@ -30,13 +34,13 @@ def createEmployerProfile(form: employerForm.EmployerForm = Depends(), db: Sessi
 
     new_employer = employer.Employer(
         companyName=form.company_name, location=form.location, contactNumber=form.contact_number,
-        description=form.description,  requiredRoles=form.required_roles,  website=form.website,
-        targetMarket=form.target_market,  vision=form.vision,  contactEmail=form.contact_email,
+        description=form.description,  website=form.website, established_date=form.established_date,
+        targetMarket=target_market,  vision=form.vision,  contactEmail=form.contact_email,
         contactPerson=form.contact_person,  logo=logo_location, user_id=current_user.id)
     db.add(new_employer)
     db.commit()
     db.refresh(new_employer)
-    return new_employer
+    return {"msg": "success"}
 
 
 @router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
@@ -136,3 +140,16 @@ def overView(db: Session = Depends(database.get_db), current_user: user.User = D
 
     return {"job_posted":job_posted, "last_posted_date":last_posted_date, "no_of_applicants":no_of_applicants, 
     "selected_employee":selected_employee, "candidates_to_interview":candidates_to_interview}
+
+@router.get("/current_user_has_profile")
+async def check(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_current_user)):
+    print(current_user.id)
+    hired_seeker = db.query(employer.Employer).filter(
+        employer.Employer.user_id == current_user.id).first()
+
+    if(hired_seeker == None):
+        msg = "no profile"
+    else:
+        msg = "has profile"
+
+    return {"msg": msg}

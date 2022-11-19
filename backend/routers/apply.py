@@ -133,7 +133,7 @@ def all(db: Session = Depends(database.get_db), current_user: user.User = Depend
 @router.get("/get_apply_user", response_model=List[apply_schema.ApplyJobPost])
 def showApplyBySeeker(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     hired_apply = db.query(apply.Apply).filter(
-        apply.Apply.seeker_id == current_user.seeker[0].id).all()
+        apply.Apply.seeker_id == current_user.seeker[0].id).order_by(apply.Apply.id.desc()).all()
 
     return hired_apply
 
@@ -172,3 +172,11 @@ def showApplyCompany(job_post_id: int, db: Session = Depends(database.get_db), c
     no_of_applicant = len(hired_apply)
 
     return {"apply": hired_apply, "no_of_applicant": no_of_applicant}
+
+
+@router.get("/get_apply_notification/{job_post_id}", response_model=apply_schema.Apply)
+def showApply(job_post_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    hired_apply = db.query(apply.Apply).filter(
+        apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id == current_user.seeker[0].id).first()
+    
+    return hired_apply

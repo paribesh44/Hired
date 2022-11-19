@@ -1,5 +1,6 @@
 from typing import List
 from pydantic import Json
+from datetime import date
 
 employers: List[Json] = [
     {
@@ -7,13 +8,13 @@ employers: List[Json] = [
         "location": "Kathmandu",
         "contactNumber": "985231256",
         "description": "We do not pay our employees.",
-        "requiredRoles": ["ml", "dl", "ai"],
         "website": "kusewa@gmail.com",
         "targetMarket": ["ai"],
         "vision": "we lack vision",
         "contactEmail": "contact.kusewa@gmail.com",
         "contactPerson": "Undertaker",
-        "logo": None,
+        "logo": "static/logos/logo.png",
+        "established_date": date(2019, 2, 10),
         "user_id": 3
     },
     {
@@ -21,13 +22,13 @@ employers: List[Json] = [
         "location": "banepa",
         "contactNumber": "98523467",
         "description": "We are the best",
-        "requiredRoles": ["website developer", "mobile developer"],
         "website": "technepal@gmail.com",
         "targetMarket": ["website", "mobile"],
         "vision": "No vision",
         "contactEmail": "contact.technepal@gmail.com",
         "contactPerson": "John Cena",
-        "logo": None,
+        "established_date": date(2018, 4, 10),
+        "logo": "static/logos/logo.png",
         "user_id": 4
     }
 ]

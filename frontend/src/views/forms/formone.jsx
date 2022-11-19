@@ -443,6 +443,17 @@ function Formone() {
             setCV(event.currentTarget.files[0]);
           }} />
         </Grid>
+
+        <Grid
+          container
+          justifyContent="center"
+        >
+          <div>
+            <label>Do not have cv? <a href='/cvMaker' target="_blank" style={{"textDecoration": "none"}}>Create One</a></label>
+          </div>
+
+        </Grid>
+
         <br />
 
 

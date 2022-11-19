@@ -2,11 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from schemas import job_post_schema, apply_schema
 
-from models import job_post, user, save_job, apply
+from models import job_post, user, save_job, apply, employer
 from core import database, oauth2
 from sqlalchemy.orm import Session
-from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_, func
 from typing import List
+from datetime import datetime
 
 
 router = APIRouter(
@@ -16,35 +17,66 @@ router = APIRouter(
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
-def createJobPostProfile(request: job_post_schema.JobPost, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+def createJobPostProfile(data: job_post_schema.PostJobPost, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    # remove comma and make it a list
+    skills_string = data.skills
+    skills_string_remove_blank = skills_string.replace(" ", "")
+    skills = skills_string_remove_blank.strip().split(',')
+
+    job_responsibilities_string = data.job_responsibilities
+    job_responsibilities = job_responsibilities_string.strip().split(',')
+
+    job_benefits_string = data.job_benefits
+    job_benefits = job_benefits_string.strip().split(',')
+
+    final_job_responsibilities = []
+    # remove first space from job_responsiblities and job_benefits
+    for i in range(len(job_responsibilities)):
+        if job_responsibilities[i][0] == " ":
+            all_character_expect_first_space = job_responsibilities[i][1:]
+            final_job_responsibilities.append(all_character_expect_first_space)
+        else:
+            final_job_responsibilities.append(job_responsibilities[i])
+
+    final_job_benefits=[]
+
+    for i in range(len(job_benefits)):
+        if job_benefits[i][0] == " ":
+            all_character_expect_first_space = job_benefits[i][1:]
+            final_job_benefits.append(all_character_expect_first_space)
+        else:
+            final_job_benefits.append(job_benefits[i])
+
     new_job_post = job_post.JobPost(
-        description=request.description, job=request.job, job_location=request.job_location, job_level=request.job_level, job_type=request.job_type,
-        job_responsibilities=request.job_responsibilities,  skills=request.skills,  minimum_years_of_experience=request.minimum_years_of_experience,
-        education_required=request.education_required, no_of_vacancy=request.no_of_vacancy, work_hours=request.work_hours, min_salary=request.min_salary,
-        max_salary=request.max_salary, job_benefits=request.job_benefits,  job_start_date=request.job_start_date,  remote_onsite=request.remote_onsite,
-        status_of_jobs=request.status_of_jobs,  posted_date=request.posted_date,  deadline=request.deadline, employer_id=current_user.employer[0].id)
+        description=data.description, job=data.job, job_location=data.job_location, job_level=data.job_level, job_type=data.job_type,
+        job_responsibilities=final_job_responsibilities,  skills=skills,  minimum_years_of_experience=int(data.minimum_years_of_experience),
+        education_required=data.education_required, no_of_vacancy=int(data.no_of_vacancy), work_hours=data.work_hours, min_salary=data.min_salary,
+        max_salary=data.max_salary, job_benefits=final_job_benefits,  job_start_date=data.job_start_date,  remote_onsite=data.remote_onsite,
+        status_of_jobs="published",  posted_date=datetime.utcnow(),  deadline=data.deadline, employer_id=current_user.employer[0].id)
     db.add(new_job_post)
     db.commit()
     db.refresh(new_job_post)
-    return new_job_post
+
+    return {"msg": "success"}
 
 
-@router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, request: job_post_schema.JobPost, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+@router.put('/update/{job_post_id}', status_code=status.HTTP_202_ACCEPTED)
+def update(job_post_id: int, data: job_post_schema.UpdateJobPost, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    print(data)
     update_job_post = db.query(job_post.JobPost).filter(
-        job_post.JobPost.id == id)
+        job_post.JobPost.id == job_post_id)
 
     if not update_job_post.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job seeker with id {id} expeience not found.")
 
-    update_job_post.update({"description": request.description, "job": request.job, "job_location": request.job_location, "job_level": request.job_level, "job_type": request.job_type,
-                            "job_responsibilities": request.job_responsibilities,  "skills": request.skills,  "minimum_years_of_experience": request.minimum_years_of_experience,
-                            "education_required": request.education_required, "no_of_vacancy": request.no_of_vacancy, "work_hours": request.work_hours, "min_salary": request.min_salary,
-                            "max_salary": request.max_salary, "job_benefits": request.job_benefits,  "job_start_date": request.job_start_date,  "remote_onsite": request.remote_onsite,
-                            "status_of_jobs": request.status_of_jobs,  "posted_date": request.posted_date,  "deadline": request.deadline, "employer_id": current_user.employer[0].id})
+    update_job_post.update({"description": data.description, "job": data.job, "job_location": data.job_location, "job_level": data.job_level, "job_type": data.job_type,
+        "job_responsibilities": data.job_responsibilities,  "skills": data.skills,  "minimum_years_of_experience": data.minimum_years_of_experience,
+        "education_required": data.education_required, "no_of_vacancy": data.no_of_vacancy, "work_hours": data.work_hours, "min_salary": data.min_salary,
+        "max_salary": data.max_salary, "job_benefits": data.job_benefits,  "job_start_date": data.job_start_date,  "remote_onsite": data.remote_onsite,
+        "status_of_jobs": data.status_of_jobs,  "posted_date": data.posted_date,  "deadline": data.deadline, "employer_id": current_user.employer[0].id})
     db.commit()
-    return 'updated'
+    return {"msg": "success"}
 
 
 # , response_model=List[schemas.Showjob_post]
@@ -114,3 +146,17 @@ def showAllFeaturedJobs(db: Session = Depends(database.get_db), current_user: us
     hired_job_post = db.query(job_post.JobPost).all()
 
     return hired_job_post
+
+
+@router.get("/search_jobs/{search_parameter}", response_model=List[job_post_schema.JobPostShow])
+def showSearchedJobs(search_parameter: str, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    hired_searched_job = db.query(job_post.JobPost).filter(or_(
+        func.lower(job_post.JobPost.job).like("%"+ search_parameter.lower() +"%")
+    )).all()
+
+    print(hired_searched_job)
+
+    return hired_searched_job
+
+
+

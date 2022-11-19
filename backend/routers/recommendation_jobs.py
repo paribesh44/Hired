@@ -70,13 +70,17 @@ def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.Use
     for i in range(len(hired_job_post)):
         jobPostSkills = set(hired_job_post[i].skills)
         currentUserSkills = set(hired_user.skills)
+        print("jobPostSkills", jobPostSkills)
+        print("currentUserSkills", currentUserSkills)
 
         if (jobPostSkills & currentUserSkills):
+            print("jobpost", hired_job_post[i].id)
             recommend_job_post_id.append(hired_job_post[i].id)
+    print("recommended job post id's", recommend_job_post_id)
         
     # show only those jobs which are "published" and whose deadline is not over.
     # hunai parne kura haru and vitra rakum j hos or ra and ma divide garnu parxa.
-    hired_recommended_jobs = db.query(job_post.JobPost).filter(or_(
+    hired_recommended_jobsfds = db.query(job_post.JobPost).filter(or_(
         # -> Search in the list and convert the each element of list to lowercase.
         *[func.lower(job_post.JobPost.job_location).like("%" + location.lower() + "%") for location in hired_user.preference[0].preferred_location],
         job_post.JobPost.job_location.like("%"+ hired_user.address +"%"),
@@ -95,9 +99,22 @@ def RecommendJobs(db: Session = Depends(database.get_db), current_user: user.Use
             job_post.JobPost.deadline >= datetime.utcnow()
             )).all()
 
+    # initilize
+    hired_recommended_jobs= []
+
+    for i in range(len(recommend_job_post_id)):
+        hired_recommended_jobs_individual = db.query(job_post.JobPost).filter(
+            job_post.JobPost.id == recommend_job_post_id[i],
+            job_post.JobPost.status_of_jobs == "published",
+            job_post.JobPost.deadline >= datetime.utcnow()
+            ).all()
+        hired_recommended_jobs.append(hired_recommended_jobs_individual[0])
+
     # if non of the skills matches between seeker_skills and jobPost_skills then there will be no recommendation jobs
     if(recommend_job_post_id==[]):
         hired_recommended_jobs = []
+
+    print(hired_recommended_jobs)
     
     return hired_recommended_jobs
     # return hired_user.preference

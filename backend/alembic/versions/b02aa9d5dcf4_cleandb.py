@@ -1,14 +1,8 @@
 """cleandb
 
-<<<<<<< HEAD:backend/alembic/versions/aea6638772f1_cleandb.py
-Revision ID: aea6638772f1
+Revision ID: b02aa9d5dcf4
 Revises: 
-Create Date: 2022-11-17 12:33:35.146900
-=======
-Revision ID: b141bc8366b5
-Revises: 
-Create Date: 2022-11-18 15:24:36.202776
->>>>>>> ishan:backend/alembic/versions/b141bc8366b5_cleandb.py
+Create Date: 2022-11-19 19:07:46.955482
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<< HEAD:backend/alembic/versions/aea6638772f1_cleandb.py
-revision = 'aea6638772f1'
-=======
-revision = 'b141bc8366b5'
->>>>>>> ishan:backend/alembic/versions/b141bc8366b5_cleandb.py
+revision = 'b02aa9d5dcf4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -53,13 +43,13 @@ def upgrade() -> None:
     sa.Column('location', sa.String(), nullable=False),
     sa.Column('contactNumber', sa.String(), nullable=False),
     sa.Column('description', sa.Text(), nullable=False),
-    sa.Column('requiredRoles', sa.ARRAY(sa.String()), nullable=False),
     sa.Column('website', sa.String(), nullable=True),
     sa.Column('targetMarket', sa.ARRAY(sa.String()), nullable=True),
     sa.Column('vision', sa.Text(), nullable=False),
     sa.Column('contactEmail', sa.String(), nullable=True),
     sa.Column('contactPerson', sa.String(), nullable=True),
     sa.Column('logo', sa.String(), nullable=True),
+    sa.Column('established_date', sa.Date(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
@@ -138,10 +128,10 @@ def upgrade() -> None:
     sa.Column('max_salary', sa.Integer(), nullable=False),
     sa.Column('job_benefits', sa.ARRAY(sa.String()), nullable=False),
     sa.Column('job_start_date', sa.DateTime(), nullable=True),
+    sa.Column('deadline', sa.DateTime(), nullable=False),
     sa.Column('remote_onsite', sa.String(), nullable=False),
     sa.Column('status_of_jobs', sa.String(), nullable=False),
     sa.Column('posted_date', sa.DateTime(), nullable=True),
-    sa.Column('deadline', sa.DateTime(), nullable=False),
     sa.Column('employer_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['employer_id'], ['employers.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
@@ -195,6 +185,7 @@ def upgrade() -> None:
     sa.Column('meet_link', sa.String(length=50), nullable=True),
     sa.Column('meeting_date', sa.Date(), nullable=True),
     sa.Column('meeting_time', sa.String(), nullable=True),
+    sa.Column('publish_remainder', sa.Boolean(), nullable=True),
     sa.Column('seeker_id', sa.Integer(), nullable=True),
     sa.Column('job_post_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['job_post_id'], ['jobposts.id'], ondelete='CASCADE'),
