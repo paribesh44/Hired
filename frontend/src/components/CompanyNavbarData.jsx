@@ -9,7 +9,7 @@ export const CompanyNavbarData = [
   {
     title: "Add a Post",
     selected: false,
-    link: ["/CompanyAddPost"],
+    link: ["/Cformtwo"],
   },
   {
     title: "Analytics",

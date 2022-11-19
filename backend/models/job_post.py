@@ -29,12 +29,12 @@ class JobPost(Base):
     max_salary = Column(Integer, nullable=False)
     job_benefits = Column(ARRAY(String), nullable=False)
     job_start_date = Column(DateTime, nullable=True)
+    deadline = Column(DateTime, nullable=False)
     remote_onsite = Column(String, nullable=False)
     # (draft, pending, published) -> controlled by admin
+
     status_of_jobs = Column(String, nullable=False)
     posted_date = Column(DateTime, default=datetime.datetime.utcnow)
-    deadline = Column(DateTime, nullable=False)
-
     employer_id = Column(Integer,
                          ForeignKey("employers.id", ondelete="CASCADE"),
                          nullable=True)

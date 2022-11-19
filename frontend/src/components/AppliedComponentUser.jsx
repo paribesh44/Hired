@@ -38,7 +38,7 @@ function AppliedComponentUser(props) {
 
         <Grid item className='appliedmidtext'>
             <Grid container  direction={"column"}>
-                
+
                 <Grid item  className='appliedcompcompany'>  {props.company} </Grid>
                 <Grid item  className='appliedcompjob'>  {props.jobname} </Grid>
                 <Grid container>
@@ -67,16 +67,9 @@ function AppliedComponentUser(props) {
             
         </Grid>
 
-       
-
-      <Grid item className='appliedbutton'>
+      {/* <Grid item className='appliedbutton'>
         <CustomButton name="Delete"  addStyles={"accept-button"}></CustomButton>
-        
-            
-
-
-     
-        </Grid>
+        </Grid> */}
    
 
     </Grid>

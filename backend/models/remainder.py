@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, null, Text, Date
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, null, Text, Date, Boolean
 from core.database import Base
 from sqlalchemy.orm import relationship
 import datetime
@@ -14,6 +14,8 @@ class Remainder(Base):
     meet_link = Column(String(50), nullable=True)
     meeting_date = Column(Date, nullable=True)
     meeting_time = Column(String, nullable=True)
+    # whether to show the remainder to seeker or not.
+    publish_remainder = Column(Boolean, default=False)
 
     seeker_id = Column(Integer,
                        ForeignKey("seekers.id", ondelete="CASCADE"))

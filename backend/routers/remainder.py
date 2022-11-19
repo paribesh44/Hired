@@ -25,3 +25,10 @@ def createRemainder(data: remainder_schema.Remainder, db: Session = Depends(data
     db.refresh(new_remainder)
 
     return {"msg": "success", "remainder": new_remainder}
+
+@router.get("/get_remainder/{job_post_id}")
+def getRemainder(job_post_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    print(job_post_id)
+    hired_remainder = db.query(remainder.Remainder).filter(remainder.Remainder.job_post_id==job_post_id, remainder.Remainder.seeker_id==current_user.seeker[0].id).first()
+
+    return hired_remainder

@@ -11,9 +11,10 @@ from utils.populatedata import (
     mcqs,
     user_assesments,
     applies,
-    savePosts
+    savePosts,
+    remainders
     )
-from models import (user,seeker, education, preference, experience, employer, job_post, target_field, mcq, user_assesment, apply, save_job)
+from models import (user,seeker, education, preference, experience, employer, job_post, target_field, mcq, user_assesment, apply, save_job, remainder)
 from core import hashing, database
 
 db = database.SessionLocal()
@@ -78,9 +79,9 @@ def populate_employer():
         print(f"Populating employer: {employer_populate}")
         new_employer = employer.Employer(
         companyName=employer_populate["companyName"], location=employer_populate["location"], contactNumber=employer_populate["contactNumber"],
-        description=employer_populate["description"],  requiredRoles=employer_populate["requiredRoles"],  website=employer_populate["website"],
+        description=employer_populate["description"], website=employer_populate["website"],
         targetMarket=employer_populate["targetMarket"],  vision=employer_populate["vision"],  contactEmail=employer_populate["contactEmail"],
-        contactPerson=employer_populate["contactPerson"],  logo=employer_populate["logo"], user_id=employer_populate["user_id"])
+        contactPerson=employer_populate["contactPerson"], established_date=employer_populate["established_date"],  logo=employer_populate["logo"], user_id=employer_populate["user_id"])
         db.add(new_employer)
         db.commit()
         db.refresh(new_employer)
@@ -132,6 +133,16 @@ def populate_apply():
         db.commit()
         db.refresh(new_apply)
 
+def populate_remainder():
+    for remainder_populate in remainders:
+        print(f"Populating remainder: {remainder_populate}")
+        new_remainder = remainder.Remainder(name= remainder_populate["name"], note= remainder_populate["note"], meet_link= remainder_populate["meet_link"], 
+        meeting_date=remainder_populate["meeting_date"], meeting_time=remainder_populate["meeting_time"],  publish_remainder=remainder_populate["publish_remainder"], 
+        job_post_id=remainder_populate["job_post_id"], seeker_id=remainder_populate["seeker_id"])
+        db.add(new_remainder)
+        db.commit()
+        db.refresh(new_remainder)
+
 def populate_savePost():
     for savePost in savePosts:
         print(f"Populating apply: {savePost}")
@@ -152,4 +163,5 @@ def populate_all():
     populate_mcq()
     populate_user_asesment()
     populate_apply()
+    populate_remainder()
     populate_savePost()
