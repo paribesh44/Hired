@@ -30,10 +30,10 @@ export default function UserNavbarIn() {
 
   async function handleNotifClicked() {
     let response_obj2 = await callAPI({
-    endpoint: "/notification/get",
+      endpoint: "/notification/get",
     });
     setNotificationObjects(response_obj2);
-    console.log("NOtifcaiotn", response_obj2.data)
+    console.log("NOtifcaiotn", response_obj2.data);
     setnotifclick(!notifclick);
   }
 
@@ -74,6 +74,22 @@ export default function UserNavbarIn() {
       console.log("success");
     }
   };
+
+  const [getuserdata, setgetuserdata] = useState(null);
+
+  // console.log(name);
+
+  const message3 = async () => {
+    let response_obj = await callAPI({
+      endpoint: "/seeker/get_seeker_information",
+    });
+    setgetuserdata(response_obj);
+    console.log(response_obj.data);
+  };
+
+  useEffect(() => {
+    message3();
+  }, []);
   return (
     <div className="navbar-main">
       {/* <CompanyNavbarIn/> */}
@@ -109,26 +125,68 @@ export default function UserNavbarIn() {
                   <Grid item className="notif_box_label">
                     <Grid item>
                       {notificationObjects.data.map((val, key) => {
-                          return (
-                            <Link to="/notificationJobPost" state={{job_post_id: val.job_post_id}} style={{ textDecoration: "none", color: "#495c83" }}>
-                              <Grid item className="notif_box_label_each">
-                                {val.status=="shortlisted" ? 
+                        return (
+                          <Link
+                            to="/notificationJobPost"
+                            state={{ job_post_id: val.job_post_id }}
+                            style={{ textDecoration: "none", color: "#495c83" }}
+                          >
+                            <Grid item className="notif_box_label_each">
+                              {val.status == "shortlisted" ? (
                                 <div>
-                                  <h4>You have been shorlisted in Job <span style={{fontSize: "20px", color: "purple"}}>#{val.job_post_id}</span></h4>
-                                </div> : ""}
-                                {val.status=="interview" ? 
+                                  <h4>
+                                    You have been shorlisted in Job{" "}
+                                    <span
+                                      style={{
+                                        fontSize: "20px",
+                                        color: "purple",
+                                      }}
+                                    >
+                                      #{val.job_post_id}
+                                    </span>
+                                  </h4>
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                              {val.status == "interview" ? (
                                 <div>
-                                  <h4>You have been selected for interview in Job <span style={{fontSize: "20px", color: "purple"}}>#{val.job_post_id}</span></h4>
-                                </div> : ""}
-                                {val.status=="selected" ? 
+                                  <h4>
+                                    You have been selected for interview in Job{" "}
+                                    <span
+                                      style={{
+                                        fontSize: "20px",
+                                        color: "purple",
+                                      }}
+                                    >
+                                      #{val.job_post_id}
+                                    </span>
+                                  </h4>
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                              {val.status == "selected" ? (
                                 <div>
-                                  <h4>You have been selected for Job <span style={{fontSize: "20px", color: "purple"}}>{val.job_post_id}</span></h4>
-                                </div> : ""}
-                              </Grid>
-                            </Link>
-                          );
-                        })}
-                      
+                                  <h4>
+                                    You have been selected for Job{" "}
+                                    <span
+                                      style={{
+                                        fontSize: "20px",
+                                        color: "purple",
+                                      }}
+                                    >
+                                      {val.job_post_id}
+                                    </span>
+                                  </h4>
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                            </Grid>
+                          </Link>
+                        );
+                      })}
                     </Grid>
                   </Grid>
                 )}
@@ -168,6 +226,7 @@ export default function UserNavbarIn() {
                       <Link
                         to="/employeeProfile"
                         style={{ textDecoration: "none" }}
+                        state={{ getuserdata: getuserdata }}
                       >
                         <Grid
                           container
