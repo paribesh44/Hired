@@ -5,6 +5,7 @@ from schemas import education_schema
 from models import education, user
 from core import database, oauth2
 from sqlalchemy.orm import Session
+from datetime import timedelta
 
 
 router = APIRouter(
@@ -15,8 +16,10 @@ router = APIRouter(
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 def createEducationProfile(data: education_schema.PostEducation, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    graduating_year = data.graduating_year.date() + timedelta(days=1)
+
     new_education = education.Education(
-        qualification=data.qualification, graduating_institution=data.graduating_institution, graduating_year=data.graduating_year.date(),
+        qualification=data.qualification, graduating_institution=data.graduating_institution, graduating_year=graduating_year,
         major=data.major,  cgpa=data.cgpa, seeker_id=current_user.seeker[0].id)
     db.add(new_education)
     db.commit()

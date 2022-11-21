@@ -16,14 +16,19 @@ function CompanyNavbarIn() {
   const [notifclick, setnotifclick] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [changeLocation, setChangeLocation] = useState(false);
+  const [employer, setEmployer] = useState(null);
 
   function handleNotifClicked() {
     setnotifclick(!notifclick);
   }
-  function handleImageClick() {
+  
+  async function handleImageClick() {
     console.log("imageclicked");
     setClicked(!clicked);
+    let response_obj = await callAPI({ endpoint: "/employer/get_employer" });
+    setEmployer(response_obj);
   }
+
   const logoutseeker = async () => {
     console.log("logoutclicked");
     let response_obj = await callAPI({
@@ -141,9 +146,11 @@ function CompanyNavbarIn() {
                 {clicked && (
                   <Grid item className="profile_box_label_company">
                     <Grid item>
+                      {employer!=null &&
                       <Link
                         to="/companyProfile"
                         style={{ textDecoration: "none" }}
+                        state={{employer: employer.data, userData: employer}}
                       >
                         <Grid
                           container
@@ -160,6 +167,7 @@ function CompanyNavbarIn() {
                           </Grid>
                         </Grid>
                       </Link>
+                      }
 
                       <Grid
                         container

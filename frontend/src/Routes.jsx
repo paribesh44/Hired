@@ -9,6 +9,9 @@ import SeekerhasProfile from "./views/logIn/hasProfileSeeker";
 import EmployerhasProfile from "./views/logIn/hasProfileEmployer";
 import Signup from "./views/signUp/signup";
 import EmployeeProfile from "./views/profile/employeeProfile";
+import EmployeeEducationProfile from "./views/profile/employeeEducationProfile";
+import EmployeeExperienceProfile from "./views/profile/employeeExperienceProfile";
+import EmployeePreference from "./views/profile/employeePreference";
 import CompanyProfile from "./views/profile/companyProfile";
 // import CompanyHome from "./views/CompanyDashBoard/CompanyHome";
 import CompanyHome from "./views/CompanyDashBoard/CompanyHome/CompanyHome";
@@ -62,6 +65,10 @@ const Routedpath = () => {
       <Route path="/hasProfileEmployer" element={<EmployerhasProfile />}></Route>
       <Route path="/Signup" element={<Signup />}></Route>
       <Route path="/EmployeeProfile" element={<EmployeeProfile />}></Route>
+      <Route path="/EmployeeProfileEducation" element={<EmployeeEducationProfile />}></Route>
+      <Route path="/EmployeeExperienceProfile" element={<EmployeeExperienceProfile />}></Route>
+      <Route path="/EmployeeExperienceProfile" element={<EmployeeExperienceProfile />}></Route>
+      <Route path="/EmployeePreference" element={<EmployeePreference />}></Route>
       <Route path="/CompanyProfile" element={<CompanyProfile />}></Route>
       <Route path="/CompanyHome" element={<CompanyHome />}></Route>
       <Route path="/CompanyApplied" element={<CompanyApplied />}></Route>

@@ -9,274 +9,420 @@ import DropDown from "../../components/DropDown";
 import Button from "../../components/Buttons";
 import DashboardLayout from "../../components/DashhboardLayout";
 import callAPI from "../../utils/callAPI";
+import { useLocation, Navigate } from "react-router-dom";
+import CustomButton from "../../components/Buttons";
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { ImCross } from "react-icons/im";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import EmployeeEducationProfile from "./employeeEducationProfile";
+import EmployeeExperienceProfile from "./employeeExperienceProfile";
+import EmployeePreference from "./employeePreference";
 
 export default function EmployeeProfile() {
-  const [getuserdata, setgetuserdata] = useState(null);
+  const location = useLocation();
+  const { getuserdata } = location.state;
+  console.log(getuserdata)
 
-  const message = async () => {
+  const [name, setName] = useState(getuserdata.seeker.name);
+  const [address, setAddress] = useState(getuserdata.seeker.address)
+  const [age, setAge] = useState(getuserdata.seeker.age)
+  const [contactNumber, setContactNumber] = useState(getuserdata.seeker.contactNumber)
+  const [experience, setExperience] = useState(getuserdata.seeker.yearsOfExperience)
+  const [githubProfile, setGithubProfile] = useState(getuserdata.seeker.githubProfile)
+  const [linkedIn, setLinkedIn] = useState(getuserdata.seeker.linkedIn)
+  const [write_about_you, setWriteAboutYou] = useState(getuserdata.seeker.write_about_you)
+  const [website, setWebsite] = useState(getuserdata.seeker.website)
+  const [studentOrNotRadio, setStudentOrNotRadio] = useState(getuserdata.seeker.student)
+  var [cv, setCV] = useState(getuserdata.seeker.cv)
+  const [skills, setSkills] = useState(getuserdata.seeker.skills)
+  var [profilePhoto, setProfilePhoto] = useState(getuserdata.seeker.profilePhoto)
+
+  var [cvUpdate, setcvUpdate] = useState("")
+  var [ppUpdate, setppUpdate] = useState("")
+
+  const [changePP, setChangePP] = useState(false)
+
+  const [skillsDropdown, setSkillsDropdown] = useState("")
+
+  const [addEducation, setAddEducation] = useState(false)
+  const [addExperience, setAddExperience] = useState(false)
+  const [changeLocation, setChangeLocation] = useState(false)
+
+  let radio_options = [
+    true, false
+  ]
+
+  let skillsOptions = [
+    "css", "html", "fastapi", "ml", "dl", "data science", "react", "flutter", "c++", "c#", "java"
+  ]
+
+  function handleChangePP() {
+    setChangePP(!changePP)
+    setppUpdate("")
+  }
+
+  function handleChangeSkills(e) {
+    setSkillsDropdown(e.target.value);
+    setSkills([...skills, e.target.value]);
+    console.log(skills);
+  }
+
+  function changeCV() {
+    setCV(null);
+  }
+
+  function backOriginalCV() {
+    setCV(getuserdata.seeker.cv);
+    setcvUpdate("");
+  }
+
+  const cvLink = `http://localhost:8000/${cv}`;
+
+  async function handleSaveChangeProfile() {
+    if(cvUpdate=="") {
+      cvUpdate = ""
+    } else {
+      cv = ""
+    }
+    console.log(cv)
+    console.log(cvUpdate)
+
+    if (ppUpdate != "") {
+      profilePhoto = ""
+    } else if(ppUpdate == "") {
+      ppUpdate = ""
+    }
+    console.log(profilePhoto)
+    console.log(ppUpdate)
+
+    let dataForm = new FormData()
+    dataForm.append("name", name)
+    dataForm.append("age", age)
+    dataForm.append("address", address)
+    dataForm.append("contact_number", contactNumber)
+    dataForm.append("write_about_you", write_about_you)
+    dataForm.append("years_of_experience", experience)
+    dataForm.append("skills", skills)
+    dataForm.append("linkedIn", linkedIn)
+    dataForm.append("website", website)
+    dataForm.append("github_profile", githubProfile)
+    dataForm.append("student", studentOrNotRadio)
+    dataForm.append("cv", cv)
+    dataForm.append("profile_photo", profilePhoto)
+    dataForm.append("update_profile_photo", ppUpdate)
+    dataForm.append("update_cv", cvUpdate)
+
     let response_obj = await callAPI({
-      endpoint: "/seeker/get_seeker_information",
+      endpoint: "/seeker/update",
+      method: "PUT",
+      data: dataForm,
     });
-    setgetuserdata(response_obj);
-    console.log(response_obj.data);
-  };
 
-  useEffect(() => {
-    message();
-  }, []);
+    if(response_obj.data.msg=="success") {
+      console.log("success")
+      setChangeLocation(true)
+    }
+  }
 
-  if (getuserdata != null) {
-    return (
-      <>
-        <DashboardLayout>
-          {/* {getuserdata.map((value, key)=>
-          (
-            
-          ))} */}
+  return (
+    <>
+      <DashboardLayout>
+        {changeLocation && <Navigate to="/UserHomeTab" />}
 
-          <Grid container className="assesmentmain-main">
-            <Grid item>
-              <h1 className="profile"> Personal Profile</h1>
-              <p className="view">View and Edit your Profile</p>
+        <Grid container className="assesmentmain-main">
+          <Grid item>
+            <h1 className="profile"> Personal Profile</h1>
+            <p className="view">View and Edit your Profile</p>
 
+            {!changePP ? 
               <div className="profileContainer1">
                 <img src={profileimg} />
                 <div className="name">
-                  <div className="editprofile_name">
-                    {getuserdata.data.seeker.name}
-                  </div>
-                  <p className="editprofile_change">CHANGE PROFILE PHOTO</p>
+                  <h1>{getuserdata.seeker.name}</h1>
+                  <p style={{color:"blueviolet", cursor:"pointer"}} onClick={handleChangePP}>CHANGE PROFILE PHOTO</p>
                 </div>
               </div>
-
-              <div className="form">
-                <div className="field_container">
-                  <div className="editprofile_heading">Basic Info:</div>
-                  <Grid container columnSpacing={4}>
-                    <Grid item className="field" xs={4}>
-                      <label>
-                        Full Name
-                        <br />
-                        <Input
-                          fullWidth
-                          placeholder={getuserdata.data.seeker.name}
-                          variant="filled"
-                          sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                        />
-                      </label>
-                    </Grid>
-                    <Grid item className="field" xs={4}>
-                      <label>
-                        Address
-                        <br />
-                        <Input
-                          fullWidth
-                          placeholder={getuserdata.data.seeker.address}
-                          variant="filled"
-                          sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                        />
-                      </label>
-                    </Grid>
-                    <Grid item className="field" xs={4}>
-                      <label>
-                        Work Address
-                        <br />
-                        <Input
-                          fullWidth
-                          placeholder="28th Street , Avenue Road, Texas, USA"
-                          variant="filled"
-                          sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                        />
-                      </label>
-                    </Grid>
-                    <Grid item className="field" xs={4}>
-                      <label>
-                        Age
-                        <br />
-                        <Input
-                          fullWidth
-                          placeholder={getuserdata.data.seeker.age}
-                          variant="filled"
-                          sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                        />
-                      </label>
-                    </Grid>
-                    <Grid item className="field" xs={4}>
-                      <label>
-                        Contact Number
-                        <br />
-                        <Input
-                          fullWidth
-                          placeholder={getuserdata.data.seeker.contactNumber}
-                          variant="filled"
-                          sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                        />
-                      </label>
-                    </Grid>
+              :
+              <div>
+                <Grid
+                    container
+                  >
+                    <div>
+                      <label>Upload Profile Picture</label>
+                    </div>
                   </Grid>
-                </div>
-                <div className="field_container">
-                  <div className="editprofile_heading">Education</div>
-                  {getuserdata.data.education.map((value) => (
-                    <Grid container columnSpacing={4}>
-                      <Grid item className="field" xs={4}>
-                        <label>
-                          Highest Education Degree
-                          <br />
-                          <Input
-                            fullWidth
-                            placeholder={value.qualification}
-                            variant="filled"
-                            sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                          />
-                        </label>
-                      </Grid>
-                      <Grid item className="field" xs={7}>
-                        <label>
-                          Graduating University
-                          <br />
-                          <Input
-                            fullWidth
-                            placeholder={value.graduating_institution}
-                            variant="filled"
-                            sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                          />
-                        </label>
-                      </Grid>
-                      <Grid item className="field" xs={4}>
-                        <label>
-                          Graduating Year
-                          <br />
-                          <Input
-                            fullWidth
-                            placeholder={value.graduating_year.split("T")[0]}
-                            variant="filled"
-                            sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                          />
-                        </label>
-                      </Grid>
-                      <Grid item className="field" xs={4}>
-                        <label>
-                          Major
-                          <br />
-                          <Input
-                            fullWidth
-                            placeholder={value.major}
-                            variant="filled"
-                            sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                          />
-                        </label>
-                      </Grid>
-                      <Grid item className="field" xs={4}>
-                        <label>
-                          CGPA
-                          <br />
-                          <Input
-                            fullWidth
-                            placeholder={value.cgpa}
-                            variant="filled"
-                            sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
-                          />
-                        </label>
-                      </Grid>
-                    </Grid>
-                  ))}
-                </div>
-                <div className="field_container">
-                  <div className="editprofile_heading">Preference</div>
-                  <div className="role_container1">
-                    <div className="roles">
-                      <p>What role are you looking for?</p>
-                      {/* <p>
-                        <u>Add new roles</u>
-                      </p> */}
-                    </div>
-                    <Grid container direction="row" className="roles_container">
-                      {getuserdata.data.preference.interested_jobs.map(
-                        (val) => (
-                          <div className="role">
-                            <div>{val}</div>
-                          </div>
-                        )
-                      )}
-                    </Grid>
 
-                    <div className="select_roles">
-                      <DropDown
-                        label="Select New Roles"
-                        options={[
-                          { label: "Web developer", value: "Web developer" },
-                          {
-                            label: "Database administrator",
-                            value: "Database administrator",
-                          },
-                          {
-                            label: "Computer software engineer",
-                            value: "Computer software engineer",
-                          },
-                          {
-                            label: "Data security analyst",
-                            value: "Data security analyst",
-                          },
-                          {
-                            label: "Network architect",
-                            value: "Network architect",
-                          },
-                          {
-                            label: " Mobile application developer",
-                            value: " Mobile application developer",
-                          },
-                          {
-                            label: "Video Game Developer",
-                            value: "Video Game Developer",
-                          },
-                          {
-                            label: "Front End DEveloper",
-                            value: "Front End DEveloper",
-                          },
-                          {
-                            label: "Back End DEveloper",
-                            value: "Back End DEveloper",
-                          },
-                        ]}
+                  <Grid
+                    container>
+                    <input id="file" type="file" accept="image/*" onChange={(event) => {
+                      setppUpdate(event.currentTarget.files[0]);
+                    }} />
+                  </Grid>
+                  <Grid item className="appliedicon_grid">
+                    <ImCross className="appliedicons" onClick={handleChangePP} />
+                  </Grid>
+              </div> 
+            }
+
+            <div className="form">
+              <div className="field_container">
+                <Grid container columnSpacing={4}>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Full Name
+                      <br />
+                      <Input
+                        fullWidth
+                        value={name}
+                        onChange={(e)=>{setName(e.target.value)}}
+                        placeholder="e.g. John xxxx"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
                       />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Address
+                      <br />
+                      <Input
+                        fullWidth
+                        value={address}
+                        onChange={(e)=>{setAddress(e.target.value)}}
+                        placeholder="e.g. Kathmandu"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Age
+                      <br />
+                      <Input
+                        value={age}
+                        onChange={(e)=>{setAge(e.target.value)}}
+                        fullWidth
+                        placeholder= "e.g. 26"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Contact Number
+                      <br />
+                      <Input
+                        value={contactNumber}
+                        onChange={(e)=>{setContactNumber(e.target.value)}}
+                        fullWidth
+                        placeholder= "e.g. 9841xxxxxx"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Experience
+                      <br />
+                      <Input
+                        value={experience}
+                        onChange={(e)=>{setExperience(e.target.value)}}
+                        fullWidth
+                        placeholder="e.g. 2"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Website
+                      <br />
+                      <Input
+                        value={website}
+                        onChange={(e)=>{setWebsite(e.target.value)}}
+                        fullWidth
+                        placeholder="e.g. www.ishanpanta.com"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Github Profile
+                      <br />
+                      <Input
+                        value={githubProfile}
+                        onChange={(e)=>{setGithubProfile(e.target.value)}}
+                        fullWidth
+                        placeholder="e.g. github.com/ishanpanta"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      LinkedIn
+                      <br />
+                      <Input
+                        value={linkedIn}
+                        onChange={(e)=>{setLinkedIn(e.target.value)}}
+                        fullWidth
+                        placeholder="e.g. linkedln.com/ishanpanta"
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+                  <Grid item className="field" xs={4}>
+                    <label>
+                      Write about you
+                      <br />
+                      <Input
+                        value={write_about_you}
+                        onChange={(e)=>{setWriteAboutYou(e.target.value)}}
+                        fullWidth
+                        placeholder="e.g. I am the best human being."
+                        variant="filled"
+                        sx={{ background: "#EBEFF550", mt: 2, p: 1 }}
+                      />
+                    </label>
+                  </Grid>
+
+                  <Grid
+                    container item className="field" xs={4}>
+                    <div>
+                      <label>
+                        Are you a student?
+                      </label>
+                      <Grid
+                        container>
+                        <RadioGroup
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          name="radio-buttons-group"
+                          row
+                          value={studentOrNotRadio}
+                          onClick={(e)=> {
+                            setStudentOrNotRadio(e.target.value)
+                          }}
+                        >
+                          {radio_options.map((i)=>(<FormControlLabel value={i} control={<Radio />} label={String(i)} />))}
+                        </RadioGroup>
+                      </Grid>
                     </div>
-                  </div>
-                  <div className="role_container1">
-                    <div className="roles">
-                      <p>What job skill are you looking for?</p>
-                      {/* <p>
-                        <u>Add new roles</u>
-                      </p> */}
-                    </div>
-                    <Grid container direction="row" className="roles_container">
-                      {getuserdata.data.preference.preferred_job_skills.map(
-                        (jobskills) => (
-                          <Grid item className="role">
-                            {jobskills}{" "}
+                  </Grid>
+
+                  <Grid
+                    container item className="field" xs={4}>
+                    <div>
+                      <label>
+                        Your CV
+                      </label>
+                      <Grid
+                        container  style={{marginTop: "10px"}}>
+                        {cv == null ? (
+                          <Grid
+                            container
+                            direction="row"
+                            //   justifyContent={"center"}
+                            alignItems="center"
+                          >
+                            <Grid item>
+                              <input type="file" name="cv"  onChange={(event) => {
+                                setcvUpdate(event.currentTarget.files[0]);
+                              }} />
+                            </Grid>
+                            <Grid item className="appliedicon_grid">
+                              <ImCross className="appliedicons" onClick={backOriginalCV} />
+                            </Grid>
                           </Grid>
-                        )
-                      )}
-                    </Grid>
-
-                    <div className="select_roles">
-                      <DropDown
-                        label="Select New Job Skill"
-                        options={[
-                          { label: "option1", value: "one" },
-                          { label: "option1", value: "one" },
-                          { label: "option1", value: "one" },
-                        ]}
-                      />
+                        ) : (
+                          <Grid
+                            container
+                            direction="row"
+                            //   justifyContent={"center"}
+                            alignItems="center"
+                          >
+                            <Grid item>
+                              <a target="_blank" href={cvLink} style={{fontSize: "20px"}}>
+                                <div>{cv}</div>
+                              </a>
+                            </Grid>
+                            <Grid item className="appliedicon_grid">
+                              <ImCross className="appliedicons" onClick={changeCV} />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </Grid>
                     </div>
-                  </div>
-                </div>
-                <Button name="Save Changes" addStyles={"save_changes"}></Button>
+                  </Grid>
+
+                  <Grid container item className="field">
+                    <div className="role_container1">
+                      <div className="roles">
+                        <h4>Skills</h4>
+                      </div>
+                      <div className="roles_container">
+                        
+                        {skills.map((val) => {
+                          return (
+                            <div className="role">{val}</div>
+                          )
+                          })}
+                      </div>
+                      <div className="select_roles">
+                        <Select
+                          sx={{ m: 1, minWidth: 380}}
+                          value={skillsDropdown}
+                          onChange={handleChangeSkills}
+                          displayEmpty
+                          inputProps={{ 'aria-label': 'Without label' }}
+                          >
+                              <MenuItem value="">
+                                  <em>Add new Skill</em>
+                              </MenuItem>
+                              {skillsOptions.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))}
+                          </Select>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Button name="Save Changes Profile" addStyles={"save_changes"} onClick={handleSaveChangeProfile} style={{marginTop: "1em", marginBottom: "5px"}}></Button>
+                </Grid>
               </div>
-            </Grid>
+
+              {/* Education */}
+              <div className="field_container">
+                <div className="editprofile_heading">Education</div>
+                <h4 style={{color:"blueviolet", cursor:"pointer"}} onClick={()=>{setAddEducation(!addEducation)}}>
+                  {addEducation ? "Close Education" : "Add education" }
+                </h4>
+                {addEducation && <EmployeeEducationProfile />}
+              </div>
+
+              {/* Experience */}
+              <div className="field_container">
+                <div className="editprofile_heading">Experience</div>
+                <h4 style={{color:"blueviolet", cursor:"pointer"}} onClick={()=>{setAddExperience(!addExperience)}}>
+                  {addExperience ? "Close Experience" : "Add Experience" }
+                </h4>
+                {addExperience && <EmployeeExperienceProfile />}
+              </div>
+
+              {/* Preference */}
+              <EmployeePreference userPreference= {getuserdata.preference}/>
+              {/* <Button name="Save Changes" addStyles={"save_changes"}></Button> */}
+            </div>
           </Grid>
-        </DashboardLayout>
-      </>
-    );
-  }
+        </Grid>
+      </DashboardLayout>
+    </>
+  );
 }

@@ -15,6 +15,12 @@ class Apply(BaseModel):
     class Config:
         orm_mode = True
 
+class RemainderApplySeeker(Apply):
+    seeker: ShowSeeker
+
+    class Config:
+        orm_mode = True
+
 class ApplySeeker(Apply):
     seeker: ShowSeeker
 

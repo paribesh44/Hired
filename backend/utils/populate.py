@@ -138,7 +138,8 @@ def populate_remainder():
         print(f"Populating remainder: {remainder_populate}")
         new_remainder = remainder.Remainder(name= remainder_populate["name"], note= remainder_populate["note"], meet_link= remainder_populate["meet_link"], 
         meeting_date=remainder_populate["meeting_date"], meeting_time=remainder_populate["meeting_time"],  publish_remainder=remainder_populate["publish_remainder"], 
-        job_post_id=remainder_populate["job_post_id"], seeker_id=remainder_populate["seeker_id"])
+        seeker_name=remainder_populate["seeker_name"], job_post_name=remainder_populate["job_post_name"], job_post_id=remainder_populate["job_post_id"], 
+        seeker_id=remainder_populate["seeker_id"], employer_id=remainder_populate["employer_id"])
         db.add(new_remainder)
         db.commit()
         db.refresh(new_remainder)

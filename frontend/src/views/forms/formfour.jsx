@@ -156,39 +156,37 @@ function Formfour() {
 
 
           <Grid
+            container
+            justifyContent="center">
+            <div>
+                <label htmlFor='salary'>
+                    Expected Salary
+                </label>
+                <Grid
                     container
                     justifyContent="center">
-                    <div>
-                        <label htmlFor='salary'>
-                            Expected Salary
-                        </label>
+                        <h7>Use slider to select minimum salary (in thousands)</h7>
+                        </Grid>
+                        <br />
                         <Grid
-                            container
-                            justifyContent="center">
-                                <h7>Use slider to select minimum salary (in thousands)</h7>
-                                </Grid>
-                                <br />
-                                <Grid
-                            container
-                            justifyContent="center">
-                               <InputSlider onChange={getMinimumSalary} type="minimum" /></Grid>
+                    container
+                    justifyContent="center">
+                        <InputSlider onChange={getMinimumSalary} sliderValue={30} type="minimum" /></Grid>
 
+                <Grid
+                    container
+                    justifyContent="center">
+                        <h7>Use slider to select maximum salary (in thousands)</h7>
+                        </Grid>
+                        <br />
                         <Grid
-                            container
-                            justifyContent="center">
-                                <h7>Use slider to select maximum salary (in thousands)</h7>
-                                </Grid>
-                                <br />
-                                <Grid
-                            container
-                            justifyContent="center">
-                               <InputSlider onChange={getMaximumSalary} type="maximum" /></Grid>
+                    container
+                    justifyContent="center">
+                        <InputSlider onChange={getMaximumSalary} sliderValue={30} type="maximum" /></Grid>
 
-                               </div>
-                               
-                                </Grid>
-
-                
+                        </div>
+                        
+                        </Grid>
 
                 <Grid
                     container

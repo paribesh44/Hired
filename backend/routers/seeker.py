@@ -53,47 +53,52 @@ async def createSeekerProfile(form: jobSeekerForm.JobSeekerForm = Depends(), db:
     return {"msg": "success", "seeker": new_seeker}
 
 
-@router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, form: jobSeekerForm.JobSeekerForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+@router.put('/update', status_code=status.HTTP_202_ACCEPTED)
+def update(form: jobSeekerForm.UpdateJobSeekerForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    print(form)
+    print(form.skills)
     update_seeker = db.query(seeker.Seeker).filter(
-        seeker.Seeker.id == id)
+        seeker.Seeker.id == current_user.seeker[0].id)
 
-    if not update_seeker.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Seeker with id {id} not found")
+    skills_string = form.skills[0]
+    skills = skills_string.strip().split(',')
 
     pdf_file_location = update_seeker.first().cv
     profile_picture_file_location = update_seeker.first().profilePhoto
 
     # upload pdf in local memory and save the file_location in database
     try:
-        pdf_file_location = f"static/cv/{form.cv.filename}"
+        pdf_file_location = f"static/cv/{form.update_cv.filename}"
         # if the new choosen pdf is not same as the previous upload pdf file then only upload updated pdf.
         if update_seeker.first().cv != pdf_file_location:
             with open(pdf_file_location, "wb") as buffer:
-                shutil.copyfileobj(form.cv.file, buffer)
+                shutil.copyfileobj(form.update_cv.file, buffer)
         # if same then the pdf remains the same.
         else:
             pdf_file_location = update_seeker.first().cv
     except:
         pdf_file_location = update_seeker.first().cv
+    
+    print(pdf_file_location)
 
     # upload profile picture
     try:
-        profile_picture_file_location = f"static/profile_pictures/{form.profile_photo.filename}"
+        profile_picture_file_location = f"static/profile_pictures/{form.update_profile_photo.filename}"
         # if the new choosen profile picture is not same as the previous upload profile picture then only upload updated pdf.
         if update_seeker.first().profilePhoto != profile_picture_file_location:
             with open(profile_picture_file_location, "wb") as buffer:
-                shutil.copyfileobj(form.profile_photo.file, buffer)
+                shutil.copyfileobj(form.update_profile_photo.file, buffer)
         else:
             profile_picture_file_location = update_seeker.first().profilePhoto
     except:
         profile_picture_file_location = update_seeker.first().profilePhoto
 
+    print(profile_picture_file_location)
+
     update_seeker.update({"name": form.name, "age": form.age, "address": form.address, "contactNumber": form.contact_number, "write_about_you": form.write_about_you,
-                          "yearsOfExperience": form.years_of_experience,  "skills": form.skills,  "linkedIn": form.linkedIn,
-                          "website": form.website,  "cv": pdf_file_location,  "githubProfile": form.github_profile,
-                          "profilePhoto": profile_picture_file_location,  "drivingLicenseNum": form.driving_license_num, "last_job_applied": form.last_job_applied, "user_id": current_user.id})
+                          "yearsOfExperience": form.years_of_experience,  "skills": skills,  "linkedIn": form.linkedIn, "student":form.student,
+                          "website": form.website,  "cv": pdf_file_location,  "githubProfile": form.github_profile, "status": update_seeker.first().status,
+                          "profilePhoto": profile_picture_file_location, "user_id": current_user.id})
     db.commit()
     return {"msg": "success"}
 
@@ -132,8 +137,6 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
     if not hired_seeker:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Sekeer with the id {id} is not available")
-    # , "experience": hired_seeker.experience[0].workPlace
-    # return {"name": hired_seeker.name, "cv": hired_seeker.cv, "user": hired_seeker.user, "user_assesment": hired_seeker.userAssesment}
     return hired_seeker
 
 
