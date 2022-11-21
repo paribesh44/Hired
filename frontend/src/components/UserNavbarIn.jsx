@@ -21,11 +21,18 @@ export default function UserNavbarIn() {
   const [notifclick, setnotifclick] = useState(false);
   const [changeLocation, setChangeLocation] = useState(false);
   const [notificationObjects, setNotificationObjects] = useState("");
+  const [getuserdata, setgetuserdata] = useState(null);
 
-  function handleImageClick() {
+
+  async function handleImageClick() {
     console.log("imageclicked");
     setClicked(!clicked);
+    let response_obj = await callAPI({
+      endpoint: "/seeker/get_seeker_information",
+    });
+    setgetuserdata(response_obj);
   }
+
   function handleLogout() {}
 
   async function handleNotifClicked() {
@@ -165,25 +172,28 @@ export default function UserNavbarIn() {
                 {clicked && (
                   <Grid item className="profile_box_label">
                     <Grid item>
-                      <Link
-                        to="/employeeProfile"
-                        style={{ textDecoration: "none" }}
-                      >
-                        <Grid
-                          container
-                          direction="row-reverse"
-                          // alignItems="start"
-                          justifyContent="space-between"
-                          className="profile_box_label_each"
+                      { getuserdata != null &&
+                        <Link
+                          to="/employeeProfile"
+                          style={{ textDecoration: "none" }}
+                          state={{getuserdata: getuserdata.data}}
                         >
-                          <Grid item className="profile_box_label_texts">
-                            <FiEdit3 size={20} />{" "}
+                          <Grid
+                            container
+                            direction="row-reverse"
+                            // alignItems="start"
+                            justifyContent="space-between"
+                            className="profile_box_label_each"
+                          >
+                            <Grid item className="profile_box_label_texts">
+                              <FiEdit3 size={20} />{" "}
+                            </Grid>
+                            <Grid item className="profile_box_label_texts">
+                              Edit Profile
+                            </Grid>
                           </Grid>
-                          <Grid item className="profile_box_label_texts">
-                            Edit Profile
-                          </Grid>
-                        </Grid>
-                      </Link>
+                        </Link>
+                      }
 
                       <Grid
                         container

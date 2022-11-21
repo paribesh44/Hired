@@ -16,11 +16,19 @@ class Remainder(Base):
     meeting_time = Column(String, nullable=True)
     # whether to show the remainder to seeker or not.
     publish_remainder = Column(Boolean, default=False)
+    seeker_name = Column(String, nullable=True)
+    job_post_name = Column(String, nullable=True)
 
     seeker_id = Column(Integer,
                        ForeignKey("seekers.id", ondelete="CASCADE"))
     job_post_id = Column(Integer, ForeignKey(
         "jobposts.id", ondelete="CASCADE"))
+
+    employer_id = Column(Integer,
+                         ForeignKey("employers.id", ondelete="CASCADE"),
+                         nullable=True)
+
+    employer = relationship("Employer", backref="remainder")
 
     seeker = relationship("Seeker", backref="remainder")
     job_post = relationship("JobPost", backref="remainder")

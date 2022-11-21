@@ -2,19 +2,30 @@ import { Grid } from "@mui/material";
 import React from "react";
 import Companylayout from "../../../components/Companylayout";
 import "./companyreminder.css";
+import CRemainderComponent from "./CompanyReminderComponent";
 import Hired from "../../../assets/demoprofileimage.jpg";
 import Image from "../../../components/Image";
 import { dummydatareminder } from "./dummydatareminder";
 import CustomButton from "../../../components/Buttons";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import callAPI from "../../../utils/callAPI";
 
 function CompanyReminderPage() {
-  const [markedasdone, setmarkedasdone] = useState(false);
+  const [markPublish, setMarkPublish] = useState(false);
 
-  function markclicked() {
-    setmarkedasdone(!markedasdone);
-  }
+  const [remainders, setRemainders] = useState(null);
+
+  const message = async () => {
+    let response_obj = await callAPI({ endpoint: "/remainder/get_remainder_company" });
+    setRemainders(response_obj);
+    console.log(response_obj.data);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
   return (
     <Grid container>
       <Companylayout>
@@ -26,64 +37,23 @@ function CompanyReminderPage() {
               </Grid>
               <Link
                 to="/CompanyAddReminder"
-                style={{ textDecoration: "none", color: "black" }}
+                // state={{jobPostOfCurrentCompany: jobPostOfCurrentCompany}}
+                style={{ textDecoration: "none", color: "#495c83" }}
               >
                 <Grid item className="sub_reminder">
                   Add New Reminder
                 </Grid>
               </Link>
             </Grid>
+            {remainders != null &&
             <Grid item>
-              {dummydatareminder.map((val, key) => (
-                <Grid container direction={"row"} className="single_reminder">
-                  <Grid item>
-                    <Grid
-                      container
-                      direction={"row"}
-                      justifyContent="space-between"
-                    >
-                      <Grid item>
-                        <Grid container direction="row">
-                          <Grid item>
-                            <Image
-                              src={Hired}
-                              addStyles={"reminderpage_image"}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <Grid container direction="column">
-                              <Grid item>{val.reminder_name}</Grid>
-                              <Grid item>On: {val.date}</Grid>
-                              <Grid item>To: Mr. {val.person} </Grid>
-                              <Grid item>For Post: {val.reminder_post} </Grid>
-                              <Grid item>
-                                {" "}
-                                Responsible Person: {val.responsible_person}
-                              </Grid>
-                              <Grid item> Required Link: {val.meet_link}</Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                      <Grid item className="reminderpage_button">
-                        <Grid container direction={"column"}>
-                          <Grid item classname="reminderpage_singlebutton">
-                            <CustomButton
-                              name="Mark as Done"
-                              onClicked={() => markclicked()}
-                              addStyles={"reminderpage_singlebutton"}
-                            ></CustomButton>
-                          </Grid>
-                          <Grid item>
-                            <CustomButton name="Delete" />
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              ))}
+              {remainders.data.map((val, key) => {
+                return (
+                  <CRemainderComponent val={val}/>
+                )
+                })}
             </Grid>
+            }
           </Grid>
         </Grid>
       </Companylayout>

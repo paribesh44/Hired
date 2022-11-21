@@ -86,3 +86,10 @@ class JobPostApply(JobPost):
 
     class Config:
         orm_mode = True
+
+class JobPostRemainder(JobPost):
+    from schemas.apply_schema import Apply
+    apply: Optional[Apply]
+
+    class Config:
+        orm_mode = True

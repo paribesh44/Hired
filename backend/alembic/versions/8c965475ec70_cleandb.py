@@ -1,8 +1,8 @@
 """cleandb
 
-Revision ID: b02aa9d5dcf4
+Revision ID: 8c965475ec70
 Revises: 
-Create Date: 2022-11-19 19:07:46.955482
+Create Date: 2022-11-20 12:23:49.249903
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b02aa9d5dcf4'
+revision = '8c965475ec70'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -186,8 +186,12 @@ def upgrade() -> None:
     sa.Column('meeting_date', sa.Date(), nullable=True),
     sa.Column('meeting_time', sa.String(), nullable=True),
     sa.Column('publish_remainder', sa.Boolean(), nullable=True),
+    sa.Column('seeker_name', sa.String(), nullable=True),
+    sa.Column('job_post_name', sa.String(), nullable=True),
     sa.Column('seeker_id', sa.Integer(), nullable=True),
     sa.Column('job_post_id', sa.Integer(), nullable=True),
+    sa.Column('employer_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['employer_id'], ['employers.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['job_post_id'], ['jobposts.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['seeker_id'], ['seekers.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')

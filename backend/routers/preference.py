@@ -36,19 +36,16 @@ def createPreferenceProfile(data: preference_schema.PostPreference, db: Session 
     return {"msg": "success"}
 
 
-@router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, request: preference_schema.Preference, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+@router.put('/update/{preference_id}', status_code=status.HTTP_202_ACCEPTED)
+def update(preference_id: int, data: preference_schema.UpdatePreference, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+
     update_preference = db.query(preference.Preference).filter(
-        preference.Preference.id == id)
+        preference.Preference.id == preference_id)
 
-    if not update_preference.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Job seeker with id {id} expeience not found.")
-
-    update_preference.update({"expected_min_salary": request.expected_min_salary, "expected_max_salary": request.expected_max_salary, "preferred_location": request.preferred_location, "interested_jobs": request.interested_jobs,
-                              "preferred_job_skills": request.preferred_job_skills,  "remote_onsite": request.remote_onsite,  "available_hours": request.available_hours, "seeker_id": current_user.seeker[0].id})
+    update_preference.update({"expected_min_salary": data.expected_min_salary, "expected_max_salary": data.expected_max_salary, "preferred_location": data.preferred_location, "interested_jobs": data.interested_jobs,
+                              "preferred_job_skills": data.preferred_job_skills,  "remote_onsite": data.remote_onsite, "job_type": data.job_type, "seeker_id": current_user.seeker[0].id})
     db.commit()
-    return 'updated'
+    return {"msg": "success"}
 
 
 # , response_model=List[schemas.Showpreference]

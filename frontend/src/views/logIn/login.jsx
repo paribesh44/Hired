@@ -206,7 +206,7 @@ const Login = () => {
           <Image src={user_type == 1 ? loginC : loginCds}></Image>
         </Grid>
       </Grid>
-      <Grid item>
+      {/* <Grid item>
         <Link
           to="/EmployeeProfile"
           style={{ textDecoration: "none", color: "#495c83" }}
@@ -221,7 +221,7 @@ const Login = () => {
         >
           <p>Company Profile</p>
         </Link>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

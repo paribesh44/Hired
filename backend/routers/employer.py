@@ -43,37 +43,47 @@ def createEmployerProfile(form: employerForm.PostEmployerForm = Depends(), db: S
     return {"msg": "success"}
 
 
-@router.put('/update/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, form: employerForm.EmployerForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
-    update_employer = db.query(employer.Employer).filter(
-        employer.Employer.id == id)
+@router.put('/update', status_code=status.HTTP_202_ACCEPTED)
+def update(form: employerForm.UpdateEmployerForm = Depends(), db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
 
-    if not update_employer.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Company with id {id} not found")
+    update_employer = db.query(employer.Employer).filter(
+        employer.Employer.id == current_user.employer[0].id)
 
     logo_location = None
 
-    # if any error then the logo will be same.
-    # upload logo
-    try:
-        logo_location = f"static/logos/{form.logo.filename}"
-        # if new logo and old logo are not same then only new logo will be upload.
-        if update_employer.first().logo != logo_location:
-            with open(logo_location, "wb") as buffer:
-                shutil.copyfileobj(form.logo.file, buffer)
-        # if new logo and old logo are same then old logo will remain as it iss
-        else:
+    # if logo is updated
+    if(form.logo == None):
+        # if any error then the logo will be same.
+        # upload logo
+        try:
+            logo_location = f"static/logos/{form.logo_update.filename}"
+            # if new logo and old logo are not same then only new logo will be upload.
+            if update_employer.first().logo != logo_location:
+                with open(logo_location, "wb") as buffer:
+                    shutil.copyfileobj(form.logo_update.file, buffer)
+            # if new logo and old logo are same then old logo will remain as it iss
+            else:
+                logo_location = update_employer.first().logo
+        except:
             logo_location = update_employer.first().logo
-    except:
-        logo_location = update_employer.first().logo
+    # if logo is not updated
+    else:
+        logo_location = form.logo
 
-    update_employer.update({"companyName": form.companyName, "location": form.location, "contactNumber": form.contactNumber,
-                           "description": form.description,  "requiredRoles": form.requiredRoles,  "website": form.website,
-                            "targetMarket": form.targetMarket,  "vision": form.vision,  "contactEmail": form.contactEmail,
-                            "contactPerson": form.contactPerson,  "logo": logo_location, "user_id": current_user.id})
+    print(logo_location)
+
+    # target market comes as an common list. e.g. ["ai,web development,mobile development"]
+    # so we need to change it to list like ["ai", "web development", "mobile development"]
+    target_market_string = form.target_market[0]
+    target_market = target_market_string.strip().split(',')
+
+    update_employer.update({"companyName": form.company_name, "location": form.location, "contactNumber": form.contact_number,
+                           "description": form.description, "website": form.website, "targetMarket": target_market,
+                            "vision": form.vision,  "contactEmail": form.contact_email, "contactPerson": form.contact_person,
+                             "logo": logo_location, "established_date": form.established_date, "user_id": current_user.id})
     db.commit()
-    return 'updated'
+    return {"msg": "success"}
+
 
 
 # , response_model=List[schemas.ShowEmployer]
@@ -153,3 +163,9 @@ async def check(db: Session = Depends(database.get_db), current_user: user.User 
         msg = "has profile"
 
     return {"msg": msg}
+
+@router.get("/get_employer")
+async def getEmployee(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    hired_employer = db.query(employer.Employer).filter(employer.Employer.id==current_user.employer[0].id).first()
+
+    return hired_employer
