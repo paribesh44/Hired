@@ -26,3 +26,16 @@ class PostPreference(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class UpdatePreference(BaseModel):
+    expected_min_salary: int
+    expected_max_salary: int
+    preferred_location: List[str]
+    interested_jobs: List[str]
+    preferred_job_skills: list[str]
+    remote_onsite: str
+    job_type: str
+
+    class Config:
+        orm_mode = True
