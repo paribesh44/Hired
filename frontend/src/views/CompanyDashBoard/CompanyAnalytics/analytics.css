@@ -1,0 +1,94 @@
+
+.small_analytics{
+
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 25px 30px;
+    margin: 0px 45px 40px 0px !important;
+    width: 280px;
+    box-shadow: 1px 1px gray;
+}
+
+
+.small_ana_topic{
+    font-size: 18px;
+    font-weight: 450;
+    margin-bottom: 12px !important;
+    display: grid;
+    place-items:  center;
+}
+/* .icon_class_name{
+    font: 30px;
+} */
+
+.small_icon_spacing{
+    padding-right: 10px;
+}
+
+.small_ana_number{
+    font-weight: 600;
+    font-size: 26px;
+    padding-top: 8px;
+}
+
+.small_ana_number2{
+    font-weight: 600;
+    font-size: 26px;
+    padding-top: 0px;
+}
+
+
+.small_ana_number3{
+    font-weight: 600;
+    font-size: 30px;
+    padding-right: 20px;
+}
+.conversion_topic{
+    font-size: 20px;
+    font-weight: 450;
+    margin-bottom: 12px !important;
+    display: grid;
+    place-items:  center;
+    /* text-decoration: underline; */
+
+}
+
+.green_second_row{
+    color: #388E3C;
+    
+}
+
+.red_second_row{
+    color: red;
+}
+
+.small_ana_iconcolor{
+    color: rgb(57, 57, 168);
+}
+.small_ana_iconcolor2{
+    color: rgb(160, 123, 53);
+}
+
+.conversion_container{
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 1px;
+    padding: 30px 40px;
+    margin-bottom: 40px !important;
+    width: 1255px;
+    /* margin-right: 200px !important; */
+}
+
+.analytics_headings{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.analytics_subheadings{
+    font-size: 18px;
+}
+
+.trends_topic{
+    font-size: 21px;
+    font-weight: 600;
+}
