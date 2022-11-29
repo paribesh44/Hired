@@ -41,6 +41,7 @@ function CompanyNavbarIn() {
       console.log("success");
     }
   };
+  console.log("employer", employer)
   return (
     <div className="navbar-main">
       <Grid
@@ -146,11 +147,11 @@ function CompanyNavbarIn() {
                 {clicked && (
                   <Grid item className="profile_box_label_company">
                     <Grid item>
-                      {employer!=null &&
+                        {employer !=null &&
                       <Link
-                        to="/companyProfile"
+                        to="/CompanyProfile"
                         style={{ textDecoration: "none" }}
-                        state={{employer: employer.data, userData: employer}}
+                        employer= {employer.data}
                       >
                         <Grid
                           container

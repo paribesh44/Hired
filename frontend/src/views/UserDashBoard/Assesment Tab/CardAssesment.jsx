@@ -22,15 +22,15 @@ function CardAssesment(props) {
 
   return (
     <div>
-      {already_solved ?  
+      {already_solved ?  <TargetFieldComponent data={props} already_solved={already_solved}/> :
       <Link
         to="/Assesment/AssesmentQuestions"
         state={{ target_field_id: props.id, target_field_name: props.name, languages: props.languages }}
         className="assesment-link"
       >
         <TargetFieldComponent data={props} already_solved={already_solved}/>
-      </Link> : 
-      <TargetFieldComponent data={props} already_solved={already_solved}/>}
+      </Link>
+      }
       
     </div>
   );
