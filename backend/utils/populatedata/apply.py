@@ -4,7 +4,7 @@ from datetime import datetime
 
 applies: List[Json] = [
     {
-        "description": "Hello honey",
+        "description": "I think I am the perfect candidate to this post because i have 2 years experience in the field and I am someone who is always willing to learn",
         "cv": "static/cv/cv_IshanPanta.pdf",
         "status": "interview",
         "coverletter": "static/cover_letter/Ch11.pdf",
@@ -13,7 +13,7 @@ applies: List[Json] = [
         "job_post_id": 1
     },
     {
-        "description": "Hello bro",
+        "description": "I have  a recent experience in this field.",
         "cv": "static/cv/cv_IshanPanta.pdf",
         "status": "shortlisted",
         "coverletter": "static/cover_letter/Ch12.pdf",
@@ -22,7 +22,7 @@ applies: List[Json] = [
         "job_post_id": 2
     },
     {
-        "description": "second user bro",
+        "description": "I think I am the perfect candidate to this post because i have 2 years experience in the field and I am someone who is always willing to learn",
         "cv": "static/cv/cv_Ishansharma.pdf",
         "status": "interviewed",
         "coverletter": "static/cover_letter/FDE.pdf",
@@ -31,7 +31,7 @@ applies: List[Json] = [
         "job_post_id": 1
     },
     {
-        "description": "second second",
+        "description": "I think I am the perfect candidate to this post because i have 2 years experience in the field and I am someone who is always willing to learn",
         "cv": "static/cv/cv-professional.pdf",
         "status": "interview",
         "coverletter": "static/cover_letter/ch8.pdf",
