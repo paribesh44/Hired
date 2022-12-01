@@ -108,9 +108,13 @@ def update(id: int, form: applyForm.ApplyForm = Depends(), db: Session = Depends
 # change status of apply
 @router.put("/update_status/{job_post_id}/{seeker_id}")
 def update_status(data: apply_schema.UpdateStatus, job_post_id:int, seeker_id:int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    print(seeker_id)
+    print(job_post_id)
     print(data)
     update_apply = db.query(apply.Apply).filter(
-        apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id==seeker_id).first()
+        apply.Apply.job_post_id == job_post_id, apply.Apply.seeker_id==seeker_id).first()
+
+    print(update_apply.id)
    
     if not update_apply:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -153,7 +157,9 @@ def show(id: int, db: Session = Depends(database.get_db), current_user: user.Use
 @router.get("/get_apply_of_user/{job_post_id}/{seeker_id}", response_model=apply_schema.Apply)
 def showApply(job_post_id: int, seeker_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     hired_apply = db.query(apply.Apply).filter(
-        apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id == seeker_id).first()
+        apply.Apply.job_post_id == job_post_id, apply.Apply.seeker_id == seeker_id).first()
+
+    print(hired_apply.id)
 
     if not hired_apply:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -177,6 +183,6 @@ def showApplyCompany(job_post_id: int, db: Session = Depends(database.get_db), c
 @router.get("/get_apply_notification/{job_post_id}", response_model=apply_schema.Apply)
 def showApply(job_post_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
     hired_apply = db.query(apply.Apply).filter(
-        apply.Apply.job_post_id == job_post_id and apply.Apply.seeker_id == current_user.seeker[0].id).first()
+        apply.Apply.job_post_id == job_post_id, apply.Apply.seeker_id == current_user.seeker[0].id).first()
     
     return hired_apply

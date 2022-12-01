@@ -270,7 +270,7 @@ function CompanyAnalytics() {
         </Grid>
 
         {/* COntainer for trends */}
-        <Grid item className="conversion_container">
+        {/* <Grid item className="conversion_container">
           <Grid container direction="column">
             <Grid item className="conversion_topic">
               Trends
@@ -278,9 +278,9 @@ function CompanyAnalytics() {
             <Grid item>
               <Grid container direction={"row"} justifyContent="space-around">
                 <Grid item>
-                  **Pie chart goes here**
+                  **Pie chart goes here** */}
                   {/* <Pie data={jobdiversitydata} /> */}
-                </Grid>
+                {/* </Grid>
                 <Grid item>
                   <Grid container direction="column">
                     <Grid item className="trends_topic">
@@ -305,9 +305,9 @@ function CompanyAnalytics() {
             </Grid>
             <br />
             <br />
-            <br />
+            <br /> */}
             {/* LOcation tren */}
-            <Grid item>
+            {/* <Grid item>
               <Grid container direction="row" justifyContent="space-around">
                 <Grid item>
                   <Grid container direction="column">
@@ -326,9 +326,9 @@ function CompanyAnalytics() {
             </Grid>
             <br />
             <br />
-            <br />
+            <br /> */}
             {/* Age trend */}
-            <Grid item>
+            {/* <Grid item>
               <Grid container direction="row" justifyContent="space-around">
                 <Grid item> ** bar graph goes here**</Grid>
                 <Grid item>
@@ -346,7 +346,7 @@ function CompanyAnalytics() {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Grid>
   );

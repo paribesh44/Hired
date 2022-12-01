@@ -54,6 +54,12 @@ def all(db: Session = Depends(database.get_db), current_user: user.User = Depend
     preferences = db.query(preference.Preference).all()
     return preferences
 
+@router.get("/preference_infomation/{seeker_id}")
+def get_preference(seeker_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    hired_preference = db.query(preference.Preference).filter(preference.Preference.seeker_id==seeker_id).first()
+
+    return hired_preference
+
 
 # , response_model=schemas.preference
 @router.get('/get_id/{id}')
