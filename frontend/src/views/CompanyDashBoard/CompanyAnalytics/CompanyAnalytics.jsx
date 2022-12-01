@@ -7,20 +7,38 @@ import { FcBullish } from "react-icons/fc";
 import { FcBearish } from "react-icons/fc";
 
 import { VscGraphLine } from "react-icons/vsc";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiUserSearchFill } from "react-icons/ri";
 import { MdEmojiPeople } from "react-icons/md";
 import { jobdiversitydata } from "./jobdiversitydata";
 
 import { jobdiversitydata2 } from "./jobdiversitydata";
 import { Pie } from "react-chartjs-2";
+import callAPI from "../../../utils/callAPI";
+
 
 function CompanyAnalytics() {
   const [totalactive, settotalactive] = useState(true);
 
   const [totalvisit, settotalvisit] = useState(false);
 
-  return (
+  const [analyticsData, setAnalyticsData] = useState("");
+
+  const message = async () => {
+    let response_obj = await callAPI({
+      endpoint: "/analytics/get_analytics",
+    });
+    setAnalyticsData(response_obj);
+    console.log(response_obj.data);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
+
+  if (analyticsData.data != null) {
+    console.log(analyticsData.data.job_diversity)
+    return (
     <Grid container>
       <CompanyNavbarIn />
       <Grid container className="reminder_page" direction="column">
@@ -48,9 +66,9 @@ function CompanyAnalytics() {
                     <Grid item>
                       <Grid container direction="column">
                         <Grid item className="small_ana_number2">
-                          40
+                          {analyticsData.data.total_no_of_vacancies}
                         </Grid>
-                        <Grid item>For 3 posts</Grid>
+                        <Grid item>For {analyticsData.data.total_no_of_posts} posts</Grid>
                       </Grid>
                     </Grid>
 
@@ -77,9 +95,9 @@ function CompanyAnalytics() {
                     <Grid item>
                       <Grid container direction="column">
                         <Grid item className="small_ana_number2">
-                          10
+                          {analyticsData.data.total_no_of_applicants}
                         </Grid>
-                        <Grid item>For 2 posts</Grid>
+                        <Grid item>For {analyticsData.data.total_no_of_posts} posts</Grid>
                       </Grid>
                     </Grid>
 
@@ -111,7 +129,7 @@ function CompanyAnalytics() {
                             direction="row"
                             alignItems={"center"}
                             className={
-                              totalactive
+                              (analyticsData.data.percentage_increas > 0)
                                 ? "green_second_row"
                                 : "red_second_row"
                             }
@@ -119,16 +137,16 @@ function CompanyAnalytics() {
                             <Grid item className="small_icon_spacing">
                               <VscGraphLine />
                             </Grid>
-                            <Grid item>+2.0%</Grid>
+                            <Grid item>{analyticsData.data.percentage_increase}%</Grid>
                           </Grid>
                         </Grid>
                         <Grid item className="small_ana_number">
-                          6000
+                          {analyticsData.data.total_active_users}
                         </Grid>
                       </Grid>
                     </Grid>
                     <Grid item>
-                      {totalactive ? (
+                      {analyticsData.data.percentage_increas > 0 ? (
                         <FcBullish className="icon_class_name" size={45} />
                       ) : (
                         <FcBearish size={45} />
@@ -159,22 +177,22 @@ function CompanyAnalytics() {
                             direction="row"
                             alignItems={"center"}
                             className={
-                              totalvisit ? "green_second_row" : "red_second_row"
+                              analyticsData.data.percentage_increase < 0 ? "green_second_row" : "red_second_row"
                             }
                           >
                             <Grid item className="small_icon_spacing">
                               <VscGraphLine />
                             </Grid>
-                            <Grid item>-0.50%</Grid>
+                            <Grid item>{analyticsData.data.percentage_increase < 0 ? "+0.50%": "-0.50%"}</Grid>
                           </Grid>
                         </Grid>
                         <Grid item className="small_ana_number">
-                          120
+                          {analyticsData.data.total_post_visit}
                         </Grid>
                       </Grid>
                     </Grid>
                     <Grid item>
-                      {totalvisit ? (
+                      {analyticsData.data.percentage_increase < 0 ? (
                         <FcBullish className="icon_class_name" size={45} />
                       ) : (
                         <FcBearish size={45} />
@@ -207,7 +225,7 @@ function CompanyAnalytics() {
                       Applied no. of candidates:
                     </Grid>
                     <Grid item className="analytics_subheadings">
-                      55
+                      {analyticsData.data.total_no_of_applicants}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -218,7 +236,7 @@ function CompanyAnalytics() {
                       ShortListed candidates:
                     </Grid>
                     <Grid item className="analytics_subheadings">
-                      40
+                      {analyticsData.data.total_shortlisted_candidates}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -228,7 +246,7 @@ function CompanyAnalytics() {
                       Interviewed candidates:
                     </Grid>
                     <Grid item className="analytics_subheadings">
-                      20
+                      {analyticsData.data.total_interviewed_candidates}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -238,7 +256,7 @@ function CompanyAnalytics() {
                       Hired candidates:
                     </Grid>
                     <Grid item className="analytics_subheadings">
-                      5
+                      {analyticsData.data.hired_candidates}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -246,7 +264,7 @@ function CompanyAnalytics() {
             </Grid>
             <Grid item className="small_ana_number3">
               {" "}
-              59.0%
+              {analyticsData.data.conversion_rate}%
             </Grid>
           </Grid>
         </Grid>
@@ -270,14 +288,14 @@ function CompanyAnalytics() {
                       Job Diversity
                     </Grid>
                     <br />
-                    {jobdiversitydata.map((val) => (
+                    {analyticsData.data.job_diversity.map((val) => (
                       <Grid container direction="row">
                         <Grid item className="analytics_headings">
-                          {val.title}:
+                          {"fdsfsd"}:
                         </Grid>
                         <Grid item className="analytics_subheadings">
                           {" "}
-                          {val.number}
+                          {"fdsjfsd"}
                         </Grid>
                       </Grid>
                     ))}
@@ -332,6 +350,8 @@ function CompanyAnalytics() {
       </Grid>
     </Grid>
   );
+  }
+  
 }
 
 export default CompanyAnalytics;

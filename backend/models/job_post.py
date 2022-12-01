@@ -32,6 +32,7 @@ class JobPost(Base):
     deadline = Column(DateTime, nullable=False)
     remote_onsite = Column(String, nullable=False)
     # (draft, pending, published) -> controlled by admin
+    post_view = Column(Integer, default=0)
 
     status_of_jobs = Column(String, nullable=False)
     posted_date = Column(DateTime, default=datetime.datetime.utcnow)

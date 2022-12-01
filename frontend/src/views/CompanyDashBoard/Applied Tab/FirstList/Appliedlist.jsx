@@ -34,6 +34,7 @@ function Appliedlist(props) {
   }, []);
 
   if (appliedEmplist != null) {
+    console.log("dsajdbjkas", appliedEmplist.data)
     return (
       <Grid container direction="column" className="appliedlistmain">
         <Grid item className="overviewheading">

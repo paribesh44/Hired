@@ -1,14 +1,8 @@
 """cleandb
 
-<<<<<<< HEAD:backend/alembic/versions/76d138067bd4_cleandb.py
-Revision ID: 76d138067bd4
+Revision ID: 81d35f9d84c7
 Revises: 
-Create Date: 2022-11-20 14:24:54.138574
-=======
-Revision ID: 8c965475ec70
-Revises: 
-Create Date: 2022-11-20 12:23:49.249903
->>>>>>> master:backend/alembic/versions/8c965475ec70_cleandb.py
+Create Date: 2022-11-30 19:58:18.979104
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<< HEAD:backend/alembic/versions/76d138067bd4_cleandb.py
-revision = '76d138067bd4'
-=======
-revision = '8c965475ec70'
->>>>>>> master:backend/alembic/versions/8c965475ec70_cleandb.py
+revision = '81d35f9d84c7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -140,6 +130,7 @@ def upgrade() -> None:
     sa.Column('job_start_date', sa.DateTime(), nullable=True),
     sa.Column('deadline', sa.DateTime(), nullable=False),
     sa.Column('remote_onsite', sa.String(), nullable=False),
+    sa.Column('post_view', sa.Integer(), nullable=True),
     sa.Column('status_of_jobs', sa.String(), nullable=False),
     sa.Column('posted_date', sa.DateTime(), nullable=True),
     sa.Column('employer_id', sa.Integer(), nullable=True),
