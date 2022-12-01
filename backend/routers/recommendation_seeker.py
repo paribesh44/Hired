@@ -179,6 +179,8 @@ def RecommendSeekers(jobpost_id: int, db: Session = Depends(database.get_db), cu
         
         dictionary[hired_seeker_who_applied_for_job[no_of_seeker].id]["percentage"] = percentage
 
+        print(dictionary)
+
     # return hired_job_post
     # return hired_seeker_who_applied_for_job
     return dictionary

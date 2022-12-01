@@ -79,6 +79,22 @@ def update(job_post_id: int, data: job_post_schema.UpdateJobPost, db: Session = 
     return {"msg": "success"}
 
 
+@router.put("/update_post_view/{job_post_id}")
+def update_visibility(job_post_id:int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):
+    update_job_post = db.query(job_post.JobPost).filter(
+        job_post.JobPost.id == job_post_id).first()
+
+    if not update_job_post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User Assesment with id not found")
+
+    update_job_post.post_view += 1
+    db.commit()
+    db.refresh(update_job_post)
+
+    return {"msg": "success"}
+
+
 # , response_model=List[schemas.Showjob_post]
 @router.get('/get_all')
 def all(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_job_seeker)):

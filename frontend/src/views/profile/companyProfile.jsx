@@ -13,12 +13,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { ImCross } from "react-icons/im";
 
-function CompanyProfile(props) {
-  // const location = useLocation();
-  // const { employer } = location.state;
-  console.log(props)
-  var employer = props.employer;
-  console.log(employer)
+function CompanyProfile() {
+  const location = useLocation();
+  const { employer } = location.state;
+  // console.log(props)
+  // var employer = props.employer;
+  // console.log(employer)
 
   const [companyName, setCompanyName] = useState(employer.companyName)
   const [contactEmail, setContactEmail] = useState(employer.contactEmail)

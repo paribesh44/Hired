@@ -41,7 +41,6 @@ function CompanyNavbarIn() {
       console.log("success");
     }
   };
-  console.log("employer", employer)
   return (
     <div className="navbar-main">
       <Grid
@@ -151,7 +150,8 @@ function CompanyNavbarIn() {
                       <Link
                         to="/CompanyProfile"
                         style={{ textDecoration: "none" }}
-                        employer= {employer.data}
+                        // employer= {employer.data}
+                        state={{employer: employer.data}}
                       >
                         <Grid
                           container

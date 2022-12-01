@@ -85,6 +85,8 @@ const Signup = () => {
     }
   }
 
+  console.log(user_type)
+
   return (
     <Grid container className="signUp">
       <Grid item className="left_c" xs>
