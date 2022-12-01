@@ -1,0 +1,110 @@
+.profile_heading{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.profile_subheading{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.profile_box{
+    background-color: white;
+    padding: 30px 50px ;
+    border: 1px solid black;
+    margin-top: 30px;
+    /* width: 1000px; */
+    border-radius: 8px;
+    margin-left: 300px !important;
+    margin-right: 300px !important;
+    margin-top: 30px!important;
+}
+.form_main_color{
+    background-color: #EBEFF5;
+    padding-bottom: 200px;
+}
+
+.field_color{
+    background-color:  #EBEFF5;
+    border-radius: 8px;
+}
+
+.input_border{
+    border: none;
+}
+
+.snc-button{
+    height:42px;
+    outline: none;
+    background:  #495c83;
+    border: 2px solid #495c83;
+    border-radius: 7px;
+    padding: 20px 30px 20px 30px;
+    font-size: 1.2em;
+    font-weight: 400;
+    color: white;       
+}
+/* .edu_box_inner{
+    width: 500px ;
+} */
+
+.snc-button:hover{
+    background-color:white;
+    color:  #495c83;
+}
+
+.grad_year{
+    padding-right: 340px;
+
+}
+
+.education_box{
+    background-color: white;
+    padding: 30px 50px ;
+    border: 1px solid black;
+    margin-top: 30px;
+    /* width: 1000px; */
+    border-radius: 8px;
+    margin-left: 300px !important;
+    margin-right: 300px !important;
+    margin-top: 30px!important;
+    
+
+}
+
+.border{
+    border: 1px solid black;
+}
+
+.start_workdata{
+    padding-left: 300px;
+}
+
+.each_profile_tab{
+    padding-right: 200px;
+    color: white;
+    font-size: 18px;
+}
+.unselected_eachprofile{
+    padding-right: 200px;
+    color: rgb(181, 178, 178);
+
+}
+
+.main_profile_tab{
+    border: 1px solid black;
+    padding: 10px;
+    background-color: #495c83;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding-left: 100px;
+    width: 200px;
+    /* margin-left: 100px!important; */
+}
+
+.profile_inin{
+    width: 1520px;
+    /* margin-left: 300px!important; */
+}

@@ -38,22 +38,33 @@ function Assesmentmain() {
           direction="column"
           justifyContent="space-evenly"
         >
-          <Grid item className="assesmentmain-heading">
-            Assesments
+          <Grid item>
+            <Grid container direction={"row"} justifyContent="space-between">
+              <Grid item>
+                <Grid container direction={"column"}>
+                  <Grid item className="assesmentmain-heading">
+                    Assesments
+                  </Grid>
+                  <Grid item className="assesmentmain-subheading">
+                    List of relatable assesments that might help you in
+                    interview prep and submit marks to companies.
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item className="assesmentmain-button">
+                <Link
+                  to="/ListDoneAssesment"
+                  style={{ textDecoration: "none" }}
+                >
+                  <CustomButton
+                    name="View My Assesments"
+                    addStyles={"reject-button"}
+                  ></CustomButton>
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item className="assesmentmain-subheading">
-            List of relatable assesments that might help you in interview prep
-            and submit marks to companies.
-          </Grid>
-          <Grid item className="assesmentmain-button">
-            <Link to="/ListDoneAssesment" style={{ textDecoration: "none" }}>
-              <CustomButton
-                name="View My Assesments"
-                addStyles={"reject-button"}
-              ></CustomButton>
-            </Link>
-          </Grid>
-
+          <br />
           <Grid item className="assesment-recommendbox">
             <RecommendAssesment recommended_target_field={recommendedTF} />
           </Grid>

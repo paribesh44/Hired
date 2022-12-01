@@ -21,39 +21,39 @@ export default function DisabledTabs() {
   );
 } */
 
-import * as React from 'react';
-import { styled } from '@mui/system';
-import TabsUnstyled from '@mui/base/TabsUnstyled';
-import TabsListUnstyled from '@mui/base/TabsListUnstyled';
-import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
-import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
-import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import * as React from "react";
+import { styled } from "@mui/system";
+import TabsUnstyled from "@mui/base/TabsUnstyled";
+import TabsListUnstyled from "@mui/base/TabsListUnstyled";
+import TabPanelUnstyled from "@mui/base/TabPanelUnstyled";
+import { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
+import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 const blue = {
-  50: '#F0F7FF',
-  100: '#C2E0FF',
-  200: '#80BFFF',
-  300: '#66B2FF',
-  400: '#3399FF',
-  500: '#007FFF',
-  600: '#0072E5',
-  700: '#0059B2',
-  800: '#004C99',
-  900: '#003A75',
+  50: "#F0F7FF",
+  100: "#C2E0FF",
+  200: "#80BFFF",
+  300: "#66B2FF",
+  400: "#3399FF",
+  500: "#007FFF",
+  600: "#0072E5",
+  700: "#0059B2",
+  800: "#004C99",
+  900: "#003A75",
 };
 
 const grey = {
-  50: '#f6f8fa',
-  100: '#eaeef2',
-  200: '#d0d7de',
-  300: '#afb8c1',
-  400: '#8c959f',
-  500: '#6e7781',
-  600: '#57606a',
-  700: '#424a53',
-  800: '#32383f',
-  900: '#24292f',
+  50: "#f6f8fa",
+  100: "#eaeef2",
+  200: "#d0d7de",
+  300: "#afb8c1",
+  400: "#8c959f",
+  500: "#6e7781",
+  600: "#57606a",
+  700: "#424a53",
+  800: "#32383f",
+  900: "#24292f",
 };
 
 const Tab = styled(TabUnstyled)`
@@ -93,13 +93,13 @@ const Tab = styled(TabUnstyled)`
 
 const TabPanel = styled(TabPanelUnstyled)`
   width: 100%;
-  
+
   font-size: 0.875rem;
 `;
 
 const TabsList = styled(TabsListUnstyled)(
   ({ theme }) => `
-  min-width: 400px;
+  min-width: 300px;
   background-color: ${blue[500]};
   border-radius: 12px;
   margin-bottom: 16px;
@@ -108,26 +108,30 @@ const TabsList = styled(TabsListUnstyled)(
   justify-content: center;
   align-content: space-between;
  
-  `,
+  `
 );
 
 export default function UnstyledTabsCustomized() {
-  const routes =["/formone", '/fomrtwo'];
+  const routes = ["/formone", "/fomrtwo"];
   return (
-    
     <TabsUnstyled defaultValue={0}>
       <TabsList>
-        <Tab label="Profile" value={routes[0]}>Profile</Tab>
-        <Tab label="Disabled" disabled>Education</Tab>
-        <Tab label="Disabled" disabled>Experince</Tab>
-        <Tab label="Disabled" disabled>Preferences</Tab>
-        <Tab label="Disabled" disabled>Resume/ CV</Tab>
-      
-
+        <Tab label="Profile" value={routes[0]}>
+          Profile
+        </Tab>
+        <Tab label="Disabled" disabled>
+          Education
+        </Tab>
+        <Tab label="Disabled" disabled>
+          Experince
+        </Tab>
+        <Tab label="Disabled" disabled>
+          Preferences
+        </Tab>
+        <Tab label="Disabled" disabled>
+          Resume/ CV
+        </Tab>
       </TabsList>
-     
-      
     </TabsUnstyled>
-   
   );
 }

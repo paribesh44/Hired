@@ -16,10 +16,10 @@ function AppliedEmployeesList() {
   return (
     <Companylayout>
       <Grid container direction="row" className="appliedhomemain">
-        <Grid item>
-          <SearchBy />
+        <Grid item xs={2}>
+          {/* <SearchBy /> */}
         </Grid>
-        <Grid sm={9} item>
+        <Grid xs={9} item>
           <Appliedlist job_post_id={job_post_id} job_position={job_position} />
         </Grid>
       </Grid>

@@ -37,11 +37,11 @@
 }
 
 .reminderpage_button{
-    padding-left: 690px;
+    padding-top: 35px;
 }
 
 .reminderpage_singlebutton{
-    margin-bottom: 15px;
+    padding-bottom: 15px!important
 }
 
 .add_a_new_reminder{
@@ -67,3 +67,42 @@ width: 300px;
 /* border: 1px solid black; */
 margin-bottom: 10px!important;}
 
+
+.accept-buttonn{
+    height:42px;
+    outline: none;
+    background:  #495c83;
+    border: 2px solid #495c83;
+    border-radius: 7px;
+    padding: 5px 25px 5px 25px;
+    font-size: 1.2em;
+    font-weight: 400;
+    color: white;   
+    margin-top: 50px!important;    
+    width: 200px;
+}
+
+.accept-buttonn:hover{
+    background-color:white;
+    color:  #495c83;
+}
+
+.reminder_boxx{
+    width: 1100px;
+    /* border: 1px solid black; */
+}
+
+.remain_topic{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.normal_remain_text{
+    font-size: 17px;
+    font-weight:500 ;
+}
+
+.normal_remain{
+    font-size: 17px;
+    padding-bottom: 3px;
+}

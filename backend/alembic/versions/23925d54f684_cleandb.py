@@ -1,14 +1,8 @@
 """cleandb
 
-<<<<<<< HEAD:backend/alembic/versions/76d138067bd4_cleandb.py
-Revision ID: 76d138067bd4
+Revision ID: 23925d54f684
 Revises: 
-Create Date: 2022-11-20 14:24:54.138574
-=======
-Revision ID: 8c965475ec70
-Revises: 
-Create Date: 2022-11-20 12:23:49.249903
->>>>>>> master:backend/alembic/versions/8c965475ec70_cleandb.py
+Create Date: 2022-12-01 12:49:07.319604
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<< HEAD:backend/alembic/versions/76d138067bd4_cleandb.py
-revision = '76d138067bd4'
-=======
-revision = '8c965475ec70'
->>>>>>> master:backend/alembic/versions/8c965475ec70_cleandb.py
+revision = '23925d54f684'
 down_revision = None
 branch_labels = None
 depends_on = None

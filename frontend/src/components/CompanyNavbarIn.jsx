@@ -21,7 +21,7 @@ function CompanyNavbarIn() {
   function handleNotifClicked() {
     setnotifclick(!notifclick);
   }
-  
+
   async function handleImageClick() {
     console.log("imageclicked");
     setClicked(!clicked);
@@ -41,7 +41,7 @@ function CompanyNavbarIn() {
       console.log("success");
     }
   };
-  console.log("employer", employer)
+  console.log("employer", employer);
   return (
     <div className="navbar-main">
       <Grid
@@ -147,28 +147,29 @@ function CompanyNavbarIn() {
                 {clicked && (
                   <Grid item className="profile_box_label_company">
                     <Grid item>
-                        {employer !=null &&
-                      <Link
-                        to="/CompanyProfile"
-                        style={{ textDecoration: "none" }}
-                        employer= {employer.data}
-                      >
-                        <Grid
-                          container
-                          direction="row-reverse"
-                          // alignItems="start"
-                          justifyContent="space-between"
-                          className="profile_box_label_each"
+                      {employer != null && (
+                        <Link
+                          to="/CompanyProfile"
+                          style={{ textDecoration: "none" }}
+                          // employer= {employer.data}
+                          state={{ employer: employer.data }}
                         >
-                          <Grid item className="profile_box_label_texts">
-                            <FiEdit3 size={20} />{" "}
+                          <Grid
+                            container
+                            direction="row-reverse"
+                            // alignItems="start"
+                            justifyContent="space-between"
+                            className="profile_box_label_each"
+                          >
+                            <Grid item className="profile_box_label_texts">
+                              <FiEdit3 size={20} />{" "}
+                            </Grid>
+                            <Grid item className="profile_box_label_texts">
+                              Edit Profile
+                            </Grid>
                           </Grid>
-                          <Grid item className="profile_box_label_texts">
-                            Edit Profile
-                          </Grid>
-                        </Grid>
-                      </Link>
-                      }
+                        </Link>
+                      )}
 
                       <Grid
                         container
