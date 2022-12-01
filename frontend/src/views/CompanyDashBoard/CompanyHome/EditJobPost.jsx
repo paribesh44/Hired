@@ -28,6 +28,7 @@ import {
   NotificationManager,
 } from "react-notifications";
 import Companylayout from "../../../components/Companylayout";
+import CustomButton from "../../../components/Buttons";
 
 const validationschema = Yup.object({
   //   location: Yup.string().required('Required'),
@@ -161,323 +162,374 @@ function EditJobPost() {
         <Form>
           <br />
           {changeLocation && <Navigate to="/CompanyHome" />}
-          <Grid container justifyContent="center">
-            <h2>Post a job</h2>
-          </Grid>
-          <Grid container justifyContent="center">
-            <h3>Fill up the following fields to post a job vacancy.</h3>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="lookingfor">
-                What type of employee are you looking for?
-              </label>
-              <Grid container justifyContent="center">
-                <Select
-                  sx={{ m: 1, minWidth: 380 }}
-                  value={jobTypeDropDown}
-                  onChange={(e) => {
-                    setJobTypeDropDown(e.target.value);
-                  }}
-                  displayEmpty
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  {job_type_options &&
-                    job_type_options.map((i) => (
-                      <MenuItem value={i}>{i}</MenuItem>
-                    ))}
-                </Select>
+          <Grid container>
+            <Grid item xs={2}></Grid>
+            <Grid item>
+              <Grid container className="title_reminder">
+                Post a job
               </Grid>
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="lookingfor">Job level</label>
-              <Grid container justifyContent="center">
-                <Select
-                  sx={{ m: 1, minWidth: 380 }}
-                  value={jobLevelDropDown}
-                  onChange={(e) => {
-                    setJobLevelDropDown(e.target.value);
-                  }}
-                  displayEmpty
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  {job_level_options &&
-                    job_level_options.map((i) => (
-                      <MenuItem value={i}>{i}</MenuItem>
-                    ))}
-                </Select>
-              </Grid>
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="lookingfor">Job level</label>
-              <Grid container justifyContent="center">
-                <Select
-                  sx={{ m: 1, minWidth: 380 }}
-                  value={educationRequiredDropDown}
-                  onChange={(e) => {
-                    setEducationRequiredDropDown(e.target.value);
-                  }}
-                  displayEmpty
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  {education_required &&
-                    education_required.map((i) => (
-                      <MenuItem value={i}>{i}</MenuItem>
-                    ))}
-                </Select>
-              </Grid>
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="position">Job Position </label>
-
-              <Field
-                type="text"
-                id="position"
-                name="position"
-                placeholder="e.g. Graphic Designer or ML engineer"
-              />
-
-              <ErrorMessage name="position" />
-            </div>
-          </Grid>
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="location">Job Location </label>
-
-              <Field
-                type="text"
-                id="location"
-                name="location"
-                placeholder="e.g. Dhulikhel"
-              />
-
-              <ErrorMessage name="location" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="skills">Skills</label>
-
-              <h7>Specify all the skills required for job</h7>
-              <br />
-              <Field
-                type="text"
-                id="skills"
-                name="skills"
-                placeholder="e.g. css, html, fastapi, ml"
-                multiline={true}
-              />
-              <ErrorMessage name="skills" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="description">Description</label>
-
-              <h7>Describe about the job</h7>
-              <br />
-              <Field
-                type="text"
-                id="description"
-                name="description"
-                placeholder="e.g. its the best job ever."
-                multiline={true}
-              />
-              <ErrorMessage name="description" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="responsibilities">Job responsibilities</label>
-
-              <Field
-                type="text"
-                id="responsibilities"
-                name="responsibilities"
-                placeholder="e.g. Should develop good models, Create APIs"
-              />
-
-              <ErrorMessage name="responsibilities" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="benefits">Job Benefits</label>
-
-              <Field
-                type="text"
-                id="benefits"
-                name="benefits"
-                placeholder="e.g Insurance, Handsome bonus"
-              />
-
-              <ErrorMessage name="benefits" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="vacancy">Number of vancancies</label>
-
-              <Field
-                type="text"
-                id="vacancy"
-                name="vacancy"
-                placeholder="e.g. 10"
-              />
-
-              <ErrorMessage name="vacancy" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="hours">Work Hours</label>
-
-              <Field
-                type="text"
-                id="hours"
-                name="hours"
-                placeholder="e.g. 9 pm to 5 am"
-              />
-
-              <ErrorMessage name="hours" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="experience">Minimun years of experience</label>
-
-              <Field
-                type="text"
-                id="experience"
-                name="experience"
-                placeholder="2"
-              />
-
-              <ErrorMessage name="experience" />
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="type">Job Type</label>
-              <Grid container justifyContent="center">
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  name="radio-buttons-group"
-                  row
-                  value={remoteOnsiteRadio}
-                  onClick={(e) => {
-                    setRemoteOnsiteRadio(e.target.value);
-                  }}
-                >
-                  {/* {job_type_options&&job_type_options.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))} */}
-                  {radio_options.map((i) => (
-                    <FormControlLabel value={i} control={<Radio />} label={i} />
-                  ))}
-                </RadioGroup>
-              </Grid>
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="salary">Expected Salary</label>
-              <Grid container justifyContent="center">
-                <h7>Use slider to select minimum salary (in thousands)</h7>
+              <Grid container className="post_job_sub">
+                Fill up the following fields to post a job vacancy.
               </Grid>
               <br />
-              <Grid container justifyContent="center">
-                <InputSlider
-                  onChange={getMinimumSalary}
-                  sliderValue={job.min_salary}
-                  type="minimum"
-                />
+              <Grid container>
+                <div>
+                  <Grid item htmlFor="lookingfor" className="post_questions">
+                    What type of employee are you looking for?
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <Select
+                      className="field_position_add"
+                      value={jobTypeDropDown}
+                      onChange={(e) => {
+                        setJobTypeDropDown(e.target.value);
+                      }}
+                      displayEmpty
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      <MenuItem value="">
+                        <em>Select</em>
+                      </MenuItem>
+                      {job_type_options &&
+                        job_type_options.map((i) => (
+                          <MenuItem value={i}>{i}</MenuItem>
+                        ))}
+                    </Select>
+                  </Grid>
+                </div>
               </Grid>
 
-              <Grid container justifyContent="center">
-                <h7>Use slider to select maximum salary (in thousands)</h7>
+              <Grid container>
+                <div>
+                  <Grid htmlFor="lookingfor" className="post_questions">
+                    Job level
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <Select
+                      className="field_position_add"
+                      value={jobLevelDropDown}
+                      onChange={(e) => {
+                        setJobLevelDropDown(e.target.value);
+                      }}
+                      displayEmpty
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      <MenuItem value="">
+                        <em>Select</em>
+                      </MenuItem>
+                      {job_level_options &&
+                        job_level_options.map((i) => (
+                          <MenuItem value={i}>{i}</MenuItem>
+                        ))}
+                    </Select>
+                  </Grid>
+                </div>
               </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="lookingfor" className="post_questions">
+                    Job level
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <Select
+                      className="field_position_add"
+                      value={educationRequiredDropDown}
+                      onChange={(e) => {
+                        setEducationRequiredDropDown(e.target.value);
+                      }}
+                      displayEmpty
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      <MenuItem value="">
+                        <em>Select</em>
+                      </MenuItem>
+                      {education_required &&
+                        education_required.map((i) => (
+                          <MenuItem value={i}>{i}</MenuItem>
+                        ))}
+                    </Select>
+                  </Grid>
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="position" className="post_questions">
+                    Job Position{" "}
+                  </Grid>
+
+                  <Field
+                    className="field_position_add"
+                    type="text"
+                    id="position"
+                    name="position"
+                    placeholder="e.g. Graphic Designer or ML engineer"
+                  />
+
+                  <ErrorMessage name="position" />
+                </div>
+              </Grid>
+              <Grid container>
+                <div>
+                  <Grid htmlFor="location" className="post_questions">
+                    Job Location{" "}
+                  </Grid>
+
+                  <Field
+                    className="field_position_add"
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="e.g. Dhulikhel"
+                  />
+
+                  <ErrorMessage name="location" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="skills" className="post_questions">
+                    Skills
+                  </Grid>
+
+                  <h7>Specify all the skills required for job</h7>
+                  <br />
+                  <Field
+                    className="field_position_add"
+                    type="text"
+                    id="skills"
+                    name="skills"
+                    placeholder="e.g. css, html, fastapi, ml"
+                    multiline={true}
+                  />
+                  <ErrorMessage name="skills" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="description" className="post_questions">
+                    Description
+                  </Grid>
+
+                  <h7>Describe about the job</h7>
+                  <br />
+                  <Field
+                    className="field_position_add3"
+                    type="text"
+                    id="description"
+                    name="description"
+                    placeholder="e.g. its the best job ever."
+                    multiline={true}
+                  />
+                  <ErrorMessage name="description" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="responsibilities" className="post_questions">
+                    Job responsibilities
+                  </Grid>
+
+                  <Field
+                    className="field_position_add3"
+                    type="text"
+                    id="responsibilities"
+                    name="responsibilities"
+                    placeholder="e.g. Should develop good models, Create APIs"
+                  />
+
+                  <ErrorMessage name="responsibilities" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="benefits" className="post_questions">
+                    Job Benefits
+                  </Grid>
+
+                  <Field
+                    className="field_position_add3"
+                    type="text"
+                    id="benefits"
+                    name="benefits"
+                    placeholder="e.g Insurance, Handsome bonus"
+                  />
+
+                  <ErrorMessage name="benefits" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="vacancy" className="post_questions">
+                    Number of vancancies
+                  </Grid>
+
+                  <Field
+                    className="field_position_add"
+                    type="text"
+                    id="vacancy"
+                    name="vacancy"
+                    placeholder="e.g. 10"
+                  />
+
+                  <ErrorMessage name="vacancy" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="hours" className="post_questions">
+                    Work Hours
+                  </Grid>
+
+                  <Field
+                    className="field_position_add"
+                    type="text"
+                    id="hours"
+                    name="hours"
+                    placeholder="e.g. 9 pm to 5 am"
+                  />
+
+                  <ErrorMessage name="hours" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="experience" className="post_questions">
+                    Minimun years of experience
+                  </Grid>
+
+                  <Field
+                    className="field_position_add"
+                    type="text"
+                    id="experience"
+                    name="experience"
+                    placeholder="2"
+                  />
+
+                  <ErrorMessage name="experience" />
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid htmlFor="type" className="post_questions">
+                    Job Type
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <RadioGroup
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      name="radio-buttons-group"
+                      row
+                      value={remoteOnsiteRadio}
+                      onClick={(e) => {
+                        setRemoteOnsiteRadio(e.target.value);
+                      }}
+                    >
+                      {/* {job_type_options&&job_type_options.map((i)=>( <MenuItem value={i}>{i}</MenuItem>))} */}
+                      {radio_options.map((i) => (
+                        <FormControlLabel
+                          value={i}
+                          control={<Radio />}
+                          label={i}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </Grid>
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid className="post_questions" htmlFor="salary">
+                    Expected Salary
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <h7>Use slider to select minimum salary (in thousands)</h7>
+                  </Grid>
+                  <br />
+                  <Grid container justifyContent="center">
+                    <InputSlider
+                      onChange={getMinimumSalary}
+                      sliderValue={job.min_salary}
+                      type="minimum"
+                    />
+                  </Grid>
+
+                  <Grid container justifyContent="center">
+                    <h7>Use slider to select maximum salary (in thousands)</h7>
+                  </Grid>
+                  <br />
+                  <Grid container justifyContent="center">
+                    <InputSlider
+                      onChange={getMaximumSalary}
+                      sliderValue={job.max_salary}
+                      type="maximum"
+                    />
+                  </Grid>
+                </div>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid className="post_questions" htmlFor="startdate">
+                    Job start date
+                  </Grid>
+                </div>
+                <Grid container justifyContent="center" />
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label="MM/DD/YYYY"
+                    value={jobStartDatePicker}
+                    onChange={(newValue) => {
+                      setJobStartDatePicker(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+
+              <Grid container>
+                <div>
+                  <Grid className="post_questions" htmlFor="deadline">
+                    Deadline
+                  </Grid>
+                </div>
+                <Grid container justifyContent="center" />
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label="MM/DD/YYYY"
+                    value={deadlineDatePicker}
+                    onChange={(newValue) => {
+                      setDeadlineDatePicker(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+
               <br />
+
               <Grid container justifyContent="center">
-                <InputSlider
-                  onChange={getMaximumSalary}
-                  sliderValue={job.max_salary}
-                  type="maximum"
-                />
+                {/* <Link to= '/Formtwo'> */}
+                <CustomButton
+                  name="Update"
+                  type="submit"
+                  variant="contained"
+                  addStyles={"accept-button"}
+                ></CustomButton>
+                {/* </Link> */}
               </Grid>
-            </div>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="startdate">Job start date</label>
-            </div>
-            <Grid container justifyContent="center" />
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="MM/DD/YYYY"
-                value={jobStartDatePicker}
-                onChange={(newValue) => {
-                  setJobStartDatePicker(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </Grid>
-
-          <Grid container justifyContent="center">
-            <div>
-              <label htmlFor="deadline">Deadline</label>
-            </div>
-            <Grid container justifyContent="center" />
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="MM/DD/YYYY"
-                value={deadlineDatePicker}
-                onChange={(newValue) => {
-                  setDeadlineDatePicker(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </Grid>
-
-          <br />
-
-          <Grid container justifyContent="center">
-            {/* <Link to= '/Formtwo'> */}
-            <Button type="submit" variant="contained">
-              Update
-            </Button>
-            {/* </Link> */}
+            </Grid>
           </Grid>
         </Form>
       </Formik>

@@ -205,9 +205,10 @@
 
 .mcq-unordered{
     list-style: none;
+    cursor: pointer;
 }
 
-.mcq-unordered > li{
+.mcq_option{
     padding: 10px 10px 10px 20px;
     background-color: #EBEFF5;
     margin: 10px 90px 20px 0px;
@@ -215,10 +216,20 @@
     max-width: 1000px;
 }
 
-.mcq-unordered > li:hover{
+.mcq_option:hover{
     background-color:#495c83;
     color: white;
+}
 
+.mcq-option-clicked{
+    background-color:#495c83;
+    color: white;
+    padding: 10px 10px 10px 20px;
+    background-color: #EBEFF5;
+    margin: 10px 90px 20px 0px;
+    border-radius: 8px;
+    max-width: 1000px;
+    
 }
 
 

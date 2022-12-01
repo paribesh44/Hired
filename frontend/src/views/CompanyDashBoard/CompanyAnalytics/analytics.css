@@ -72,9 +72,10 @@
 }
 
 .conversion_container{
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 1px 1px;
+    border: 1px solid rgb(210, 210, 210);    border-radius: 5px;
+    box-shadow: 10px 11px 21px -2px rgba(0,0,0,0.11);
+    -webkit-box-shadow: 10px 11px 21px -2px rgba(0,0,0,0.11);
+    -moz-box-shadow: 10px 11px 21px -2px rgba(0,0,0,0.11);
     padding: 30px 40px;
     margin-bottom: 40px !important;
     width: 1255px;

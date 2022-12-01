@@ -90,7 +90,7 @@ function AssesmentQuestions() {
                   Score:
                 </Grid>
                 <Grid item className="starttext">
-                  20
+                  5
                 </Grid>
               </Grid>
             </Grid>{" "}
@@ -116,7 +116,7 @@ function AssesmentQuestions() {
               </Grid>
               <Grid item className="asses-subheading">
                 <div> Type: MCQ</div>
-                <div>Time:sss</div>
+                {/* <div>Time:sss</div> */}
               </Grid>
             </Grid>
             <MCQQuestionCard

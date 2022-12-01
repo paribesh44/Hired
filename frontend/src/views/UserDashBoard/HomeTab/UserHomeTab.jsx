@@ -32,22 +32,21 @@ function UserHomeTab() {
       let response_obj3 = await callAPI({
         endpoint: `/jobPost/search_jobs/${value}`,
       });
-      if(response_obj3.data.length==0) {
-        setSearchedJobNotFound(true)
+      if (response_obj3.data.length == 0) {
+        setSearchedJobNotFound(true);
       } else {
-        setSearchedJobNotFound(false)
+        setSearchedJobNotFound(false);
         setallJobs(response_obj3);
         setsearchJob(true);
       }
     } else {
-      setSearchedJobNotFound(false)
+      setSearchedJobNotFound(false);
       setsearchJob(true);
       let response_obj4 = await callAPI({
         endpoint: "/jobPost/show_all_jobs",
       });
       setallJobs(response_obj4);
     }
-    
   };
   const [recommendedJobs, setRecommendedJobs] = useState(null);
 
@@ -67,8 +66,8 @@ function UserHomeTab() {
     let response_obj2 = await callAPI({
       endpoint: "/jobPost/show_all_jobs",
     });
-      setallJobs(response_obj2);
-      console.log(response_obj2.data);
+    setallJobs(response_obj2);
+    console.log(response_obj2.data);
   };
 
   useEffect(() => {
@@ -80,12 +79,12 @@ function UserHomeTab() {
     return (
       <DashboardLayout>
         <Grid container direction="column" className="assesmentmain-main">
-          {recommendedJobs.data.length!=0 &&
-          <Grid item className="userhomemtitle">
-            Recommended Jobs
-          </Grid>
-          }
-          
+          {recommendedJobs.data.length != 0 && (
+            <Grid item className="userhomemtitle">
+              Recommended Jobs
+            </Grid>
+          )}
+
           <Grid item>
             {recommendedJobs.data.map((job, val) => {
               return (
@@ -113,6 +112,7 @@ function UserHomeTab() {
                 <Grid item className="userhome_searchbox">
                   <FormControl style={{ width: "50%" }} variant="outlined">
                     <InputLabel
+                      className="search11"
                       htmlFor="searchBox"
                       style={{
                         backgroundColor: "white",
@@ -146,11 +146,17 @@ function UserHomeTab() {
                 <Grid item>
                   <Grid container direction="center">
                     <div>
-                      <h3 style={{color: "grey", marginTop: "20px", marginLeft: "70px"}}>Searched {value} Job not found.</h3>
+                      <h3
+                        style={{
+                          color: "grey",
+                          marginTop: "20px",
+                          marginLeft: "70px",
+                        }}
+                      >
+                        Searched {value} Job not found.
+                      </h3>
                     </div>
-
                   </Grid>
-
                 </Grid>
               )}
               {searchJob && (

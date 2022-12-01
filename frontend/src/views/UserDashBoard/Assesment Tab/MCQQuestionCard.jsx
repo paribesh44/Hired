@@ -6,7 +6,8 @@ import CustomButton from "../../../components/Buttons";
 import { Link } from "react-router-dom";
 import callAPI from "../../../utils/callAPI";
 import useAPI from "../../../utils/useAPI";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import { Grid, IconButton } from "@mui/material";
 
 function MCQQuestionCard(props) {
   const target_field_id = props.target_field_id;
@@ -17,7 +18,7 @@ function MCQQuestionCard(props) {
   const [selectedans, setselecredans] = useState("");
   const [targetfield, settargetfield] = useState("");
   const [chosenn, setchosenn] = useState([]);
-   const [changeLocation, setChangeLocation] = React.useState(false);
+  const [changeLocation, setChangeLocation] = React.useState(false);
 
   const [listofselected, setlistofselected] = useState({
     target_field_id: "",
@@ -41,15 +42,27 @@ function MCQQuestionCard(props) {
     console.log(response_obj.data);
     setResult(response_obj.data);
   };
+  const [hamlaiChanineID, setHamlaiCHaineID] = useState(null);
+
+  const defaultSelectArray = [0, 0, 0, 0];
+  const [nextClickedCheck, onClicked] = useState(false);
+  const [selectArray, onSelectArray] = useState(defaultSelectArray);
 
   useEffect(() => {
     message();
   }, []);
 
-  const optionClicked = (isCorrect, id) => {
+  const optionClicked = (isCorrect, id, index) => {
+    var temp = defaultSelectArray;
     // console.log(isCorrect)
+
     setselecredans(isCorrect);
     settargetfield(id);
+
+    temp[index] = 1;
+    onSelectArray([temp]);
+
+    // onClicked(!clicked);
 
     // setselecredans(myArrray=>[...myArrray, isCorrect]
 
@@ -104,23 +117,23 @@ function MCQQuestionCard(props) {
 
     if (true) {
       console.log("dhasjkdahs");
-      setChangeLocation(true)
+      setChangeLocation(true);
     }
   };
 
   if (mcqquestions != null) {
     return (
       <div>
-        {changeLocation && <Navigate to="/ListDoneAssesment"/>}
+        {changeLocation && <Navigate to="/ListDoneAssesment" />}
         {showFinalResult ? (
           <div className="final-results">
             <div className="mcqcompleteheading">MCQ Complete</div>
             <div className="mcqcompletesub">{props.target_field_name}</div>
-              <CustomButton
-                addStyles={"accept-button"}
-                name="Finish"
-                onClicked={() => FinishClicked()}
-              />
+            <CustomButton
+              addStyles={"accept-button"}
+              name="Finish"
+              onClicked={() => FinishClicked()}
+            />
           </div>
         ) : (
           <div className="mcq-main">
@@ -134,18 +147,31 @@ function MCQQuestionCard(props) {
               </div>
 
               <ul className="mcq-unordered">
-                {mcqquestions.mcq[currentQuestion].answers.map((option) => {
+                {mcqquestions.mcq[currentQuestion].answers.map((option, id) => {
                   return (
                     <li
-                      onClick={() =>
+                      onClick={() => {
                         optionClicked(
                           option,
-                          mcqquestions.mcq[currentQuestion].target_field_id
-                        )
-                      }
+                          mcqquestions.mcq[currentQuestion].target_field_id,
+                          id
+                        );
+                        setHamlaiCHaineID(id);
+                      }}
                       key={option}
                     >
-                      {option}
+                      {console.log(hamlaiChanineID)}
+                      <Grid
+                        className={
+                          selectArray[hamlaiChanineID] === 1
+                            ? "mcq-option-clicked"
+                            : "mcq_option"
+                        }
+                      >
+                        {option}
+                        {console.log(selectArray)}
+                        {/* {console.log(id)} */}
+                      </Grid>
                     </li>
                   );
                 })}
@@ -154,7 +180,10 @@ function MCQQuestionCard(props) {
             <CustomButton
               addStyles={"accept-button"}
               name="Next"
-              onClicked={() => nextClicked()}
+              onClicked={() => {
+                nextClicked();
+                onSelectArray(defaultSelectArray);
+              }}
             />
           </div>
         )}
