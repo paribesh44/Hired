@@ -1,4 +1,4 @@
-.App {
+  .App {
   text-align: center;
 }
 
@@ -34,9 +34,7 @@ select {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 2;
-  color: #555;
-  
-  
+  color: #555;  
   border: 1px solid #ccc;
   border-radius: 4px;
    margin-bottom: 15px; 

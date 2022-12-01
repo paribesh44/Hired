@@ -17,7 +17,9 @@ function CompanyReminderPage() {
   const [remainders, setRemainders] = useState(null);
 
   const message = async () => {
-    let response_obj = await callAPI({ endpoint: "/remainder/get_remainder_company" });
+    let response_obj = await callAPI({
+      endpoint: "/remainder/get_remainder_company",
+    });
     setRemainders(response_obj);
     console.log(response_obj.data);
   };
@@ -33,7 +35,7 @@ function CompanyReminderPage() {
           <Grid item>
             <Grid container direction="row" justifyContent={"space-between"}>
               <Grid item className="title_reminder">
-                Your Reminders
+                Your Schedules
               </Grid>
               <Link
                 to="/CompanyAddReminder"
@@ -41,19 +43,17 @@ function CompanyReminderPage() {
                 style={{ textDecoration: "none", color: "#495c83" }}
               >
                 <Grid item className="sub_reminder">
-                  Add New Reminder
+                  Add New Schedule
                 </Grid>
               </Link>
             </Grid>
-            {remainders != null &&
-            <Grid item>
-              {remainders.data.map((val, key) => {
-                return (
-                  <CRemainderComponent val={val}/>
-                )
+            {remainders != null && (
+              <Grid item>
+                {remainders.data.map((val, key) => {
+                  return <CRemainderComponent val={val} />;
                 })}
-            </Grid>
-            }
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Companylayout>

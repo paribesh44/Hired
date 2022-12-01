@@ -17,7 +17,7 @@ export const CompanyNavbarData = [
     link: ["/CompanyAnalytics"],
   },
   {
-    title: "Reminders",
+    title: "Schedules",
     selected: false,
     link: ["/CompanyReminderPage", "/CompanyAddReminder"],
   },

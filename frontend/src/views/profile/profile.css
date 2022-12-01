@@ -75,6 +75,10 @@
   width: 25rem;
 }
 
+.select_role {
+  height: 40px;
+}
+
 .role_container1 {
   margin-bottom: 3em;
 }
@@ -99,6 +103,11 @@
   margin-bottom: 2em;
 }
 
+.field_container2 {
+  margin-bottom: 2em;
+  padding-left: 30px;
+}
+
 .main_container{
 
 padding:5em 20em;
@@ -112,4 +121,97 @@ padding:5em 20em;
   font-size: 0.8em;
   background-color: #EBEFF550;
   padding-right: 4em;
+}
+
+.edit_user_general{
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 10px;
+  padding-right: 10px;
+}
+
+.general_info{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px!important;
+  padding-top: 10px;
+}
+
+.cgpa_field{
+  width: 130px;
+}
+
+
+.preferred_job_padding{
+  padding-left: 22px;
+}
+
+.container_spacing{
+  padding-left: 70px;
+}
+
+.container_spacing2{
+  padding-left: 150px;
+}
+
+.normal_text{
+  font-size: 16px;
+  font-weight: 400;
+  /* margin-bottom: 0px!important; */
+  padding-bottom: 4px;
+  
+}
+
+.field_position_add{
+  width: 450px;
+  background-color: #EBEFF5;
+  border-radius: 6px;
+  height: 50px;
+}
+
+
+.field_position_add2{
+  width: 600px;
+  background-color: #EBEFF5;
+  border-radius: 6px;
+  height: 50px;
+}
+
+
+.field_position_add3{
+  width: 1050px;
+  background-color: #EBEFF5;
+  border-radius: 6px;
+  height: 80px;
+  flex: 1,
+ 
+  
+}
+
+.field_position_add4{
+  width: 300px;
+  background-color: #EBEFF5;
+  border-radius: 6px;
+  height: 50px;
+  flex: 1,  
+}
+
+
+
+.required_font{
+  font-size: 15px;
+  color: red;
+ 
+}
+
+.three_spacing{
+  padding-left: 70px;
+}
+
+.slider_css{
+  color: red;
+}
+
+.button_padding_post{
+  padding-left: 800px;
 }
