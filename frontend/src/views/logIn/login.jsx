@@ -99,6 +99,7 @@ const Login = () => {
         <Grid>
           <a className="login">Log In</a>
         </Grid>
+        {user_type == 1? 
         <Grid item>
           <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
             <Button
@@ -109,6 +110,7 @@ const Login = () => {
             ></Button>
           </Link>
         </Grid>
+        : null }
         <Grid container className="emailbox" direction="column">
           <Grid item className="email">
             <p>Email</p>

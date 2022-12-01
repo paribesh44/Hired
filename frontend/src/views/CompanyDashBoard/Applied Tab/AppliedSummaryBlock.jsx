@@ -104,6 +104,7 @@ export default function AppliedSummaryBlock(props) {
                 onClick={changeStatus}
                 defaultValue={changeStatusState}
               >
+                <option value="applied"> Applied</option>
                 <option value="shortlisted"> Shortlisted</option>
                 <option value="interview"> Interview</option>
                 <option value="interviewed"> Interviewed</option>

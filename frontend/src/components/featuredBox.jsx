@@ -41,9 +41,17 @@ function Featured_box({
   }, []);
 
   const current = new Date();
-  const today_date = `${current.getFullYear()}${
-    current.getMonth() + 1
-  }${current.getDate()}`;
+  var today_date=20221202
+  if(current.getDate()>=1 && current.getDate()<=9) {
+    today_date = `${current.getFullYear()}${
+      current.getMonth()+1
+    }${"0"}${current.getDate()}`;
+  } else {
+    today_date = `${current.getFullYear()}${
+      current.getMonth()+1
+    }${current.getDate()}`;
+  }
+  
   const postedDate = posted_date.split("-").join("");
   const posted_days_ago = today_date - postedDate;
 

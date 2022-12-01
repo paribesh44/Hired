@@ -5,18 +5,21 @@ import "./companyapplied.css";
 import callAPI from "../../../utils/callAPI";
 
 function AppliedProfiletab(props) {
-  console.log("props in detailed");
-  console.log(props.job_post_id);
 
   const [getcvdata, setgetcvdata] = useState(null);
+  const [getUserAssesment, setGetUserAssesment] = useState("");
 
   const message = async () => {
     let response_obj = await callAPI({
       endpoint: `/apply/get_apply_of_user/${props.job_post_id}/${props.user_id}`,
     });
+    let response_obj2 = await callAPI({
+      endpoint: `/userAssesment/show_assesment_company/${props.user_id}`
+    })
     setgetcvdata(response_obj);
+    setGetUserAssesment(response_obj2);
     console.log("this is this");
-    console.log(response_obj.data);
+    console.log(response_obj2.data);
   };
 
   useEffect(() => {
@@ -35,6 +38,17 @@ function AppliedProfiletab(props) {
           justifyContent="space-evenly"
           className="applied-profile-grid"
         >
+          {/* <Grid item className="profiletab-heading">
+            User's Assesment:
+            <br /> */}
+            {/* {getUserAssesment.map((val) => {return(
+              <div className="profiletab-desc">dbshad</div>
+            )})} */}
+            {/* {Object.entries(getUserAssesment).map(([key, value]) => console.log(value[0].score) (
+              <div className="profiletab-desc">{value[0].score}</div>
+            ))}
+          </Grid> */}
+
           <Grid item className="profiletab-heading">
             About:
             <br />
@@ -53,7 +67,7 @@ function AppliedProfiletab(props) {
           </Grid>
 
           <Grid item>
-            <div className="profiletab-heading">Preferred Job Skills:</div>
+            <div className="profiletab-heading">Job Skills:</div>
             <Grid container direction="row" className="profiletab-desc">
               {props.pskills.map((val, key) => (
                 <Grid item>

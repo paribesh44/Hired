@@ -104,6 +104,7 @@ const Signup = () => {
         <Grid item className="create">
           <p>Create Account</p>
         </Grid>
+        {user_type == 1 ?
         <Grid item>
           <Link to="?" style={{ textDecoration: "none", color: "#495c83" }}>
             <Button
@@ -114,6 +115,7 @@ const Signup = () => {
             ></Button>
           </Link>
         </Grid>
+        : null }
         <Grid container className="fullnamebox" direction="column">
           <Grid item className="full_n">
             <p>Email</p>

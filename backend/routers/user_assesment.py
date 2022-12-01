@@ -2,13 +2,15 @@ from fastapi import APIRouter, Depends, HTTPException, status, Request
 
 from schemas import user_assesment_schema
 
-from models import user_assesment, user, mcq, seeker
+from models import user_assesment, user, mcq, seeker, target_field
 from core import database, oauth2
 from sqlalchemy.orm import Session
 from forms import userAssesmentForm
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import desc
 from typing import List
+from sqlalchemy import or_
+import json
 
 
 router = APIRouter(
@@ -135,3 +137,23 @@ def complete_assesment(target_field_id: int, db: Session = Depends(database.get_
         already_solved = True
 
     return already_solved
+
+@router.get("/show_assesment_company/{seeker_id}")
+def show_assesment(seeker_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
+    hired_user_assesment = db.query(user_assesment.UserAssesment).filter(
+        user_assesment.UserAssesment.seeker_id==seeker_id, user_assesment.UserAssesment.visibility==True
+    ).all()
+
+    dict_user_assesment = {}
+
+    for i in range(len(hired_user_assesment)):
+        # dict_user_assesment[i] = {}
+
+        hired_target_field = db.query(target_field.TargetField).filter(target_field.TargetField.id==hired_user_assesment[i].target_field_id).first()
+
+        dict_user_assesment[i] ={
+            "target_field": hired_target_field.name,
+            "score": hired_user_assesment[i].score
+        }
+
+    return dict_user_assesment
