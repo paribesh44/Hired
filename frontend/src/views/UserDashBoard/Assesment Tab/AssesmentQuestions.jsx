@@ -72,7 +72,7 @@ function AssesmentQuestions() {
                 </Grid>
               </Grid>
             </Grid>{" "}
-            <Grid item>
+            {/* <Grid item>
               <Grid container direction="row" className="startspacing">
                 <Grid item className="startfield">
                   {" "}
@@ -82,7 +82,7 @@ function AssesmentQuestions() {
                   20 minutes
                 </Grid>
               </Grid>
-            </Grid>{" "}
+            </Grid>{" "} */}
             <Grid item>
               <Grid container direction="row" className="startspacing">
                 <Grid item className="startfield">

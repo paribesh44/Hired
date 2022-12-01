@@ -157,8 +157,22 @@
 
     .questionsoptions{
         font-size: 17px;
-        padding-bottom: 8px;
+        padding-bottom: 10px;
 
+
+    }
+
+    .red_icon{
+        color: red;
+        font-size: 15px;
+    }
+
+        .green_icon{
+            color: green;
+            font-size: 20px;
+        }
+    .eachoption22{
+        padding-bottom: 9px;
 
     }
 
@@ -196,9 +210,9 @@
 .mcq-unordered > li{
     padding: 10px 10px 10px 20px;
     background-color: #EBEFF5;
-    margin: 10px 60px 10px 0px;
+    margin: 10px 90px 20px 0px;
     border-radius: 8px;
-    max-width: 500px;
+    max-width: 1000px;
 }
 
 .mcq-unordered > li:hover{

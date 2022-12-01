@@ -1,5 +1,6 @@
 """cleandb
 
+<<<<<<< HEAD:backend/alembic/versions/23925d54f684_cleandb.py
 <<<<<<< HEAD:backend/alembic/versions/81d35f9d84c7_cleandb.py
 Revision ID: 81d35f9d84c7
 Revises: 
@@ -9,6 +10,11 @@ Revision ID: 23925d54f684
 Revises: 
 Create Date: 2022-12-01 12:49:07.319604
 >>>>>>> luniv:backend/alembic/versions/23925d54f684_cleandb.py
+=======
+Revision ID: 8d7958053198
+Revises: 
+Create Date: 2022-12-01 21:41:43.012432
+>>>>>>> luniv:backend/alembic/versions/8d7958053198_cleandb.py
 
 """
 from alembic import op
@@ -16,11 +22,15 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
+<<<<<<< HEAD:backend/alembic/versions/23925d54f684_cleandb.py
 <<<<<<< HEAD:backend/alembic/versions/81d35f9d84c7_cleandb.py
 revision = '81d35f9d84c7'
 =======
 revision = '23925d54f684'
 >>>>>>> luniv:backend/alembic/versions/23925d54f684_cleandb.py
+=======
+revision = '8d7958053198'
+>>>>>>> luniv:backend/alembic/versions/8d7958053198_cleandb.py
 down_revision = None
 branch_labels = None
 depends_on = None
