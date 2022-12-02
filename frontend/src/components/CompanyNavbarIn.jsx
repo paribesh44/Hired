@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import Hired from "../assets/Hired.png";
@@ -17,10 +17,22 @@ function CompanyNavbarIn() {
   const [clicked, setClicked] = useState(false);
   const [changeLocation, setChangeLocation] = useState(false);
   const [employer, setEmployer] = useState(null);
+  const [companyLogo, setCompanyLogo] = useState(null);
 
   function handleNotifClicked() {
     setnotifclick(!notifclick);
   }
+
+  const message = async () => {
+    let response_obj = await callAPI({
+      endpoint: "/employer/get_employer",
+    });
+    setCompanyLogo(response_obj.data.logo);
+  };
+
+  useEffect(() => {
+    message();
+  }, []);
 
   async function handleImageClick() {
     console.log("imageclicked");
@@ -41,6 +53,13 @@ function CompanyNavbarIn() {
       console.log("success");
     }
   };
+
+  var company_logo = "";
+
+  if(companyLogo != null) {
+    company_logo = `http://localhost:8000/${companyLogo}`;
+  }
+
   return (
     <div className="navbar-main">
       <Grid
@@ -138,10 +157,14 @@ function CompanyNavbarIn() {
                 justifyContent="center"
               >
                 <Grid item onClick={() => handleImageClick()}>
+                  {companyLogo != null ?
                   <Image
                     className="border-left pl-2 ml-auto"
-                    src={companydummylogo}
+                    src={companyLogo != null ? company_logo : companydummylogo }
                   />
+                  : <Image
+                    className="border-left pl-2 ml-auto"
+                    src={companydummylogo}/>}
                 </Grid>
                 {clicked && (
                   <Grid item className="profile_box_label_company">

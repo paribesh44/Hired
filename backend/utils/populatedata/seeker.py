@@ -33,7 +33,7 @@ seekers: List[Json] = [
         "website": None,
         "cv": "static/cv/cv_IshanPanta.pdf",
         "githubProfile": None,
-        "profilePhoto": None,
+        "profilePhoto": "static/profile_pictures/61cnxkyXH-L._AC_SS450_.jpg",
         "user_id": 2,
         "status": "Open to offer"
     },

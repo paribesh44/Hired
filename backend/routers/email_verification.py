@@ -26,13 +26,13 @@ async def email_verification(request: Request, token: str, db: Session = Depends
                                           {"request": request,
                                            "email": hired_user.email}
                                           )
-        # response = RedirectResponse(url="localhost:8000/verified/{user.id}")
-        # return response
-    raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid or expired token",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+    response = RedirectResponse(url="http://localhost:3000/UserHomeTab")
+    return response
+    # raise HTTPException(
+    #     status_code=status.HTTP_401_UNAUTHORIZED,
+    #     detail="Invalid or expired token",
+    #     headers={"WWW-Authenticate": "Bearer"},
+    # )
 
 
 # update the blog post
@@ -46,3 +46,5 @@ async def update_verification_status(id: int, db):
     db.commit()
 
     return "successfully updated."
+    # response = RedirectResponse(url="http://localhost:3000/UserHomeTab")
+    # return response

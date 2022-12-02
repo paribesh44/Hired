@@ -263,7 +263,7 @@ function Cformtwo() {
                         <Grid item>
                           <Select
                             className="field_position_add"
-                            value={educationRequiredDropDown}
+                            value={jobLevelDropDown}
                             onChange={(e) => {
                               setJobLevelDropDown(e.target.value);
                             }}

@@ -21,6 +21,7 @@ import EmployeeEducationProfile from "./employeeEducationProfile";
 import EmployeeExperienceProfile from "./employeeExperienceProfile";
 import EmployeePreference from "./employeePreference";
 import SkillContainer from "../../components/SkillContainer";
+import pp from "../../assets/pp.png";
 
 export default function EmployeeProfile() {
   const location = useLocation();
@@ -79,6 +80,9 @@ export default function EmployeeProfile() {
     "c#",
     "java",
   ];
+
+
+  const profile_picture = `http://localhost:8000/${getuserdata.seeker.profilePhoto}`;
 
   function handleChangePP() {
     setChangePP(!changePP);
@@ -160,7 +164,7 @@ export default function EmployeeProfile() {
 
             {!changePP ? (
               <div className="profileContainer1">
-                <img src={profileimg} />
+                  <img src={getuserdata.seeker.profilePhoto != null ? profile_picture : pp } />
                 <div className="name">
                   <h1>{getuserdata.seeker.name}</h1>
                   <p

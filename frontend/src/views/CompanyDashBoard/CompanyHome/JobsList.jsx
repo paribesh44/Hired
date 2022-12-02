@@ -58,10 +58,12 @@ function JobsList(props) {
         <Grid item className="joblistsub2">
           No. of applicants:
         </Grid>
-        { no_of_applicant != null &&
+        { no_of_applicant != null ?
         <Grid item className="joblisthead">
           {no_of_applicant}
         </Grid>
+      : 
+      <Grid item className="joblisthead">0</Grid>
       }
       </Grid>
     </Grid>

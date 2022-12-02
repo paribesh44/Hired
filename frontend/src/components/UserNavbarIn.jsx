@@ -95,6 +95,14 @@ export default function UserNavbarIn() {
   useEffect(() => {
     message3();
   }, []);
+
+  var profile_picture = "";
+
+  if(getuserdata != null) {
+    profile_picture = `http://localhost:8000/${getuserdata.data.seeker.profilePhoto}`;
+  }
+
+
   return (
     <div className="navbar-main">
       {/* <CompanyNavbarIn/> */}
@@ -220,10 +228,14 @@ export default function UserNavbarIn() {
                 justifyContent="center"
               >
                 <Grid item onClick={() => handleImageClick()}>
+                  {getuserdata != null ?
                   <Image
                     className="border-left pl-2 ml-auto"
-                    src={companydummylogo}
+                    src={getuserdata.data.seeker.profilePhoto != null ? profile_picture : companydummylogo }
                   />
+                  : <Image
+                    className="border-left pl-2 ml-auto"
+                    src={companydummylogo}/>}
                 </Grid>
                 {clicked && (
                   <Grid item className="profile_box_label">
