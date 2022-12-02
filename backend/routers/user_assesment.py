@@ -142,18 +142,18 @@ def complete_assesment(target_field_id: int, db: Session = Depends(database.get_
 def show_assesment(seeker_id: int, db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     hired_user_assesment = db.query(user_assesment.UserAssesment).filter(
         user_assesment.UserAssesment.seeker_id==seeker_id, user_assesment.UserAssesment.visibility==True
-    ).all()
+    ).order_by(user_assesment.UserAssesment.id.desc()).first()
 
-    dict_user_assesment = {}
+    if hired_user_assesment != None:
+        dict_user_assesment = {}
 
-    for i in range(len(hired_user_assesment)):
-        # dict_user_assesment[i] = {}
+        hired_target_field = db.query(target_field.TargetField).filter(target_field.TargetField.id==hired_user_assesment.target_field_id).first()
 
-        hired_target_field = db.query(target_field.TargetField).filter(target_field.TargetField.id==hired_user_assesment[i].target_field_id).first()
+        score = hired_user_assesment.score
+        name = hired_target_field.name
+    else:
+        score = 0
+        name = "no"
+    
 
-        dict_user_assesment[i] ={
-            "target_field": hired_target_field.name,
-            "score": hired_user_assesment[i].score
-        }
-
-    return dict_user_assesment
+    return {"target_field_name": name, "score": score}
