@@ -50,6 +50,8 @@
 .appliedlisttopic{
     font-size: 17px;
     font-weight: 500;
+    padding-right: 7px;
+    padding-bottom: 5px;
 
 }
 
@@ -58,7 +60,8 @@
 }
 
 .skillpadding{
-    padding-bottom: 8px;
+    padding-bottom: 10px;
+    padding-top: 3px;
 }
 
 .experiencepadding{

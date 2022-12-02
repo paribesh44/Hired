@@ -29,7 +29,7 @@ function ViewAssesment() {
                 {" "}
                 Name of the Assesment
               </div>
-              <div> Marks Obtained: {score} / 20</div>
+              <div> Marks Obtained: {score} / 5</div>
             </Grid>
             <Grid item className="asses-subheading">
               <div>Type: Multiple Choice</div>

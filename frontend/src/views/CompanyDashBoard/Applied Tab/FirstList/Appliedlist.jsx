@@ -54,103 +54,119 @@ function Appliedlist(props) {
                 seeker_id: val.seeker.id,
                 job_position: props.job_position,
                 appliedDetailedInformation: val,
-                recommendationSeeker: recommendationSeeker[val.seeker.id]
+                recommendationSeeker: recommendationSeeker[val.seeker.id],
               }}
               style={{ textDecoration: "none", color: "#000000" }}
             >
-            <Grid
-              container
-              className="single_applicant"
-              direction={"row"}
-              key={key}
-            >
-              <Grid item className="appliedimagewrapper">
-                <Image addStyles={"applied-image"} src={demo} />
-              </Grid>
-              <Grid item>
-                <Grid container direction={"column"}>
-                  <Grid item>
-                    <Grid container direction="row">
-                      <Grid item className="appliedlisttopic">
-                        Name:
+              <Grid
+                container
+                className="single_applicant"
+                direction={"row"}
+                key={key}
+              >
+                <Grid item className="appliedimagewrapper">
+                  <Image addStyles={"applied-image"} src={demo} />
+                </Grid>
+                <Grid item>
+                  <Grid container direction={"column"}>
+                    <Grid item>
+                      <Grid container direction="row">
+                        <Grid item className="appliedlisttopic">
+                          Name:
+                        </Grid>
+                        <Grid item className="appliedlisttext">
+                          {val.seeker.name}
+                        </Grid>
                       </Grid>
-                      <Grid item className="appliedlisttext">
-                        {val.seeker.name}
-                      </Grid>
-                    </Grid>
 
-                    <Grid container direction="row">
-                      <Grid item className="appliedlisttopic">
-                        Position:
+                      <Grid container direction="row">
+                        <Grid item className="appliedlisttopic">
+                          Position:
+                        </Grid>
+                        <Grid item className="appliedlisttext">
+                          {val.job_post.job}
+                        </Grid>
                       </Grid>
-                      <Grid item className="appliedlisttext">
-                        {val.job_post.job}
-                      </Grid>
-                    </Grid>
 
-                    <Grid container direction="row">
-                      <Grid item className="appliedlisttopic">
-                        Job Post date:
+                      <Grid container direction="row">
+                        <Grid item className="appliedlisttopic">
+                          Job Post date:
+                        </Grid>
+                        <Grid item className="appliedlisttext">
+                          {val.job_post.posted_date}
+                        </Grid>
                       </Grid>
-                      <Grid item className="appliedlisttext">
-                        {val.job_post.posted_date}
-                      </Grid>
-                    </Grid>
 
-                    <Grid container direction="row">
-                      <Grid item className="appliedlisttopic">
-                        Applied date:
+                      <Grid container direction="row">
+                        <Grid item className="appliedlisttopic">
+                          Applied date:
+                        </Grid>
+                        <Grid item className="appliedlisttext">
+                          {val.applied_date}
+                        </Grid>
                       </Grid>
-                      <Grid item className="appliedlisttext">
-                        {val.applied_date}
-                      </Grid>
-                    </Grid>
 
-                    <Grid container direction="row">
-                      <Grid item className="appliedlisttopic">
-                        Criterias met: {recommendationSeeker[val.seeker.id].percentage}%
-                      </Grid>
-                      <Grid container direction="column">
-                        <Grid item>
-                          <Grid
-                            container
-                            direction="row"
-                            className="skillpadding"
-                          >
-                            <Grid item className="appliedlisttopic">
-                              Skills
-                            </Grid>
-                            <Grid item className="skillleftpadding">
-                              <Grid container direction="row">
-                                {val.seeker.skills.map((val, key) => {
-                                  return (
-                                    <Grid item className="appliedlisttext">
-                                      <SkillContainer name={val} />
-                                    </Grid>
-                                  );
-                                })}
+                      <Grid container direction="row">
+                        <Grid item className="appliedlisttopic">
+                          Criterias met:{" "}
+                          {recommendationSeeker[val.seeker.id].percentage}%
+                        </Grid>
+                        <Grid container direction="column">
+                          <Grid item>
+                            <Grid
+                              container
+                              direction="row"
+                              className="skillpadding"
+                              alignItems={"center"}
+                            >
+                              <Grid item className="appliedlisttopic">
+                                Skills
+                              </Grid>
+                              <Grid item className="skillleftpadding">
+                                <Grid container direction="row">
+                                  {val.seeker.skills.map((val, key) => {
+                                    return (
+                                      <Grid item className="appliedlisttext">
+                                        <SkillContainer name={val} />
+                                      </Grid>
+                                    );
+                                  })}
+                                </Grid>
                               </Grid>
                             </Grid>
                           </Grid>
-                        </Grid>
-                        <Grid item>
-                          <Grid container direction="row">
-                            <Grid item className="appliedlisttopic">
-                              Experience
-                            </Grid>
-                            <Grid item>
-                              <Grid
-                                container
-                                direction="row"
-                                className="experiencepadding"
-                              >
-                                {val.seeker.experience.map((val, key) => {
-                                  return (
-                                    <Grid item className="appliedlisttext">
-                                      <SkillContainer name={val.workPlace + "," + " " + val.yearsOfWork + " year experience"} />
-                                    </Grid>
-                                  );
-                                })}
+
+                          <Grid item>
+                            <Grid
+                              container
+                              direction="row"
+                              alignItems={"center"}
+                            >
+                              <Grid item className="appliedlisttopic">
+                                Experience
+                              </Grid>
+                              <Grid item>
+                                <Grid
+                                  container
+                                  direction="row"
+                                  className="experiencepadding"
+                                >
+                                  {val.seeker.experience.map((val, key) => {
+                                    return (
+                                      <Grid item className="appliedlisttext">
+                                        <SkillContainer
+                                          name={
+                                            val.workPlace +
+                                            "," +
+                                            " " +
+                                            val.yearsOfWork +
+                                            " year experience"
+                                          }
+                                        />
+                                      </Grid>
+                                    );
+                                  })}
+                                </Grid>
                               </Grid>
                             </Grid>
                           </Grid>
@@ -159,8 +175,7 @@ function Appliedlist(props) {
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              {/* <Grid item>
+                {/* <Grid item>
                 <Grid container direction="column">
                   <Link
                     to="/CompanyApplied"
@@ -207,7 +222,7 @@ function Appliedlist(props) {
                   </Grid>
                 </Grid>
               </Grid> */}
-            </Grid>
+              </Grid>
             </Link>
             //   })}
             // </Grid>;
