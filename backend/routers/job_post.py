@@ -137,7 +137,7 @@ def show(job_post_id: int, db: Session = Depends(database.get_db), current_user:
 @router.get("/show_all_job_post")
 def showall(db: Session = Depends(database.get_db), current_user: user.User = Depends(oauth2.get_user_companies)):
     hired_job_post = db.query(job_post.JobPost).filter(
-        job_post.JobPost.employer_id == current_user.employer[0].id).all()
+        job_post.JobPost.employer_id == current_user.employer[0].id).order_by(job_post.JobPost.id.desc()).all()
 
     return hired_job_post
 

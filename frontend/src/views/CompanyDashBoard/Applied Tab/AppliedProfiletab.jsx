@@ -38,16 +38,15 @@ function AppliedProfiletab(props) {
           justifyContent="space-evenly"
           className="applied-profile-grid"
         >
-          {/* <Grid item className="profiletab-heading">
+          {getUserAssesment.data.target_field_name != "no" &&
+          <Grid item className="profiletab-heading">
             User's Assesment:
-            <br /> */}
-            {/* {getUserAssesment.map((val) => {return(
-              <div className="profiletab-desc">dbshad</div>
-            )})} */}
-            {/* {Object.entries(getUserAssesment).map(([key, value]) => console.log(value[0].score) (
-              <div className="profiletab-desc">{value[0].score}</div>
-            ))}
-          </Grid> */}
+            <br />
+              <div className="profiletab-desc">Target Field: {getUserAssesment.data.target_field_name}</div>
+              <div className="profiletab-desc">Score: {getUserAssesment.data.score}</div>
+            <br />
+          </Grid>
+          }
 
           <Grid item className="profiletab-heading">
             About:
