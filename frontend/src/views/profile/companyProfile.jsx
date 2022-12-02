@@ -12,13 +12,11 @@ import CustomButton from "../../components/Buttons";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { ImCross } from "react-icons/im";
+import companydummylogo from "../../assets/companydummylogo.jpg";
 
 function CompanyProfile() {
   const location = useLocation();
   const { employer } = location.state;
-  // console.log(props)
-  // var employer = props.employer;
-  // console.log(employer)
 
   const [companyName, setCompanyName] = useState(employer.companyName);
   const [contactEmail, setContactEmail] = useState(employer.contactEmail);
@@ -92,6 +90,12 @@ function CompanyProfile() {
     }
   }
 
+  var company_logo = "";
+
+  if(employer != null) {
+    company_logo = `http://localhost:8000/${employer.logo}`;
+  }
+
   return (
     <>
       <CompanyNavbarIn />
@@ -102,7 +106,11 @@ function CompanyProfile() {
           <p className="view">View and Edit your Profile</p>
           {!changeLogo ? (
             <div className="profileContainer1">
-              <img src={profileimg} />
+              <img src={employer != null ? company_logo : companydummylogo } />
+              {/* <Image
+                    className="border-left pl-2 ml-auto"
+                    src={companyLogo != null ? company_logo : companydummylogo }
+                  /> */}
               <div className="name">
                 <h1>{employer.companyName}</h1>
                 <p

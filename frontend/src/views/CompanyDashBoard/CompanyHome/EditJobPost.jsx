@@ -178,6 +178,7 @@ function EditJobPost() {
                   sx={{ m: 1, minWidth: 380 }}
                   value={jobTypeDropDown}
                   onChange={(e) => {
+                    console.log(e.target.value)
                     setJobTypeDropDown(e.target.value);
                   }}
                   displayEmpty
@@ -203,6 +204,7 @@ function EditJobPost() {
                   sx={{ m: 1, minWidth: 380 }}
                   value={jobLevelDropDown}
                   onChange={(e) => {
+                    console.log(e.target.value)
                     setJobLevelDropDown(e.target.value);
                   }}
                   displayEmpty

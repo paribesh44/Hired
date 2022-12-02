@@ -185,7 +185,7 @@ function CompanyAddReminder() {
                 {appicant != null &&
                   appicant.map((i) => (
                     <MenuItem value={i.seeker.id}>
-                      {i.seeker.name} #{i.seeker.id} {i.description}
+                      {i.seeker.name} #{i.seeker.id}
                     </MenuItem>
                   ))}
               </Select>

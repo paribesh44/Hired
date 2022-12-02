@@ -27,13 +27,11 @@ def login(user_type: int, response: Response, data: authentication_schema.Login,
 
     # check if this user exists
     if not hired_user:
-        print("yaha gayo ta?")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Invalid Credentials")
 
     # checking for the password
     if not hashing.Hash.verify_password(data.password, hired_user.password):
-        print("yaha gayo ki k")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Incorrect Password")
 

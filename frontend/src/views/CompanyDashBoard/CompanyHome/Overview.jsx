@@ -34,9 +34,6 @@ function Overview() {
           No. of Applicants: {overview.no_of_applicants}
         </Grid>
         <Grid item className="overviewtext">
-          Matched Applicants: 40
-        </Grid>
-        <Grid item className="overviewtext">
           Candidates to Interview: {overview.candidates_to_interview}
         </Grid>
         <Grid item className="overviewtext">

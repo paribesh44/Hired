@@ -59,9 +59,9 @@ function EmployeePreference(props) {
     setMaximumSalary(data);
   };
 
-  function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+  // function capitalize(str) {
+  //   return str.charAt(0).toUpperCase() + str.slice(1);
+  // }
 
   var interested_jobs_options = [
     "frontend",
@@ -326,7 +326,7 @@ function EmployeePreference(props) {
                   aria-labelledby="demo-radio-buttons-group-label"
                   name="radio-buttons-group"
                   row
-                  value={capitalize(remote_onsite)}
+                  value={remote_onsite}
                   onClick={(e) => {
                     setRemoteOnsite(e.target.value);
                   }}
